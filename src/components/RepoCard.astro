@@ -158,7 +158,7 @@ const primaryLabel = repo.homepage ? "View Project" : "View on GitHub"
     repo.topics && repo.topics.length > 0 && (
       <div class="flex flex-wrap gap-2 mt-4">
         {repo.topics.slice(0, 4).map((topic) => (
-          <span class="px-2 py-1 text-xs rounded-full bg-accent/10 text-accent">
+          <span class="topic-tag px-2 py-1 text-xs rounded-full bg-accent/10 text-accent">
             {topic}
           </span>
         ))}
@@ -176,5 +176,11 @@ const primaryLabel = repo.homepage ? "View Project" : "View on GitHub"
   }
   article:hover {
     border-color: var(--color-accent) !important;
+  }
+  .topic-tag {
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  :global([data-theme="light"]) .topic-tag {
+    border: 1px solid rgba(0, 0, 0, 0.2);
   }
 </style>
