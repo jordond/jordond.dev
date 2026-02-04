@@ -1,0 +1,102 @@
+---
+const skills = [
+  "Kotlin",
+  "Kotlin Multiplatform",
+  "Compose",
+  "Android",
+  "TypeScript",
+  "Rust",
+]
+---
+
+<section id="about" class="py-20 px-6">
+  <div class="max-w-4xl mx-auto">
+    <!-- Section heading -->
+    <h2
+      class="flex items-center text-2xl md:text-3xl font-bold text-[var(--color-text)] mb-12 animate-on-scroll"
+    >
+      <span class="text-accent font-mono text-xl mr-2">01.</span>
+      About Me
+      <span class="ml-4 h-px flex-1 bg-[var(--color-surface-elevated)]"></span>
+    </h2>
+
+    <div class="grid md:grid-cols-3 gap-12 items-start">
+      <!-- Bio -->
+      <div class="md:col-span-2 space-y-4 animate-on-scroll delay-100">
+        <p class="text-[var(--color-text-muted)] leading-relaxed">
+          Hello! I'm Jordon, an Android and Kotlin Multiplatform developer based
+          in
+          <span class="text-accent">London, Ontario, Canada</span>. I enjoy
+          creating tools and libraries that help other developers build better
+          applications.
+        </p>
+        <p class="text-[var(--color-text-muted)] leading-relaxed">
+          Currently, I'm working at <a
+            href="https://1se.co"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-kotlin hover:underline">1 Second Everyday</a
+          >, where I help build mobile experiences that help people remember
+          their lives.
+        </p>
+        <p class="text-[var(--color-text-muted)] leading-relaxed">
+          My open source work focuses on bringing Android-specific features to
+          <span class="text-accent">Kotlin Multiplatform</span>, making it
+          easier for developers to build cross-platform applications with shared
+          code.
+        </p>
+
+        <!-- Skills list -->
+        <div class="pt-4">
+          <p class="text-[var(--color-text)] font-medium mb-3">
+            Technologies I work with:
+          </p>
+          <ul class="grid grid-cols-2 gap-2">
+            {
+              skills.map((skill) => (
+                <li class="flex items-center text-[var(--color-text-muted)]">
+                  <span class="text-accent mr-2">&#9656;</span>
+                  {skill}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+
+      <!-- Profile image -->
+      <div class="animate-on-scroll delay-200">
+        <div class="relative group">
+          <div
+            class="absolute -inset-2 bg-gradient-to-r from-kotlin to-accent rounded-lg opacity-20 blur-lg group-hover:opacity-30 transition-opacity duration-300"
+          >
+          </div>
+          <div class="relative">
+            <img
+              src="https://avatars.githubusercontent.com/u/528792?v=4"
+              alt="Jordon de Hoog"
+              width="300"
+              height="300"
+              loading="lazy"
+              class="rounded-lg w-full max-w-[300px] mx-auto border-2 border-[var(--color-surface-elevated)] transition-transform duration-300 group-hover:scale-[1.02]"
+            />
+          </div>
+        </div>
+
+        <!-- Available badge -->
+        <div
+          class="mt-4 flex items-center justify-center gap-2 text-sm text-[var(--color-text-muted)]"
+        >
+          <span class="relative flex h-3 w-3">
+            <span
+              class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"
+            ></span>
+            <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"
+            ></span>
+          </span>
+          Available for opportunities
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
