@@ -5,13 +5,13 @@ import type { RepoConfig } from "../types/repo"
  * Order determines display order
  */
 export const repos: RepoConfig[] = [
-  { owner: "jordond", name: "MaterialKolor", featured: true },
-  { owner: "jordond", name: "compass" },
-  { owner: "jordond", name: "kmpalette", hideHomepage: true },
-  { owner: "jordond", name: "jolt", featured: true },
-  { owner: "jordond", name: "drag-select-compose" },
-  { owner: "jordond", name: "connectivity" },
-  { owner: "jordond", name: "stateholder" },
+  { name: "MaterialKolor", featured: true },
+  { name: "compass" },
+  { name: "kmpalette", hideHomepage: true },
+  { name: "jolt", type: "app", featured: true },
+  { name: "drag-select-compose" },
+  { name: "connectivity" },
+  { name: "stateholder" },
 ]
 
 export const GITHUB_API_BASE = "https://api.github.com"

@@ -1,20 +1,13 @@
 import { writeFileSync, mkdirSync, existsSync } from "fs"
-import { repos, GITHUB_API_BASE } from "../src/config/repos"
-import type { RepoData } from "../src/types/repo"
+import { repos, GITHUB_API_BASE, DEFAULT_OWNER } from "../src/config/repos"
+import type { RepoConfig, RepoData, RepoType } from "../src/types/repo"
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN
 
-interface FetchOptions {
-  hideHomepage?: boolean
-  featured?: boolean
-}
-
 async function fetchRepo(
-  owner: string,
-  name: string,
-  options: FetchOptions = {},
+  config: RepoConfig,
 ): Promise<RepoData | null> {
-  const url = `${GITHUB_API_BASE}/repos/${owner}/${name}`
+  const url = `${GITHUB_API_BASE}/repos/${config.owner ?? DEFAULT_OWNER}/${config.name}`
 
   const headers: HeadersInit = {
     Accept: "application/vnd.github.v3+json",
@@ -29,7 +22,7 @@ async function fetchRepo(
     const response = await fetch(url, { headers })
 
     if (!response.ok) {
-      console.warn(`⚠️ Failed to fetch ${owner}/${name}: ${response.status}`)
+      console.warn(`⚠️ Failed to fetch ${config.owner ?? DEFAULT_OWNER}/${config.name}: ${response.status}`)
       return null
     }
 
@@ -40,14 +33,15 @@ async function fetchRepo(
       full_name: data.full_name,
       description: data.description,
       html_url: data.html_url,
-      homepage: options.hideHomepage ? null : data.homepage,
+      homepage: config.hideHomepage ? null : data.homepage,
       stargazers_count: data.stargazers_count,
       language: data.language,
       topics: data.topics || [],
-      featured: options.featured || false,
+      type: config.type ?? "library",
+      featured: config.featured || false,
     }
   } catch (error) {
-    console.error(`❌ Error fetching ${owner}/${name}:`, error)
+    console.error(`❌ Error fetching ${config.owner ?? DEFAULT_OWNER}/${config.name}:`, error)
     return null
   }
 }
@@ -64,11 +58,8 @@ async function main() {
   const results: RepoData[] = []
 
   for (const repo of repos) {
-    console.log(`📦 Fetching ${repo.owner}/${repo.name}...`)
-    const data = await fetchRepo(repo.owner, repo.name, {
-      hideHomepage: repo.hideHomepage,
-      featured: repo.featured,
-    })
+    console.log(`📦 Fetching ${repo.owner ?? DEFAULT_OWNER}/${repo.name}...`)
+    const data = await fetchRepo(repo)
     if (data) {
       results.push(data)
       console.log(`   ⭐ ${data.stargazers_count} stars`)

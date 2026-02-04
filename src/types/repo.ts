@@ -1,11 +1,18 @@
 /**
+ * Repository type classification
+ */
+export type RepoType = "library" | "app"
+
+/**
  * Configuration for a repository to feature
  */
 export interface RepoConfig {
   /** GitHub username/org */
-  owner: string
+  owner?: string
   /** Repository name */
   name: string
+  /** Repository type (library or app) */
+  type?: RepoType
   /** Whether to feature prominently */
   featured?: boolean
   /** Hide the homepage URL from display */
@@ -32,6 +39,8 @@ export interface RepoData {
   language: string | null
   /** Topic tags */
   topics: string[]
+  /** Repository type (library or app) */
+  type: RepoType
   /** Whether this is a featured project */
   featured?: boolean
 }
