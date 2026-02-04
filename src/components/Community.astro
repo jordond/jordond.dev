@@ -1,0 +1,136 @@
+---
+import { community } from "../config/data"
+---
+
+<section id="community" class="py-20 px-6">
+  <div class="max-w-4xl mx-auto">
+    <h2
+      class="flex items-center text-2xl md:text-3xl font-bold text-[var(--color-text)] mb-12 animate-on-scroll"
+    >
+      <span class="text-accent font-mono text-xl mr-2">03.</span>
+      Community
+      <span class="ml-4 h-px flex-1 bg-[var(--color-surface-elevated)]"></span>
+    </h2>
+
+    <div class="grid gap-6">
+      {
+        community.map((item, index) => (
+          <a
+            href={item.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group block animate-on-scroll"
+            style={`transition-delay: ${(index + 1) * 100}ms`}
+          >
+            <article class="community-card relative overflow-hidden rounded-lg border border-[var(--color-surface-elevated)] bg-[var(--color-surface)]">
+              <div class="md:flex">
+                {/* Thumbnail - only show for videos */}
+                {item.videoId && (
+                  <div class="relative md:w-80 flex-shrink-0 overflow-hidden">
+                    <div class="aspect-video md:aspect-auto md:h-full">
+                      <img
+                        src={`https://img.youtube.com/vi/${item.videoId}/maxresdefault.jpg`}
+                        alt={`${item.title} thumbnail`}
+                        loading="lazy"
+                        class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      />
+                    </div>
+                    {/* Play overlay */}
+                    <div class="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                      <div class="flex h-16 w-16 items-center justify-center rounded-full bg-accent text-white shadow-lg">
+                        <svg
+                          class="h-8 w-8 translate-x-0.5"
+                          fill="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M8 5v14l11-7z" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Content */}
+                <div class="flex flex-1 flex-col justify-center p-6">
+                  <div class="mb-2 flex flex-wrap items-center gap-2 text-sm">
+                    <span class="rounded-full bg-accent/10 px-3 py-1 font-medium text-accent">
+                      {item.role}
+                    </span>
+                    <span class="text-[var(--color-text-muted)]">
+                      {item.source}
+                    </span>
+                  </div>
+
+                  <h3 class="mb-3 text-xl font-semibold text-[var(--color-text)] transition-colors duration-200 group-hover:text-accent">
+                    {item.title}
+                  </h3>
+
+                  <p class="mb-4 text-[var(--color-text-muted)] leading-relaxed">
+                    {item.description}
+                  </p>
+
+                  <div class="flex items-center text-sm font-medium text-accent">
+                    {item.videoId ? (
+                      <>
+                        <svg
+                          class="mr-2 h-5 w-5"
+                          fill="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                        </svg>
+                        Watch on YouTube
+                      </>
+                    ) : (
+                      <>
+                        <svg
+                          class="mr-2 h-5 w-5"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                          />
+                        </svg>
+                        Read Article
+                      </>
+                    )}
+                    <svg
+                      class="ml-1 h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M17 8l4 4m0 0l-4 4m4-4H3"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .community-card {
+    transition:
+      border-color 0.3s ease-out,
+      opacity 0.6s ease,
+      transform 0.6s ease;
+  }
+  .community-card:hover {
+    border-color: var(--color-accent);
+  }
+</style>

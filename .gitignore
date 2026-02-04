@@ -22,3 +22,8 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Generated repo data (fetched at build time)
+src/data/repos.json
+
+tmp

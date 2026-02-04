@@ -1,0 +1,38 @@
+[
+  {
+    "name": "example-lib",
+    "full_name": "user/example-lib",
+    "description": "An example library",
+    "html_url": "https://github.com/user/example-lib",
+    "homepage": null,
+    "stargazers_count": 0,
+    "language": "TypeScript",
+    "topics": [],
+    "type": "library",
+    "featured": true
+  },
+  {
+    "name": "example-app",
+    "full_name": "user/example-app",
+    "description": "An example application",
+    "html_url": "https://github.com/user/example-app",
+    "homepage": null,
+    "stargazers_count": 0,
+    "language": "Rust",
+    "topics": [],
+    "type": "app",
+    "featured": false
+  },
+  {
+    "name": "example-tool",
+    "full_name": "user/example-tool",
+    "description": "An example tool",
+    "html_url": "https://github.com/user/example-tool",
+    "homepage": null,
+    "stargazers_count": 0,
+    "language": "Kotlin",
+    "topics": [],
+    "type": "library",
+    "featured": false
+  }
+]

@@ -1,0 +1,91 @@
+<button
+  id="theme-toggle"
+  type="button"
+  aria-label="Toggle dark mode"
+  class="relative p-2 rounded-lg bg-[var(--color-surface-elevated)] hover:bg-[var(--color-surface)] border border-[var(--color-border)] transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-[var(--color-bg)]"
+>
+  <svg
+    id="sun-icon"
+    class="w-5 h-5 text-yellow-400 transition-transform duration-300"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+    ></path>
+  </svg>
+
+  <svg
+    id="moon-icon"
+    class="w-5 h-5 text-[var(--color-text)] absolute top-2 left-2 transition-transform duration-300"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+    ></path>
+  </svg>
+</button>
+
+<style>
+  :global([data-theme="dark"]) #sun-icon {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
+
+  :global([data-theme="dark"]) #moon-icon {
+    opacity: 0;
+    transform: rotate(-90deg) scale(0);
+  }
+
+  :global([data-theme="light"]) #sun-icon {
+    opacity: 0;
+    transform: rotate(90deg) scale(0);
+  }
+
+  :global([data-theme="light"]) #moon-icon {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
+</style>
+
+<script>
+  function initThemeToggle() {
+    const toggle = document.getElementById("theme-toggle")
+
+    if (!toggle) return
+
+    toggle.addEventListener("click", () => {
+      const currentTheme = document.documentElement.getAttribute("data-theme")
+      const newTheme = currentTheme === "dark" ? "light" : "dark"
+
+      document.documentElement.setAttribute("data-theme", newTheme)
+      localStorage.setItem("theme", newTheme)
+
+      toggle.setAttribute(
+        "aria-label",
+        newTheme === "dark" ? "Switch to light mode" : "Switch to dark mode",
+      )
+    })
+
+    const theme = document.documentElement.getAttribute("data-theme")
+    toggle.setAttribute(
+      "aria-label",
+      theme === "dark" ? "Switch to light mode" : "Switch to dark mode",
+    )
+  }
+
+  initThemeToggle()
+
+  document.addEventListener("astro:after-swap", initThemeToggle)
+</script>

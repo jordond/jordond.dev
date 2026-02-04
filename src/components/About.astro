@@ -1,0 +1,84 @@
+---
+import { Image } from "astro:assets"
+import avatar from "../assets/avatar.png"
+import { skills } from "../config/data"
+---
+
+<section id="about" class="py-20 px-6">
+  <div class="max-w-4xl mx-auto">
+    <h2
+      class="flex items-center text-2xl md:text-3xl font-bold text-[var(--color-text)] mb-12 animate-on-scroll"
+    >
+      <span class="text-accent font-mono text-xl mr-2">01.</span>
+      About Me
+      <span class="ml-4 h-px flex-1 bg-[var(--color-surface-elevated)]"></span>
+    </h2>
+
+    <div class="grid md:grid-cols-3 gap-12 items-start">
+      <div class="md:col-span-2 space-y-4 animate-on-scroll delay-100">
+        <p class="text-[var(--color-text-muted)] leading-relaxed">
+          Hello! I'm Jordon, an Android and Kotlin Multiplatform developer based
+          in
+          <span class="text-accent">London, Ontario, Canada</span>. I enjoy
+          creating tools and libraries that help other developers build better
+          applications.
+        </p>
+        <p class="text-[var(--color-text-muted)] leading-relaxed">
+          My current focus is <span class="text-accent"
+            >Kotlin Multiplatform</span
+          > development, from production apps to the libraries that support them.
+          I maintain several open source libraries used by teams shipping to Android,
+          iOS, and desktop.
+        </p>
+
+        <div class="pt-4">
+          <p class="text-[var(--color-text)] font-medium mb-3">
+            Technologies I work with:
+          </p>
+          <ul class="grid grid-cols-2 gap-2">
+            {
+              skills.map((skill) => (
+                <li class="flex items-center text-[var(--color-text-muted)]">
+                  <span class="text-accent mr-2">&#9656;</span>
+                  {skill}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+
+      <div class="animate-on-scroll delay-200">
+        <div class="relative group">
+          <div
+            class="absolute -inset-2 bg-gradient-to-r from-accent to-accent-light rounded-lg opacity-20 blur-lg group-hover:opacity-30 transition-opacity duration-300"
+          >
+          </div>
+          <div class="relative">
+            <Image
+              src={avatar}
+              alt="Jordon de Hoog"
+              width="300"
+              height="300"
+              loading="lazy"
+              class="rounded-lg w-full max-w-[300px] mx-auto border-2 border-[var(--color-surface-elevated)] transition-transform duration-300 group-hover:scale-[1.02]"
+            />
+          </div>
+        </div>
+
+        <div
+          class="mt-4 flex items-center justify-center gap-2 text-sm text-[var(--color-text-muted)]"
+        >
+          <span class="relative flex h-3 w-3">
+            <span
+              class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"
+            ></span>
+            <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"
+            ></span>
+          </span>
+          Available for opportunities
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
