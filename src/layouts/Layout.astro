@@ -27,7 +27,6 @@ const canonicalURL = new URL(
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
 
-    <!-- Primary Meta Tags -->
     <title>{title}</title>
     <meta name="title" content={title} />
     <meta name="description" content={description} />
@@ -35,11 +34,9 @@ const canonicalURL = new URL(
     <meta name="generator" content={Astro.generator} />
     <link rel="canonical" href={canonicalURL} />
 
-    <!-- Theme Color -->
     <meta name="theme-color" content="#14B8A6" />
     <meta name="color-scheme" content="dark light" />
 
-    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
@@ -47,22 +44,19 @@ const canonicalURL = new URL(
     <meta property="og:image" content={image} />
     <meta property="og:site_name" content="Jordon de Hoog" />
 
-    <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content={canonicalURL} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={image} />
 
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
 
-    <!-- Theme initialization (prevents flash) -->
     <script is:inline>
       ;(function () {
         const savedTheme = localStorage.getItem("theme")
@@ -75,7 +69,7 @@ const canonicalURL = new URL(
     </script>
   </head>
   <body
-    class="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] font-sans antialiased transition-colors duration-300"
+    class="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] font-mono antialiased transition-colors duration-300"
   >
     <slot />
   </body>
