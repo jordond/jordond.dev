@@ -7,9 +7,11 @@ import type { RepoConfig } from "../types/repo"
 export const repos: RepoConfig[] = [
   { owner: "jordond", name: "MaterialKolor", featured: true },
   { owner: "jordond", name: "compass", featured: true },
-  { owner: "jordond", name: "kmpalette" },
+  { owner: "jordond", name: "kmpalette", hideHomepage: true },
   { owner: "jordond", name: "jolt", featured: true },
+  { owner: "jordond", name: "drag-select-compose" },
   { owner: "jordond", name: "connectivity" },
+  { owner: "jordond", name: "stateholder" },
 ]
 
 export const GITHUB_API_BASE = "https://api.github.com"

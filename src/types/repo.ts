@@ -8,6 +8,8 @@ export interface RepoConfig {
   name: string
   /** Whether to feature prominently */
   featured?: boolean
+  /** Hide the homepage URL from display */
+  hideHomepage?: boolean
 }
 
 /**

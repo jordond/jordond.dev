@@ -5,56 +5,40 @@ import ThemeToggle from "./ThemeToggle.astro"
 <section
   class="relative min-h-screen flex flex-col justify-center px-6 py-20 overflow-hidden"
 >
-  <!-- Background gradient -->
   <div
     class="absolute inset-0 bg-gradient-to-br from-kotlin/10 via-transparent to-accent/10 pointer-events-none"
   >
   </div>
 
-  <!-- Theme toggle in top right -->
   <div class="absolute top-6 right-6">
     <ThemeToggle />
   </div>
 
   <div class="max-w-4xl mx-auto w-full relative z-10">
-    <!-- Greeting -->
     <p
       class="text-accent font-mono text-sm md:text-base mb-4 animate-fade-in-up"
     >
       Hi, my name is
     </p>
 
-    <!-- Name -->
     <h1
       class="text-4xl md:text-6xl lg:text-7xl font-bold text-[var(--color-text)] mb-4 animate-fade-in-up delay-100"
     >
       Jordon de Hoog.
     </h1>
 
-    <!-- Tagline -->
     <h2
-      class="text-3xl md:text-5xl lg:text-6xl font-bold text-[var(--color-text-muted)] mb-6 animate-fade-in-up delay-200"
+      class="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-[var(--color-text-muted)] mb-6 animate-fade-in-up delay-200 whitespace-nowrap"
     >
-      I build things for Kotlin.
+      I build tools for Kotlin developers.
     </h2>
 
-    <!-- Description -->
     <p
       class="text-lg md:text-xl text-[var(--color-text-muted)] max-w-2xl mb-10 leading-relaxed animate-fade-in-up delay-300"
     >
-      I'm an <span class="text-accent"
-        >Android & Kotlin Multiplatform developer</span
-      > at
-      <a
-        href="https://1se.co"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="text-kotlin hover:underline">1 Second Everyday</a
-      >, specializing in building open source libraries for the Kotlin
-      ecosystem.
+      <span class="text-accent">Android & Kotlin Multiplatform engineer</span>. Open source maintainer.
     </p>
 
-    <!-- CTAs -->
     <div class="flex flex-wrap gap-4 animate-fade-in-up delay-400">
       <a
         href="#projects"
@@ -90,7 +74,6 @@ import ThemeToggle from "./ThemeToggle.astro"
     </div>
   </div>
 
-  <!-- Scroll indicator -->
   <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-float">
     <svg
       class="w-6 h-6 text-[var(--color-text-muted)]"

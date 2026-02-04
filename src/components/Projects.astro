@@ -1,30 +1,23 @@
 ---
 import RepoCard from "./RepoCard.astro"
 import type { RepoData } from "../types/repo"
+import reposData from "../data/repos.json"
 
-let repos: RepoData[] = []
-
-try {
-  const data = await import("../data/repos.json")
-  repos = data.default as RepoData[]
-} catch {
-  const fallback = await import("../data/repos.sample.json")
-  repos = fallback.default as RepoData[]
-}
+const repos: RepoData[] = (reposData as RepoData[]).toSorted(
+  (a, b) => b.stargazers_count - a.stargazers_count
+)
 ---
 
 <section id="projects" class="py-20 px-6">
   <div class="max-w-6xl mx-auto">
-    <!-- Section heading -->
     <h2
       class="flex items-center text-2xl md:text-3xl font-bold text-[var(--color-text)] mb-12 animate-on-scroll"
     >
       <span class="text-accent font-mono text-xl mr-2">02.</span>
-      Open Source Projects
+      Projects
       <span class="ml-4 h-px flex-1 bg-[var(--color-surface-elevated)]"></span>
     </h2>
 
-    <!-- Projects grid -->
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
       {repos.map((repo, index) => <RepoCard repo={repo} index={index} />)}
     </div>
@@ -42,7 +35,6 @@ try {
       .map((el) => el.dataset.repo)
       .filter(Boolean) as string[]
 
-    // Fetch all repos in parallel
     const results = await Promise.allSettled(
       repos.map(async (repo) => {
         const response = await fetch(`https://api.github.com/repos/${repo}`, {
@@ -54,7 +46,6 @@ try {
       }),
     )
 
-    // Update DOM with results
     results.forEach((result) => {
       if (result.status === "fulfilled") {
         const { repo, stars } = result.value
@@ -68,7 +59,6 @@ try {
     })
   }
 
-  // Run after page load, with slight delay to prioritize visible content
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", () =>
       setTimeout(updateStarCounts, 1000),

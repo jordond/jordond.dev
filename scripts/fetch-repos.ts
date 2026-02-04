@@ -4,9 +4,14 @@ import type { RepoData } from "../src/types/repo"
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN
 
+interface FetchOptions {
+  hideHomepage?: boolean
+}
+
 async function fetchRepo(
   owner: string,
   name: string,
+  options: FetchOptions = {},
 ): Promise<RepoData | null> {
   const url = `${GITHUB_API_BASE}/repos/${owner}/${name}`
 
@@ -34,7 +39,7 @@ async function fetchRepo(
       full_name: data.full_name,
       description: data.description,
       html_url: data.html_url,
-      homepage: data.homepage,
+      homepage: options.hideHomepage ? null : data.homepage,
       stargazers_count: data.stargazers_count,
       language: data.language,
       topics: data.topics || [],
@@ -58,7 +63,9 @@ async function main() {
 
   for (const repo of repos) {
     console.log(`📦 Fetching ${repo.owner}/${repo.name}...`)
-    const data = await fetchRepo(repo.owner, repo.name)
+    const data = await fetchRepo(repo.owner, repo.name, {
+      hideHomepage: repo.hideHomepage,
+    })
     if (data) {
       results.push(data)
       console.log(`   ⭐ ${data.stargazers_count} stars`)

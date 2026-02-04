@@ -1,14 +1,9 @@
----
-// ThemeToggle - Switches between light and dark themes
----
-
 <button
   id="theme-toggle"
   type="button"
   aria-label="Toggle dark mode"
   class="relative p-2 rounded-lg bg-surface-elevated hover:bg-surface-card transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-kotlin focus:ring-offset-2 focus:ring-offset-surface"
 >
-  <!-- Sun icon (shown in dark mode) -->
   <svg
     id="sun-icon"
     class="w-5 h-5 text-yellow-400 transition-transform duration-300"
@@ -25,7 +20,6 @@
     ></path>
   </svg>
 
-  <!-- Moon icon (shown in light mode) -->
   <svg
     id="moon-icon"
     class="w-5 h-5 text-slate-700 absolute top-2 left-2 transition-transform duration-300"
@@ -44,7 +38,6 @@
 </button>
 
 <style>
-  /* Show/hide icons based on theme */
   :global([data-theme="dark"]) #sun-icon {
     opacity: 1;
     transform: rotate(0deg) scale(1);
@@ -65,7 +58,6 @@
     transform: rotate(0deg) scale(1);
   }
 
-  /* Background colors using CSS vars */
   button {
     background-color: var(--color-surface-elevated);
   }
@@ -88,14 +80,12 @@
       document.documentElement.setAttribute("data-theme", newTheme)
       localStorage.setItem("theme", newTheme)
 
-      // Update aria-label
       toggle.setAttribute(
         "aria-label",
         newTheme === "dark" ? "Switch to light mode" : "Switch to dark mode",
       )
     })
 
-    // Set initial aria-label
     const theme = document.documentElement.getAttribute("data-theme")
     toggle.setAttribute(
       "aria-label",
@@ -103,9 +93,7 @@
     )
   }
 
-  // Initialize on page load
   initThemeToggle()
 
-  // Re-initialize after Astro page transitions (if using View Transitions)
   document.addEventListener("astro:after-swap", initThemeToggle)
 </script>
