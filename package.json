@@ -9,7 +9,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "astro": "astro",
-    "fetch-repos": "npx tsx scripts/fetch-repos.ts"
+    "fetch-repos": "npx tsx scripts/fetch-repos.ts",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.6",
@@ -40,5 +41,8 @@
         }
       }
     ]
+  },
+  "lint-staged": {
+    "*.{ts,css,md,astro}": "prettier --write"
   }
 }
