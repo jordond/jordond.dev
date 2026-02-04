@@ -4,9 +4,10 @@ import type { RepoData } from "../types/repo"
 interface Props {
   repo: RepoData
   index?: number
+  featured?: boolean
 }
 
-const { repo, index = 0 } = Astro.props
+const { repo, index = 0, featured = false } = Astro.props
 
 const languageColors: Record<string, string> = {
   Kotlin: "#A97BFF",
@@ -23,7 +24,13 @@ const primaryLabel = repo.homepage ? "View Project" : "View on GitHub"
 ---
 
 <article
-  class={`group relative bg-[var(--color-surface)] rounded-xl p-6 border border-[var(--color-surface-elevated)] hover:border-kotlin/50 transition-all duration-300 hover:shadow-lg hover:shadow-kotlin/5 hover:-translate-y-1 animate-on-scroll ${delay}`}
+  class:list={[
+    "group relative rounded-xl p-6 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 animate-on-scroll",
+    delay,
+    featured
+      ? "bg-gradient-to-br from-kotlin/20 via-[var(--color-surface)] to-accent/20 border border-kotlin/30 hover:border-kotlin/50 hover:shadow-kotlin/10"
+      : "bg-[var(--color-surface)] border border-[var(--color-surface-elevated)] hover:border-kotlin/50 hover:shadow-kotlin/5",
+  ]}
 >
   <div class="flex items-center justify-between mb-4">
     <svg

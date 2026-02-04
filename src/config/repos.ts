@@ -6,7 +6,7 @@ import type { RepoConfig } from "../types/repo"
  */
 export const repos: RepoConfig[] = [
   { owner: "jordond", name: "MaterialKolor", featured: true },
-  { owner: "jordond", name: "compass", featured: true },
+  { owner: "jordond", name: "compass" },
   { owner: "jordond", name: "kmpalette", hideHomepage: true },
   { owner: "jordond", name: "jolt", featured: true },
   { owner: "jordond", name: "drag-select-compose" },

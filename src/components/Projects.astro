@@ -3,9 +3,12 @@ import RepoCard from "./RepoCard.astro"
 import type { RepoData } from "../types/repo"
 import reposData from "../data/repos.json"
 
-const repos: RepoData[] = (reposData as RepoData[]).toSorted(
+const allRepos: RepoData[] = (reposData as RepoData[]).toSorted(
   (a, b) => b.stargazers_count - a.stargazers_count
 )
+
+const featuredRepos = allRepos.filter((repo) => repo.featured)
+const otherRepos = allRepos.filter((repo) => !repo.featured)
 ---
 
 <section id="projects" class="py-20 px-6">
@@ -18,9 +21,31 @@ const repos: RepoData[] = (reposData as RepoData[]).toSorted(
       <span class="ml-4 h-px flex-1 bg-[var(--color-surface-elevated)]"></span>
     </h2>
 
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {repos.map((repo, index) => <RepoCard repo={repo} index={index} />)}
-    </div>
+    {featuredRepos.length > 0 && (
+      <div class="mb-12">
+        <p class="text-sm uppercase tracking-wider text-[var(--color-text-muted)] mb-6 font-mono animate-on-scroll">
+          Featured
+        </p>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {featuredRepos.map((repo, index) => (
+            <RepoCard repo={repo} index={index} featured />
+          ))}
+        </div>
+      </div>
+    )}
+
+    {otherRepos.length > 0 && (
+      <div>
+        <p class="text-sm uppercase tracking-wider text-[var(--color-text-muted)] mb-6 font-mono animate-on-scroll">
+          Other Projects
+        </p>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {otherRepos.map((repo, index) => (
+            <RepoCard repo={repo} index={index + featuredRepos.length} />
+          ))}
+        </div>
+      </div>
+    )}
   </div>
 </section>
 

@@ -32,4 +32,6 @@ export interface RepoData {
   language: string | null
   /** Topic tags */
   topics: string[]
+  /** Whether this is a featured project */
+  featured?: boolean
 }

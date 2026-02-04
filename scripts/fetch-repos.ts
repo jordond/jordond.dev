@@ -6,6 +6,7 @@ const GITHUB_TOKEN = process.env.GITHUB_TOKEN
 
 interface FetchOptions {
   hideHomepage?: boolean
+  featured?: boolean
 }
 
 async function fetchRepo(
@@ -43,6 +44,7 @@ async function fetchRepo(
       stargazers_count: data.stargazers_count,
       language: data.language,
       topics: data.topics || [],
+      featured: options.featured || false,
     }
   } catch (error) {
     console.error(`❌ Error fetching ${owner}/${name}:`, error)
@@ -65,6 +67,7 @@ async function main() {
     console.log(`📦 Fetching ${repo.owner}/${repo.name}...`)
     const data = await fetchRepo(repo.owner, repo.name, {
       hideHomepage: repo.hideHomepage,
+      featured: repo.featured,
     })
     if (data) {
       results.push(data)
