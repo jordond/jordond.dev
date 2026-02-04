@@ -4,9 +4,7 @@ import type { RepoConfig, RepoData, RepoType } from "../src/types/repo"
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN
 
-async function fetchRepo(
-  config: RepoConfig,
-): Promise<RepoData | null> {
+async function fetchRepo(config: RepoConfig): Promise<RepoData | null> {
   const url = `${GITHUB_API_BASE}/repos/${config.owner ?? DEFAULT_OWNER}/${config.name}`
 
   const headers: HeadersInit = {
@@ -22,7 +20,9 @@ async function fetchRepo(
     const response = await fetch(url, { headers })
 
     if (!response.ok) {
-      console.warn(`⚠️ Failed to fetch ${config.owner ?? DEFAULT_OWNER}/${config.name}: ${response.status}`)
+      console.warn(
+        `⚠️ Failed to fetch ${config.owner ?? DEFAULT_OWNER}/${config.name}: ${response.status}`,
+      )
       return null
     }
 
@@ -41,7 +41,10 @@ async function fetchRepo(
       featured: config.featured || false,
     }
   } catch (error) {
-    console.error(`❌ Error fetching ${config.owner ?? DEFAULT_OWNER}/${config.name}:`, error)
+    console.error(
+      `❌ Error fetching ${config.owner ?? DEFAULT_OWNER}/${config.name}:`,
+      error,
+    )
     return null
   }
 }
