@@ -4,7 +4,7 @@ import type { RepoData } from "../types/repo"
 import reposData from "../data/repos.json"
 
 const allRepos: RepoData[] = (reposData as RepoData[]).toSorted(
-  (a, b) => b.stargazers_count - a.stargazers_count
+  (a, b) => b.stargazers_count - a.stargazers_count,
 )
 
 const featuredRepos = allRepos.filter((repo) => repo.featured)
@@ -21,31 +21,35 @@ const otherRepos = allRepos.filter((repo) => !repo.featured)
       <span class="ml-4 h-px flex-1 bg-[var(--color-surface-elevated)]"></span>
     </h2>
 
-    {featuredRepos.length > 0 && (
-      <div class="mb-12">
-        <p class="text-sm uppercase tracking-wider text-[var(--color-text-muted)] mb-6 font-mono animate-on-scroll">
-          Featured
-        </p>
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {featuredRepos.map((repo, index) => (
-            <RepoCard repo={repo} index={index} featured />
-          ))}
+    {
+      featuredRepos.length > 0 && (
+        <div class="mb-12">
+          <p class="text-sm uppercase tracking-wider text-[var(--color-text-muted)] mb-6 font-mono animate-on-scroll">
+            Featured
+          </p>
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {featuredRepos.map((repo, index) => (
+              <RepoCard repo={repo} index={index} featured />
+            ))}
+          </div>
         </div>
-      </div>
-    )}
+      )
+    }
 
-    {otherRepos.length > 0 && (
-      <div>
-        <p class="text-sm uppercase tracking-wider text-[var(--color-text-muted)] mb-6 font-mono animate-on-scroll">
-          Other Projects
-        </p>
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {otherRepos.map((repo, index) => (
-            <RepoCard repo={repo} index={index + featuredRepos.length} />
-          ))}
+    {
+      otherRepos.length > 0 && (
+        <div>
+          <p class="text-sm uppercase tracking-wider text-[var(--color-text-muted)] mb-6 font-mono animate-on-scroll">
+            Other Projects
+          </p>
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {otherRepos.map((repo, index) => (
+              <RepoCard repo={repo} index={index + featuredRepos.length} />
+            ))}
+          </div>
         </div>
-      </div>
-    )}
+      )
+    }
   </div>
 </section>
 
@@ -66,7 +70,7 @@ const otherRepos = allRepos.filter((repo) => !repo.featured)
           headers: { Accept: "application/vnd.github.v3+json" },
         })
         if (!response.ok) throw new Error(`Failed to fetch ${repo}`)
-        const data = await response.json()
+        const data = (await response.json()) as { stargazers_count: number }
         return { repo, stars: data.stargazers_count }
       }),
     )

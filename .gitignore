@@ -25,3 +25,5 @@ pnpm-debug.log*
 
 # Generated repo data (fetched at build time)
 src/data/repos.json
+
+tmp
