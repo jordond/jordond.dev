@@ -1,8 +1,22 @@
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "jordond.dev",
+  "name": "jordond-dev",
   "compatibility_date": "2026-02-03",
   "assets": {
     "directory": "./dist",
   },
+  "observability": {
+    "enabled": false,
+    "head_sampling_rate": 1,
+    "logs": {
+      "enabled": true,
+      "head_sampling_rate": 1,
+      "persist": true,
+      "invocation_logs": true
+    },
+    "traces": {
+      "enabled": false,
+      "persist": true,
+      "head_sampling_rate": 1
+    }
+  }
 }
