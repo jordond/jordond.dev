@@ -25,11 +25,11 @@ const primaryLabel = repo.homepage ? "View Project" : "View on GitHub"
 
 <article
   class:list={[
-    "group relative rounded-xl p-6 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 animate-on-scroll",
+    "group relative rounded-xl p-6 animate-on-scroll",
     delay,
     featured
-      ? "bg-gradient-to-br from-accent/10 via-[var(--color-surface)] to-accent/20 border border-accent/30 hover:border-accent/50 hover:shadow-accent/10"
-      : "bg-[var(--color-surface)] border border-[var(--color-surface-elevated)] hover:border-accent/50 hover:shadow-accent/5",
+      ? "bg-gradient-to-br from-accent/10 via-[var(--color-surface)] to-accent/20 border border-accent/30"
+      : "bg-[var(--color-surface)] border border-[var(--color-surface-elevated)]",
   ]}
 >
   <div class="flex items-center justify-between mb-4">
@@ -65,7 +65,9 @@ const primaryLabel = repo.homepage ? "View Project" : "View on GitHub"
           </svg>
         )
       }
-      <h3 class="text-xl font-semibold text-[var(--color-text)] group-hover:text-accent transition-colors">
+      <h3
+        class="text-xl font-semibold text-[var(--color-text)] group-hover:text-accent transition-colors duration-300 ease-out"
+      >
         <a
           href={repo.html_url}
           target="_blank"
@@ -164,3 +166,15 @@ const primaryLabel = repo.homepage ? "View Project" : "View on GitHub"
     )
   }
 </article>
+
+<style>
+  article {
+    transition:
+      border-color 0.3s ease-out,
+      opacity 0.6s ease,
+      transform 0.6s ease !important;
+  }
+  article:hover {
+    border-color: var(--color-accent) !important;
+  }
+</style>
