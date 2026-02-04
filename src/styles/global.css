@@ -2,7 +2,6 @@
 
 /* Theme Custom Properties */
 :root {
-  --color-kotlin: #7f52ff;
   --color-accent: #14b8a6;
   --color-accent-light: #5eead4;
 
@@ -12,6 +11,7 @@
   --color-surface-elevated: #f5f5f5;
   --color-text: #1f2937;
   --color-text-muted: #6b7280;
+  --color-border: #e5e7eb;
 }
 
 [data-theme="dark"] {
@@ -20,6 +20,7 @@
   --color-surface-elevated: #1e1e26;
   --color-text: #f9fafb;
   --color-text-muted: #9ca3af;
+  --color-border: #374151;
 }
 
 /* Base Styles */
@@ -166,6 +167,6 @@ body {
 
 /* Selection colors */
 ::selection {
-  background-color: var(--color-kotlin);
+  background-color: var(--color-accent);
   color: white;
 }

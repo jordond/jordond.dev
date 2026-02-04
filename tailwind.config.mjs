@@ -5,7 +5,6 @@ export default {
   theme: {
     extend: {
       colors: {
-        kotlin: "#7F52FF",
         accent: {
           DEFAULT: "#14B8A6",
           light: "#5EEAD4",

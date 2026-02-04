@@ -28,13 +28,13 @@ const primaryLabel = repo.homepage ? "View Project" : "View on GitHub"
     "group relative rounded-xl p-6 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 animate-on-scroll",
     delay,
     featured
-      ? "bg-gradient-to-br from-kotlin/20 via-[var(--color-surface)] to-accent/20 border border-kotlin/30 hover:border-kotlin/50 hover:shadow-kotlin/10"
-      : "bg-[var(--color-surface)] border border-[var(--color-surface-elevated)] hover:border-kotlin/50 hover:shadow-kotlin/5",
+      ? "bg-gradient-to-br from-accent/10 via-[var(--color-surface)] to-accent/20 border border-accent/30 hover:border-accent/50 hover:shadow-accent/10"
+      : "bg-[var(--color-surface)] border border-[var(--color-surface-elevated)] hover:border-accent/50 hover:shadow-accent/5",
   ]}
 >
   <div class="flex items-center justify-between mb-4">
     <svg
-      class="w-10 h-10 text-kotlin"
+      class="w-10 h-10 text-accent"
       fill="none"
       stroke="currentColor"
       viewBox="0 0 24 24"
@@ -52,7 +52,7 @@ const primaryLabel = repo.homepage ? "View Project" : "View on GitHub"
         href={repo.html_url}
         target="_blank"
         rel="noopener noreferrer"
-        class="text-[var(--color-text-muted)] hover:text-kotlin transition-colors"
+        class="text-[var(--color-text-muted)] hover:text-accent transition-colors"
         aria-label={`View ${repo.name} on GitHub`}
       >
         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -67,7 +67,7 @@ const primaryLabel = repo.homepage ? "View Project" : "View on GitHub"
             href={repo.homepage}
             target="_blank"
             rel="noopener noreferrer"
-            class="text-[var(--color-text-muted)] hover:text-kotlin transition-colors"
+            class="text-[var(--color-text-muted)] hover:text-accent transition-colors"
             aria-label={`Visit ${repo.name} website`}
           >
             <svg
@@ -90,7 +90,7 @@ const primaryLabel = repo.homepage ? "View Project" : "View on GitHub"
   </div>
 
   <h3
-    class="text-xl font-semibold text-[var(--color-text)] mb-2 group-hover:text-kotlin transition-colors"
+    class="text-xl font-semibold text-[var(--color-text)] mb-2 group-hover:text-accent transition-colors"
   >
     <a
       href={repo.html_url}
@@ -139,7 +139,7 @@ const primaryLabel = repo.homepage ? "View Project" : "View on GitHub"
     repo.topics && repo.topics.length > 0 && (
       <div class="flex flex-wrap gap-2 mt-4">
         {repo.topics.slice(0, 4).map((topic) => (
-          <span class="px-2 py-1 text-xs rounded-full bg-kotlin/10 text-kotlin">
+          <span class="px-2 py-1 text-xs rounded-full bg-accent/10 text-accent">
             {topic}
           </span>
         ))}

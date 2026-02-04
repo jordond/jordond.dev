@@ -1,17 +1,11 @@
 ---
-const skills = [
-  "Kotlin",
-  "Kotlin Multiplatform",
-  "Compose",
-  "Android",
-  "TypeScript",
-  "Rust",
-]
+import { Image } from 'astro:assets';
+import avatar from "../assets/avatar.png"
+import { skills } from "../config/data"
 ---
 
 <section id="about" class="py-20 px-6">
   <div class="max-w-4xl mx-auto">
-    <!-- Section heading -->
     <h2
       class="flex items-center text-2xl md:text-3xl font-bold text-[var(--color-text)] mb-12 animate-on-scroll"
     >
@@ -21,7 +15,6 @@ const skills = [
     </h2>
 
     <div class="grid md:grid-cols-3 gap-12 items-start">
-      <!-- Bio -->
       <div class="md:col-span-2 space-y-4 animate-on-scroll delay-100">
         <p class="text-[var(--color-text-muted)] leading-relaxed">
           Hello! I'm Jordon, an Android and Kotlin Multiplatform developer based
@@ -36,7 +29,6 @@ const skills = [
           open source libraries used by teams shipping to Android, iOS, and desktop.
         </p>
 
-        <!-- Skills list -->
         <div class="pt-4">
           <p class="text-[var(--color-text)] font-medium mb-3">
             Technologies I work with:
@@ -54,16 +46,15 @@ const skills = [
         </div>
       </div>
 
-      <!-- Profile image -->
       <div class="animate-on-scroll delay-200">
         <div class="relative group">
           <div
-            class="absolute -inset-2 bg-gradient-to-r from-kotlin to-accent rounded-lg opacity-20 blur-lg group-hover:opacity-30 transition-opacity duration-300"
+            class="absolute -inset-2 bg-gradient-to-r from-accent to-accent-light rounded-lg opacity-20 blur-lg group-hover:opacity-30 transition-opacity duration-300"
           >
           </div>
           <div class="relative">
-            <img
-              src="https://avatars.githubusercontent.com/u/528792?v=4"
+            <Image
+              src={avatar}
               alt="Jordon de Hoog"
               width="300"
               height="300"
@@ -73,7 +64,6 @@ const skills = [
           </div>
         </div>
 
-        <!-- Available badge -->
         <div
           class="mt-4 flex items-center justify-center gap-2 text-sm text-[var(--color-text-muted)]"
         >

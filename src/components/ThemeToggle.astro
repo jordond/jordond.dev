@@ -2,7 +2,7 @@
   id="theme-toggle"
   type="button"
   aria-label="Toggle dark mode"
-  class="relative p-2 rounded-lg bg-surface-elevated hover:bg-surface-card transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-kotlin focus:ring-offset-2 focus:ring-offset-surface"
+  class="relative p-2 rounded-lg bg-[var(--color-surface-elevated)] hover:bg-[var(--color-surface)] border border-[var(--color-border)] transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-[var(--color-bg)]"
 >
   <svg
     id="sun-icon"
@@ -22,7 +22,7 @@
 
   <svg
     id="moon-icon"
-    class="w-5 h-5 text-slate-700 absolute top-2 left-2 transition-transform duration-300"
+    class="w-5 h-5 text-[var(--color-text)] absolute top-2 left-2 transition-transform duration-300"
     fill="none"
     stroke="currentColor"
     viewBox="0 0 24 24"
@@ -56,14 +56,6 @@
   :global([data-theme="light"]) #moon-icon {
     opacity: 1;
     transform: rotate(0deg) scale(1);
-  }
-
-  button {
-    background-color: var(--color-surface-elevated);
-  }
-
-  button:hover {
-    background-color: var(--color-surface);
   }
 </style>
 
