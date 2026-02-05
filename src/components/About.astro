@@ -2,6 +2,7 @@
 import { Image } from "astro:assets"
 import avatar from "../assets/avatar.jpg"
 import { skills } from "../config/data"
+import { Picture } from "astro:assets"
 ---
 
 <section id="about" class="py-20 px-6">
@@ -57,11 +58,11 @@ import { skills } from "../config/data"
           <div class="relative">
             <Image
               src={avatar}
-              alt="Jordon de Hoog"
-              width="300"
-              height="300"
+              alt="Avatar of Jordon de Hoog"
+              width={1200}
+              height={1200}
               loading="lazy"
-              class="rounded-lg w-full max-w-[300px] mx-auto border-2 border-[var(--color-surface-elevated)] transition-transform duration-300 group-hover:scale-[1.02]"
+              class="aspect-square object-cover rounded-lg w-full mx-auto border-4 border-[var(--color-surface-elevated)] transition-transform duration-300 group-hover:scale-[1.02]"
             />
           </div>
         </div>
