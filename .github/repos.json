@@ -1,38 +1,47 @@
-[
-  {
-    "name": "example-lib",
-    "full_name": "user/example-lib",
-    "description": "An example library",
-    "html_url": "https://github.com/user/example-lib",
-    "homepage": null,
-    "stargazers_count": 0,
-    "language": "TypeScript",
-    "topics": [],
-    "type": "library",
-    "featured": true
-  },
-  {
-    "name": "example-app",
-    "full_name": "user/example-app",
-    "description": "An example application",
-    "html_url": "https://github.com/user/example-app",
-    "homepage": null,
-    "stargazers_count": 0,
-    "language": "Rust",
-    "topics": [],
-    "type": "app",
-    "featured": false
-  },
-  {
-    "name": "example-tool",
-    "full_name": "user/example-tool",
-    "description": "An example tool",
-    "html_url": "https://github.com/user/example-tool",
-    "homepage": null,
-    "stargazers_count": 0,
-    "language": "Kotlin",
-    "topics": [],
-    "type": "library",
-    "featured": false
-  }
-]
+{
+  "apps": [
+    {
+      "name": "example-app",
+      "full_name": "user/example-app",
+      "description": "An example application with images and store links.",
+      "html_url": "https://github.com/user/example-app",
+      "homepage": "https://example.com/app",
+      "stargazers_count": 0,
+      "language": "Rust",
+      "topics": ["app", "rust"],
+      "type": "app",
+      "image": "https://raw.githubusercontent.com/jordond/MaterialKolor/main/art/banner.png",
+      "links": {
+        "playStore": "https://play.google.com/store/apps",
+        "appStore": "https://apps.apple.com",
+        "linux": "https://example.com/linux"
+      }
+    }
+  ],
+  "tools": [
+    {
+      "name": "example-tool",
+      "full_name": "user/example-tool",
+      "description": "An example tool for CLI usage.",
+      "html_url": "https://github.com/user/example-tool",
+      "homepage": null,
+      "stargazers_count": 0,
+      "language": "Kotlin",
+      "topics": ["cli", "tool"],
+      "type": "tool"
+    }
+  ],
+  "libraries": [
+    {
+      "name": "example-lib",
+      "full_name": "user/example-lib",
+      "description": "An example library for demonstration purposes.",
+      "html_url": "https://github.com/user/example-lib",
+      "homepage": null,
+      "stargazers_count": 0,
+      "language": "TypeScript",
+      "topics": ["library", "typescript"],
+      "type": "library"
+    }
+  ]
+}

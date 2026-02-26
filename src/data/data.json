@@ -1,0 +1,16 @@
+{
+  "apps": [
+    {
+      "name": "Toebeans",
+      "description": "Toebeans is a cross-platform fortune-telling app for cats, built with Kotlin Multiplatform for iOS and Android.\n\nIt combines playful product design with serious mobile engineering, featuring tarot draws, daily horoscopes, and a gamified in-app currency system powered by shared business logic across platforms.\n\nCurrently in beta.",
+      "homepage": "https://toebeans.life",
+      "og_image": "/image/toebeans.png",
+      "open_source": false,
+      "links": {
+        "play_store": "https://play.google.com/store/apps/details?id=life.toebeans.android",
+        "app_store": "https://testflight.apple.com/join/RBfKew17"
+      },
+      "topics": ["compose-multiplatform", "ai", "ml", "mobile"]
+    }
+  ]
+}
