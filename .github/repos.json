@@ -2,37 +2,43 @@
   {
     "name": "example-lib",
     "full_name": "user/example-lib",
-    "description": "An example library",
+    "description": "An example library for demonstration purposes.",
     "html_url": "https://github.com/user/example-lib",
     "homepage": null,
     "stargazers_count": 0,
     "language": "TypeScript",
-    "topics": [],
+    "topics": ["library", "typescript"],
     "type": "library",
     "featured": true
   },
   {
     "name": "example-app",
     "full_name": "user/example-app",
-    "description": "An example application",
+    "description": "An example application with images and store links.",
     "html_url": "https://github.com/user/example-app",
-    "homepage": null,
+    "homepage": "https://example.com/app",
     "stargazers_count": 0,
     "language": "Rust",
-    "topics": [],
+    "topics": ["app", "rust"],
     "type": "app",
-    "featured": false
+    "featured": false,
+    "image": "https://raw.githubusercontent.com/jordond/MaterialKolor/main/art/banner.png",
+    "links": {
+      "playStore": "https://play.google.com/store/apps",
+      "appStore": "https://apps.apple.com",
+      "linux": "https://example.com/linux"
+    }
   },
   {
     "name": "example-tool",
     "full_name": "user/example-tool",
-    "description": "An example tool",
+    "description": "An example tool for CLI usage.",
     "html_url": "https://github.com/user/example-tool",
     "homepage": null,
     "stargazers_count": 0,
     "language": "Kotlin",
-    "topics": [],
-    "type": "library",
+    "topics": ["cli", "tool"],
+    "type": "tool",
     "featured": false
   }
 ]

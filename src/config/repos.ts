@@ -2,13 +2,13 @@ import type { RepoConfig } from "../types/repo"
 
 /**
  * List of repositories to feature on the portfolio
- * Order determines display order
+ * Order determines display order within their respective categories
  */
 export const repos: RepoConfig[] = [
-  { name: "MaterialKolor", featured: true },
+  { name: "MaterialKolor" },
   { name: "compass" },
   { name: "kmpalette", hideHomepage: true },
-  { name: "jolt", type: "app", featured: true },
+  { name: "jolt", type: "tool" },
   { name: "drag-select-compose" },
   { name: "connectivity" },
   { name: "stateholder" },

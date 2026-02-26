@@ -1,8 +1,33 @@
-import { writeFileSync, mkdirSync, existsSync } from "fs"
+import { writeFileSync, mkdirSync, existsSync, readFileSync } from "fs"
 import { repos, GITHUB_API_BASE, DEFAULT_OWNER } from "../src/config/repos"
-import type { RepoConfig, RepoData, RepoType } from "../src/types/repo"
+import type {
+  RepoConfig,
+  RepoData,
+  GroupedRepoData,
+  RepoType,
+} from "../src/types/repo"
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN
+
+interface LocalData {
+  apps?: Array<{
+    name: string
+    description: string
+    homepage?: string
+    og_image?: string
+    open_source: boolean
+    links?: {
+      play_store?: string
+      app_store?: string
+      windows?: string
+      macos?: string
+      linux?: string
+    }
+    topics?: string[]
+  }>
+  tools?: Array<any>
+  libraries?: Array<any>
+}
 
 async function fetchRepo(config: RepoConfig): Promise<RepoData | null> {
   const url = `${GITHUB_API_BASE}/repos/${config.owner ?? DEFAULT_OWNER}/${config.name}`
@@ -38,7 +63,8 @@ async function fetchRepo(config: RepoConfig): Promise<RepoData | null> {
       language: data.language,
       topics: data.topics || [],
       type: config.type ?? "library",
-      featured: config.featured || false,
+      image: config.image,
+      links: config.links,
     }
   } catch (error) {
     console.error(
@@ -58,16 +84,89 @@ async function main() {
     )
   }
 
-  const results: RepoData[] = []
+  const results: GroupedRepoData = {
+    apps: [],
+    tools: [],
+    libraries: [],
+  }
 
-  for (const repo of repos) {
-    console.log(`📦 Fetching ${repo.owner ?? DEFAULT_OWNER}/${repo.name}...`)
-    const data = await fetchRepo(repo)
+  // 1. Fetch from src/config/repos.ts
+  for (const repoConfig of repos) {
+    console.log(
+      `📦 Fetching ${repoConfig.owner ?? DEFAULT_OWNER}/${repoConfig.name}...`,
+    )
+    const data = await fetchRepo(repoConfig)
     if (data) {
-      results.push(data)
+      if (data.type === "app") results.apps.push(data)
+      else if (data.type === "tool") results.tools.push(data)
+      else results.libraries.push(data)
       console.log(`   ⭐ ${data.stargazers_count} stars`)
     }
   }
+
+  // 2. Process src/data/data.json
+  const localDataPath = "src/data/data.json"
+  if (existsSync(localDataPath)) {
+    console.log(`\n📂 Processing local data from ${localDataPath}...`)
+    const localData: LocalData = JSON.parse(
+      readFileSync(localDataPath, "utf-8"),
+    )
+
+    if (localData.apps) {
+      for (const app of localData.apps) {
+        results.apps.push({
+          name: app.name,
+          full_name: "",
+          description: app.description,
+          html_url: "",
+          homepage: app.homepage || null,
+          stargazers_count: 0,
+          language: null,
+          topics: app.topics || [],
+          type: "app",
+          image: app.og_image,
+          links: app.links
+            ? {
+                playStore: app.links.play_store,
+                appStore: app.links.app_store,
+                windows: app.links.windows,
+                macos: app.links.macos,
+                linux: app.links.linux,
+              }
+            : undefined,
+        })
+      }
+    }
+
+    if (localData.tools) {
+      for (const tool of localData.tools) {
+        results.tools.push({
+          ...tool,
+          type: "tool",
+          full_name: tool.full_name || "",
+          stargazers_count: tool.stargazers_count || 0,
+          topics: tool.topics || [],
+        })
+      }
+    }
+
+    if (localData.libraries) {
+      for (const lib of localData.libraries) {
+        results.libraries.push({
+          ...lib,
+          type: "library",
+          full_name: lib.full_name || "",
+          stargazers_count: lib.stargazers_count || 0,
+          topics: lib.topics || [],
+        })
+      }
+    }
+  }
+
+  // Sort each group by star count
+  results.apps.sort((a, b) => b.stargazers_count - a.stargazers_count)
+  results.tools.sort((a, b) => b.stargazers_count - a.stargazers_count)
+  results.libraries.sort((a, b) => b.stargazers_count - a.stargazers_count)
 
   // Ensure data directory exists
   const dataDir = "src/data"
@@ -79,9 +178,7 @@ async function main() {
   const outputPath = `${dataDir}/repos.json`
   writeFileSync(outputPath, JSON.stringify(results, null, 2))
 
-  console.log(
-    `\n✅ Successfully fetched ${results.length}/${repos.length} repositories`,
-  )
+  console.log(`\n✅ Successfully processed repositories`)
   console.log(`📄 Data saved to ${outputPath}`)
 }
 

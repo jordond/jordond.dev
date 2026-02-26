@@ -1,7 +1,7 @@
 /**
  * Repository type classification
  */
-export type RepoType = "library" | "app"
+export type RepoType = "library" | "tool" | "app"
 
 /**
  * Configuration for a repository to feature
@@ -11,12 +11,21 @@ export interface RepoConfig {
   owner?: string
   /** Repository name */
   name: string
-  /** Repository type (library or app) */
+  /** Repository type (library, app or tool) */
   type?: RepoType
-  /** Whether to feature prominently */
-  featured?: boolean
   /** Hide the homepage URL from display */
   hideHomepage?: boolean
+  ogImage?: boolean
+  /** OG image for apps */
+  image?: string
+  /** Store links for apps */
+  links?: {
+    playStore?: string
+    appStore?: string
+    windows?: string
+    macos?: string
+    linux?: string
+  }
 }
 
 /**
@@ -39,8 +48,25 @@ export interface RepoData {
   language: string | null
   /** Topic tags */
   topics: string[]
-  /** Repository type (library or app) */
+  /** Repository type (library, app or tool) */
   type: RepoType
-  /** Whether this is a featured project */
-  featured?: boolean
+  /** OG image for apps */
+  image?: string
+  /** Store links for apps */
+  links?: {
+    playStore?: string
+    appStore?: string
+    windows?: string
+    macos?: string
+    linux?: string
+  }
+}
+
+/**
+ * Grouped repository data
+ */
+export interface GroupedRepoData {
+  apps: RepoData[]
+  tools: RepoData[]
+  libraries: RepoData[]
 }
