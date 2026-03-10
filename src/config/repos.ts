@@ -9,6 +9,7 @@ export const repos: RepoConfig[] = [
   { name: "compass" },
   { name: "kmpalette", hideHomepage: true },
   { name: "jolt", type: "tool" },
+  { name: "compose-resources-kit", type: "tool" },
   { name: "drag-select-compose" },
   { name: "connectivity" },
   { name: "stateholder" },
