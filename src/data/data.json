@@ -11,6 +11,18 @@
         "app_store": "https://testflight.apple.com/join/RBfKew17"
       },
       "topics": ["compose-multiplatform", "ai", "ml", "mobile"]
+    },
+    {
+      "name": "Should I Go Outside?",
+      "description": "SIGO is a weather app that answers one simple question: should you go outside?\n\nIt fetches the forecast for your current location and gives you a Yes, No, or Maybe based on your configured preferences — ideal temperature range, wind tolerance, and rain or snow thresholds.\n\nBuilt with Kotlin Multiplatform and Compose Multiplatform for Android, iOS, and Desktop.",
+      "homepage": "https://shouldigooutside.now",
+      "og_image": "https://shouldigooutside.now/og-image.jpg",
+      "open_source": true,
+      "links": {
+        "github": "https://github.com/jordond/SIGO",
+        "play_store": "https://play.google.com/store/apps/details?id=now.shouldigooutside"
+      },
+      "topics": ["compose-multiplatform", "weather", "mobile", "design"]
     }
   ]
 }
