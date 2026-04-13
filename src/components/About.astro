@@ -10,12 +10,12 @@ import SectionHeader from "./SectionHeader.astro"
     <SectionHeader index="§ 01 · about" kicker="The elevator pitch">
       <Fragment slot="title">
         Kotlin,<br />
-        <em>mostly</em>.
+        <em>end&nbsp;to&nbsp;end</em>.
       </Fragment>
       <Fragment slot="lead">
-        Libraries, tools, and production apps. Most of it open source, most of
-        it Kotlin. A handful of the libraries now ship inside other people's
-        products, on iOS, Android, desktop, and the JVM.
+        Libraries, developer tools, and a couple of production apps. A few now
+        ship inside other people's products on iOS, Android, desktop, and the
+        JVM.
       </Fragment>
     </SectionHeader>
 
@@ -30,12 +30,11 @@ import SectionHeader from "./SectionHeader.astro"
         </p>
 
         <p class="about__para">
-          Most of my time goes into open source. <span class="about__accent"
-            >MaterialKolor</span
-          >, <span class="about__accent">compass</span>, <span
-            class="about__accent">jolt</span
-          >, and a handful of smaller libraries. The apps pay the rent. The
-          libraries are where the experiments live.
+          The libraries are where the experiments live. <span
+            class="about__accent">MaterialKolor</span
+          >, <span class="about__accent">connectivity</span>, and <span
+            class="about__accent">compass</span
+          > are the ones that stuck, and a few smaller ones keeping busy in the background.
         </p>
 
         <div class="about__skills">
@@ -172,6 +171,7 @@ import SectionHeader from "./SectionHeader.astro"
     margin: 0;
     position: relative;
     padding: clamp(0.5rem, 2vw, 1.5rem);
+    overflow: hidden;
   }
 
   .about__portrait {
@@ -185,6 +185,15 @@ import SectionHeader from "./SectionHeader.astro"
   @media (max-width: 900px) {
     .about__portrait {
       margin: 0 auto;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .about__drop {
+      font-size: 3.6em;
+    }
+    .about__portrait-backer {
+      inset: 1rem 0 -1rem 0;
     }
   }
 

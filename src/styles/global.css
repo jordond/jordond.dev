@@ -258,6 +258,15 @@ h6 {
   }
 }
 
+/* No-JS fallback: IntersectionObserver never runs, so show animated elements immediately. */
+@media (scripting: none) {
+  .animate-on-scroll,
+  .animate-fade-in-up {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
 ::selection {
   background-color: var(--color-accent);
   color: var(--color-accent-contrast);
@@ -378,6 +387,7 @@ h6 {
 .chapter {
   display: flex;
   align-items: baseline;
+  flex-wrap: wrap;
   gap: var(--space-sm);
   margin: 0 0 var(--stack-md);
   padding-bottom: var(--space-sm);
@@ -401,7 +411,8 @@ h6 {
   letter-spacing: var(--tr-title);
   color: var(--color-text);
   margin: 0;
-  flex: 0 0 auto;
+  flex: 1 1 auto;
+  min-width: 0;
   text-wrap: balance;
 }
 
@@ -413,6 +424,21 @@ h6 {
   margin-left: auto;
   align-self: baseline;
   font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+}
+
+@media (max-width: 640px) {
+  .chapter {
+    gap: 0.5rem var(--space-sm);
+  }
+  .chapter__title {
+    flex: 1 1 100%;
+    order: 1;
+    font-size: var(--fs-title-2);
+  }
+  .chapter__count {
+    margin-left: auto;
+  }
 }
 
 .chip {

@@ -80,7 +80,11 @@
       const newTheme = currentTheme === "dark" ? "light" : "dark"
 
       document.documentElement.setAttribute("data-theme", newTheme)
-      localStorage.setItem("theme", newTheme)
+      try {
+        localStorage.setItem("theme", newTheme)
+      } catch (_) {
+        /* Storage disabled — theme still applies for this session. */
+      }
 
       syncState(newTheme)
     })

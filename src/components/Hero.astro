@@ -5,8 +5,8 @@ import reposData from "../data/repos.json"
 import type { GroupedRepoData } from "../types/repo"
 
 const { libraries } = reposData as GroupedRepoData
-const featuredLibraries = libraries.slice(0, 4).map((l) => l.name)
-const shippedApps = ["Should I Go Outside?", "jolt"]
+const totalStars = libraries.reduce((sum, l) => sum + l.stargazers_count, 0)
+const shipped = ["Should I Go Outside?", "jolt", "compose-resources-kit"]
 
 const line = (inner: string, blank = false) =>
   `<span class="cl${blank ? " cl--blank" : ""}">${inner || " "}</span>`
@@ -16,13 +16,29 @@ const prop = (t: string) => `<span class="tok-prop">${t}</span>`
 const str = (t: string) => `<span class="tok-str">"${t}"</span>`
 const fn = (t: string) => `<span class="tok-fn">${t}</span>`
 const bool = (t: string) => `<span class="tok-bool">${t}</span>`
+const num = (t: string | number) => `<span class="tok-bool">${t}</span>`
 const pn = (t: string) => `<span class="tok-punct">${t}</span>`
 const cmt = (t: string) => `<span class="tok-comment">${t}</span>`
 
-const listBlock = (name: string, items: string[]) =>
+const shippedBlock = (items: string[]) =>
   [
-    line(`  ${kw("val")} ${prop(name)} ${pn("=")} ${fn("listOf")}${pn("(")}`),
+    line(
+      `  ${kw("val")} ${prop("shipped")} ${pn("=")} ${fn("listOf")}${pn("(")}`,
+    ),
     ...items.map((it) => line(`    ${str(it)}${pn(",")}`)),
+    line(`  ${pn(")")}`),
+  ].join("")
+
+const libraryBlock = (libs: { name: string; stargazers_count: number }[]) =>
+  [
+    line(
+      `  ${kw("val")} ${prop("libraries")} ${pn("=")} ${fn("listOf")}${pn("(")}`,
+    ),
+    ...libs.map((l) =>
+      line(
+        `    ${fn("Library")}${pn("(")}${prop("name")} ${pn("=")} ${str(l.name)}${pn(",")} ${prop("stars")} ${pn("=")} ${num(l.stargazers_count)}${pn("),")}`,
+      ),
+    ),
     line(`  ${pn(")")}`),
   ].join("")
 
@@ -37,9 +53,13 @@ const codeHtml = [
   ),
   line(`  ${kw("val")} ${prop("available")} ${pn("=")} ${bool("true")}`),
   line("", true),
-  listBlock("shipped", shippedApps),
+  shippedBlock(shipped),
   line("", true),
-  listBlock("libraries", featuredLibraries),
+  libraryBlock(libraries),
+  line("", true),
+  line(
+    `  ${kw("val")} ${prop("totalStars")} ${pn("=")} ${prop("libraries")}${pn(".")}${fn("sumOf")} ${pn("{")} ${kw("it")}${pn(".")}${prop("stars")} ${pn("}")} ${cmt(`// ${totalStars}`)}`,
+  ),
   line(pn("}")),
 ].join("")
 ---
@@ -49,7 +69,18 @@ const codeHtml = [
     <a href="/" class="hero__mark" aria-label="Jordon de Hoog, home">
       jordond<span class="hero__mark-dot" aria-hidden="true">.</span>dev
     </a>
-    <ThemeToggle />
+    <div class="hero__topbar-actions">
+      <a
+        class="hero__icon-link"
+        href="https://github.com/jordond"
+        target="_blank"
+        rel="me noopener noreferrer"
+        aria-label="GitHub profile"
+      >
+        <Icon name="github" />
+      </a>
+      <ThemeToggle />
+    </div>
   </div>
 
   <div class="hero__inner">
@@ -78,11 +109,7 @@ const codeHtml = [
       <p class="hero__byline">
         <span class="hero__name">Jordon de Hoog</span>
         <span class="hero__byline-rule" aria-hidden="true"></span>
-        <span class="hero__byline-tags"
-          >Android <span aria-hidden="true">·</span> Kotlin Multiplatform <span
-            aria-hidden="true">·</span
-          > Open&nbsp;Source</span
-        >
+        <span class="hero__byline-tags">Engineer · Maintainer · Tinkerer</span>
       </p>
 
       <div class="hero__actions">
@@ -195,6 +222,46 @@ const codeHtml = [
     font-size: var(--fs-mono-md);
   }
 
+  .hero__topbar-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .hero__icon-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+    background: var(--color-surface-elevated);
+    color: var(--color-text);
+    text-decoration: none;
+    transition:
+      background-color 0.2s var(--ease-out-expo),
+      border-color 0.2s var(--ease-out-expo),
+      color 0.2s var(--ease-out-expo);
+  }
+
+  .hero__icon-link :global(svg) {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .hero__icon-link:hover {
+    background: var(--color-surface);
+    border-color: var(--color-accent);
+    color: var(--color-accent-ink);
+  }
+
+  .hero__icon-link:focus-visible {
+    outline: none;
+    box-shadow:
+      0 0 0 2px var(--color-bg),
+      0 0 0 4px var(--color-accent);
+  }
+
   .hero__mark {
     display: inline-flex;
     align-items: baseline;
@@ -237,7 +304,6 @@ const codeHtml = [
   }
 
   .hero__lede {
-    max-width: 46ch;
   }
 
   .hero__eyebrow {
@@ -594,11 +660,11 @@ const codeHtml = [
     .hero__headline {
       font-size: min(clamp(2.25rem, 10vw, 3.75rem), 11svh);
     }
-    .hero__code {
-      transform: none;
-    }
     .hero__aside {
-      transform: none;
+      display: none;
+    }
+    .hero__byline-rule {
+      display: none;
     }
     .hero::after {
       display: none;
