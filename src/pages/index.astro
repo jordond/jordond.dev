@@ -18,7 +18,6 @@ import Footer from "../components/Footer.astro"
 </Layout>
 
 <script>
-  // Intersection Observer for scroll-triggered animations
   function initScrollAnimations() {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -40,9 +39,7 @@ import Footer from "../components/Footer.astro"
     })
   }
 
-  // Initialize on page load
   initScrollAnimations()
 
-  // Re-initialize after Astro page transitions (if using View Transitions)
   document.addEventListener("astro:after-swap", initScrollAnimations)
 </script>

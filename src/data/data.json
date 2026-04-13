@@ -1,20 +1,8 @@
 {
   "apps": [
     {
-      "name": "Toebeans",
-      "description": "Toebeans is a cross-platform fortune-telling app for cats, built with Kotlin Multiplatform for iOS and Android.\n\nIt combines playful product design with serious mobile engineering, featuring tarot draws, daily horoscopes, and a gamified in-app currency system powered by shared business logic across platforms.\n\nCurrently in beta.",
-      "homepage": "https://toebeans.life",
-      "og_image": "/image/toebeans.png",
-      "open_source": false,
-      "links": {
-        "play_store": "https://play.google.com/store/apps/details?id=life.toebeans.android",
-        "app_store": "https://testflight.apple.com/join/RBfKew17"
-      },
-      "topics": ["compose-multiplatform", "ai", "ml", "mobile"]
-    },
-    {
       "name": "Should I Go Outside?",
-      "description": "SIGO is a weather app that answers one simple question: should you go outside?\n\nIt fetches the forecast for your current location and gives you a Yes, No, or Maybe based on your configured preferences — ideal temperature range, wind tolerance, and rain or snow thresholds.\n\nBuilt with Kotlin Multiplatform and Compose Multiplatform for Android, iOS, and Desktop.",
+      "description": "SIGO is a weather app that answers one question: should you go outside?\n\nIt fetches the forecast for your current location and gives you a Yes, No, or Maybe based on your configured preferences: ideal temperature range, wind tolerance, and rain or snow thresholds.\n\nBuilt with Kotlin Multiplatform and Compose Multiplatform for Android, iOS, and Desktop.",
       "homepage": "https://shouldigooutside.now",
       "og_image": "https://shouldigooutside.now/og-image.jpg",
       "open_source": true,
@@ -23,6 +11,18 @@
         "play_store": "https://play.google.com/store/apps/details?id=now.shouldigooutside"
       },
       "topics": ["compose-multiplatform", "weather", "mobile", "design"]
+    },
+    {
+      "name": "Toebeans",
+      "description": "Toebeans is a cross-platform fortune-telling app for cats, built with Kotlin Multiplatform for iOS and Android.\n\nIt combines playful product design with serious mobile engineering, featuring tarot draws, daily horoscopes, and a gamified in-app currency system powered by shared business logic across platforms.\n\nCurrently in beta.",
+      "homepage": "https://toebeans.life",
+      "og_image": "toebeans",
+      "open_source": false,
+      "links": {
+        "play_store": "https://play.google.com/store/apps/details?id=life.toebeans.android",
+        "app_store": "https://testflight.apple.com/join/RBfKew17"
+      },
+      "topics": ["compose-multiplatform", "ai", "ml", "mobile"]
     }
   ]
 }

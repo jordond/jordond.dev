@@ -1,118 +1,70 @@
 ---
+import { Image } from "astro:assets"
 import { community } from "../config/data"
+import SectionHeader from "./SectionHeader.astro"
+import Icon from "./Icon.astro"
+
+const pad = (n: number) => String(n).padStart(2, "0")
 ---
 
-<section id="community" class="py-20 px-6">
-  <div class="max-w-4xl mx-auto">
-    <h2
-      class="flex items-center text-2xl md:text-3xl font-bold text-[var(--color-text)] mb-12 animate-on-scroll"
-    >
-      <span class="text-accent font-mono text-xl mr-2">03.</span>
-      Community
-      <span class="ml-4 h-px flex-1 bg-[var(--color-surface-elevated)]"></span>
-    </h2>
+<section id="community" class="section community">
+  <div class="section__inner">
+    <SectionHeader index="§ 03 · community" kicker="Writing & talks">
+      <Fragment slot="title">
+        Out <em>loud</em>.
+      </Fragment>
+      <Fragment slot="lead">
+        Conference talks, podcast episodes, and the occasional essay. Thinking
+        out loud about the work.
+      </Fragment>
+    </SectionHeader>
 
-    <div class="grid gap-6">
+    <div class="community__list">
       {
         community.map((item, index) => (
           <a
             href={item.url}
             target="_blank"
             rel="noopener noreferrer"
-            class="group block animate-on-scroll"
+            class="community__item animate-on-scroll"
             style={`transition-delay: ${(index + 1) * 100}ms`}
+            data-side={index % 2 === 0 ? "left" : "right"}
           >
-            <article class="community-card relative overflow-hidden rounded-lg border border-[var(--color-surface-elevated)] bg-[var(--color-surface)]">
-              <div class="md:flex">
-                {/* Thumbnail - only show for videos */}
-                {item.videoId && (
-                  <div class="relative md:w-80 flex-shrink-0 overflow-hidden">
-                    <div class="aspect-video md:aspect-auto md:h-full">
-                      <img
-                        src={`https://img.youtube.com/vi/${item.videoId}/maxresdefault.jpg`}
-                        alt={`${item.title} thumbnail`}
-                        loading="lazy"
-                        class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                      />
-                    </div>
-                    {/* Play overlay */}
-                    <div class="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                      <div class="flex h-16 w-16 items-center justify-center rounded-full bg-accent text-white shadow-lg">
-                        <svg
-                          class="h-8 w-8 translate-x-0.5"
-                          fill="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M8 5v14l11-7z" />
-                        </svg>
-                      </div>
-                    </div>
+            <article class="community__article">
+              <span class="community__idx">no. {pad(index + 1)}</span>
+
+              {item.videoId && (
+                <div class="community__thumb">
+                  <Image
+                    src={`https://img.youtube.com/vi/${item.videoId}/maxresdefault.jpg`}
+                    alt={`${item.title} thumbnail`}
+                    width={1280}
+                    height={720}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div class="community__play" aria-hidden="true">
+                    <Icon name="play" />
                   </div>
-                )}
+                </div>
+              )}
 
-                {/* Content */}
-                <div class="flex flex-1 flex-col justify-center p-6">
-                  <div class="mb-2 flex flex-wrap items-center gap-2 text-sm">
-                    <span class="rounded-full bg-accent/10 px-3 py-1 font-medium text-accent">
-                      {item.role}
-                    </span>
-                    <span class="text-[var(--color-text-muted)]">
-                      {item.source}
-                    </span>
-                  </div>
+              <div class="community__body">
+                <div class="community__meta">
+                  <span class="community__role">{item.role}</span>
+                  <span class="community__sep" aria-hidden="true">
+                    ·
+                  </span>
+                  <span class="community__source">{item.source}</span>
+                </div>
 
-                  <h3 class="mb-3 text-xl font-semibold text-[var(--color-text)] transition-colors duration-200 group-hover:text-accent">
-                    {item.title}
-                  </h3>
+                <h3 class="community__title">{item.title}</h3>
 
-                  <p class="mb-4 text-[var(--color-text-muted)] leading-relaxed">
-                    {item.description}
-                  </p>
+                <p class="community__desc">{item.description}</p>
 
-                  <div class="flex items-center text-sm font-medium text-accent">
-                    {item.videoId ? (
-                      <>
-                        <svg
-                          class="mr-2 h-5 w-5"
-                          fill="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-                        </svg>
-                        Watch on YouTube
-                      </>
-                    ) : (
-                      <>
-                        <svg
-                          class="mr-2 h-5 w-5"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                          />
-                        </svg>
-                        Read Article
-                      </>
-                    )}
-                    <svg
-                      class="ml-1 h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M17 8l4 4m0 0l-4 4m4-4H3"
-                      />
-                    </svg>
-                  </div>
+                <div class="community__cta">
+                  <span>{item.videoId ? "Watch" : "Read"}</span>
+                  <Icon name="arrow" />
                 </div>
               </div>
             </article>
@@ -124,13 +76,195 @@ import { community } from "../config/data"
 </section>
 
 <style>
-  .community-card {
-    transition:
-      border-color 0.3s ease-out,
-      opacity 0.6s ease,
-      transform 0.6s ease;
+  .community__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--stack-md);
   }
-  .community-card:hover {
-    border-color: var(--color-accent);
+
+  /* Every third item breaks the stack into visual paragraphs. */
+  .community__item:nth-child(3n + 1):not(:first-child) {
+    margin-top: var(--stack-lg);
+  }
+
+  .community__item {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .community__article {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    gap: var(--stack-md);
+    align-items: center;
+    padding: var(--space-sm) 0;
+    border-top: 1px solid var(--color-rule);
+    transition: border-color 0.4s var(--ease-out-expo);
+  }
+
+  .community__item:hover .community__article {
+    border-top-color: var(--color-accent);
+  }
+
+  .community__article:has(.community__thumb:empty),
+  .community__article:not(:has(.community__thumb)) {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .community__item[data-side="right"] .community__article {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  }
+
+  .community__item[data-side="right"] .community__thumb {
+    order: 2;
+  }
+
+  .community__item[data-side="right"] .community__body {
+    order: 1;
+  }
+
+  @media (max-width: 760px) {
+    .community__article,
+    .community__item[data-side="right"] .community__article {
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+    .community__item[data-side="right"] .community__thumb,
+    .community__item[data-side="right"] .community__body {
+      order: initial;
+    }
+  }
+
+  .community__idx {
+    position: absolute;
+    top: 0.85rem;
+    right: 0;
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono-xs);
+    letter-spacing: var(--tr-mono-caps);
+    text-transform: uppercase;
+    color: var(--color-accent-ink);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .community__thumb {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background: var(--color-surface);
+    border: 1px solid var(--color-rule);
+  }
+
+  .community__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s var(--ease-out-expo);
+    filter: grayscale(0.1);
+  }
+
+  .community__item:hover .community__thumb img {
+    transform: scale(1.05);
+    filter: grayscale(0);
+  }
+
+  .community__play {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: color-mix(in oklch, var(--color-text) 40%, transparent);
+    opacity: 0;
+    transition: opacity 0.35s var(--ease-out-expo);
+  }
+
+  .community__play :global(svg) {
+    width: 3rem;
+    height: 3rem;
+    color: var(--color-accent-contrast);
+    background: var(--color-accent);
+    padding: 0.75rem 0.65rem 0.75rem 0.85rem;
+    border-radius: 999px;
+  }
+
+  .community__item:hover .community__play {
+    opacity: 1;
+  }
+
+  .community__body {
+    min-width: 0;
+  }
+
+  .community__meta {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono-sm);
+    letter-spacing: var(--tr-mono-caps);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    margin: 0 0 0.85rem;
+  }
+
+  .community__role {
+    color: var(--color-accent-ink);
+    font-weight: 500;
+  }
+
+  .community__sep {
+    color: var(--color-rule);
+  }
+
+  .community__title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--fs-title-2);
+    line-height: var(--lh-heading);
+    letter-spacing: var(--tr-title);
+    color: var(--color-text);
+    margin: 0 0 0.85rem;
+    transition: color 0.35s var(--ease-out-expo);
+    text-wrap: balance;
+    overflow-wrap: anywhere;
+  }
+
+  .community__item:hover .community__title {
+    color: var(--color-accent);
+  }
+
+  .community__desc {
+    font-family: var(--font-body);
+    font-size: var(--fs-body);
+    line-height: var(--lh-prose);
+    color: var(--color-text-muted);
+    margin: 0 0 1.1rem;
+    max-width: 60ch;
+    text-wrap: pretty;
+  }
+
+  .community__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono-sm);
+    letter-spacing: var(--tr-mono-caps);
+    text-transform: uppercase;
+    color: var(--color-accent-ink);
+    font-weight: 500;
+  }
+
+  .community__cta :global(svg) {
+    width: 1rem;
+    height: 1rem;
+    transition: transform 0.4s var(--ease-out-expo);
+  }
+
+  .community__item:hover .community__cta :global(svg) {
+    transform: translateX(4px);
   }
 </style>

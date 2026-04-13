@@ -22,7 +22,7 @@ export const community: CommunityItem[] = [
     source: "Android Build Time",
     role: "Guest Speaker",
     description:
-      "Discussed Android Media APIs, handling diverse media formats, and performance strategies for efficient media editing.",
+      "On Android Media APIs, juggling video formats, and keeping media editing fast on-device.",
     url: "https://www.youtube.com/watch?v=nWXmrY8J_nY",
     videoId: "nWXmrY8J_nY",
   },

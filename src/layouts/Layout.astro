@@ -9,7 +9,7 @@ interface Props {
 
 const {
   title = "Jordon de Hoog | Kotlin & KMP Developer",
-  description = "Android & Kotlin Multiplatform developer building open source tools for the Kotlin ecosystem. Creator of MaterialKolor, compass, and more.",
+  description = "Android and Kotlin Multiplatform engineer. Open source libraries shipping inside real products on iOS, Android, desktop, and the JVM. Maintainer of MaterialKolor, connectivity, and compass.",
   image = "https://jordond.dev/og-image.png",
 } = Astro.props
 
@@ -34,7 +34,7 @@ const canonicalURL = new URL(
     <meta name="generator" content={Astro.generator} />
     <link rel="canonical" href={canonicalURL} />
 
-    <meta name="theme-color" content="#14B8A6" />
+    <meta name="theme-color" content="#d4572a" />
     <meta name="color-scheme" content="dark light" />
 
     <meta property="og:type" content="website" />
@@ -53,23 +53,37 @@ const canonicalURL = new URL(
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Petrona:ital,wght@0,100..900;1,100..900&family=Schibsted+Grotesk:ital,wght@0,400;0,500;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
 
     <script is:inline>
       ;(function () {
-        const savedTheme = localStorage.getItem("theme")
-        const systemPrefersDark = window.matchMedia(
-          "(prefers-color-scheme: dark)",
-        ).matches
+        let savedTheme = null
+        try {
+          savedTheme = localStorage.getItem("theme")
+        } catch (_) {
+          /* Safari private mode / sandboxed iframes throw on storage access. */
+        }
+        const systemPrefersDark =
+          window.matchMedia &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches
         const theme = savedTheme || (systemPrefersDark ? "dark" : "light")
         document.documentElement.setAttribute("data-theme", theme)
       })()
     </script>
+    <noscript>
+      <style>
+        .animate-on-scroll,
+        .animate-fade-in-up {
+          opacity: 1 !important;
+          transform: none !important;
+        }
+      </style>
+    </noscript>
   </head>
   <body
-    class="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] font-mono antialiased transition-colors duration-300"
+    class="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] antialiased transition-colors duration-300"
   >
     <slot />
   </body>

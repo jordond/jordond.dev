@@ -4,23 +4,29 @@ export default {
   darkMode: ["class", '[data-theme="dark"]'],
   theme: {
     extend: {
-      colors: {
-        accent: {
-          DEFAULT: "#14B8A6",
-          light: "#5EEAD4",
-        },
-        surface: {
-          DEFAULT: "#0a0a0f",
-          card: "#16161d",
-          elevated: "#1e1e26",
-          light: "#fafafa",
-          "card-light": "#ffffff",
-          "elevated-light": "#f5f5f5",
-        },
-      },
       fontFamily: {
-        sans: ["Space Mono", "monospace"],
-        mono: ["JetBrains Mono", "monospace"],
+        display: [
+          '"Petrona"',
+          '"Petrona Fallback"',
+          "ui-serif",
+          "Georgia",
+          "serif",
+        ],
+        body: [
+          '"Schibsted Grotesk"',
+          '"Schibsted Fallback"',
+          "ui-sans-serif",
+          "system-ui",
+          "sans-serif",
+        ],
+        sans: [
+          '"Schibsted Grotesk"',
+          '"Schibsted Fallback"',
+          "ui-sans-serif",
+          "system-ui",
+          "sans-serif",
+        ],
+        mono: ['"JetBrains Mono"', "ui-monospace", "monospace"],
       },
     },
   },

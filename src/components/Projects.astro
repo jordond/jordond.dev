@@ -1,41 +1,36 @@
 ---
 import RepoCard from "./RepoCard.astro"
+import SectionHeader from "./SectionHeader.astro"
 import type { GroupedRepoData } from "../types/repo"
 import reposData from "../data/repos.json"
 
 const { apps, tools, libraries } = reposData as GroupedRepoData
+
+const pad = (n: number) => String(n).padStart(2, "0")
 ---
 
-<section id="projects" class="py-20 px-6">
-  <div class="max-w-6xl mx-auto">
-    <h2
-      class="flex items-center text-2xl md:text-3xl font-bold text-[var(--color-text)] mb-12 animate-on-scroll"
-    >
-      <span class="text-accent font-mono text-xl mr-2">02.</span>
-      Projects
-      <span class="ml-4 h-px flex-1 bg-[var(--color-surface-elevated)]"></span>
-    </h2>
+<section id="projects" class="section projects">
+  <div class="section__inner">
+    <SectionHeader index="§ 02 · work" kicker="Selected work">
+      <Fragment slot="title">
+        Things I've<br />
+        <em>shipped</em>.
+      </Fragment>
+      <Fragment slot="lead">
+        A field guide to the work: a couple of production apps, a handful of
+        developer tools, and the open source libraries I maintain.
+      </Fragment>
+    </SectionHeader>
 
     {
       apps.length > 0 && (
-        <div class="mb-16">
-          <h3 class="text-xl md:text-2xl font-bold text-[var(--color-text)] mb-8 flex items-center gap-3 animate-on-scroll">
-            <svg
-              class="w-6 h-6 text-accent"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
-              />
-            </svg>
-            Apps
-          </h3>
-          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="projects__group projects__group--featured">
+          <header class="chapter">
+            <span class="chapter__ord">ⅰ &nbsp;· &nbsp;Apps</span>
+            <h3 class="chapter__title">In the stores</h3>
+            <span class="chapter__count">{pad(apps.length)} shown</span>
+          </header>
+          <div class="projects__grid projects__grid--featured">
             {apps.map((repo, index) => (
               <RepoCard repo={repo} index={index} />
             ))}
@@ -45,26 +40,15 @@ const { apps, tools, libraries } = reposData as GroupedRepoData
     }
 
     {
-      tools.length > 0 && (
-        <div class="mb-16">
-          <h3 class="text-xl md:text-2xl font-bold text-[var(--color-text)] mb-8 flex items-center gap-3 animate-on-scroll">
-            <svg
-              class="w-6 h-6 text-accent"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-              />
-            </svg>
-            Tools
-          </h3>
-          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {tools.map((repo, index) => (
+      libraries.length > 0 && (
+        <div class="projects__group">
+          <header class="chapter">
+            <span class="chapter__ord">ⅱ &nbsp;· &nbsp;Libraries</span>
+            <h3 class="chapter__title">On Maven Central</h3>
+            <span class="chapter__count">{pad(libraries.length)} shown</span>
+          </header>
+          <div class="projects__grid">
+            {libraries.map((repo, index) => (
               <RepoCard repo={repo} index={index} />
             ))}
           </div>
@@ -73,26 +57,15 @@ const { apps, tools, libraries } = reposData as GroupedRepoData
     }
 
     {
-      libraries.length > 0 && (
-        <div>
-          <h3 class="text-xl md:text-2xl font-bold text-[var(--color-text)] mb-8 flex items-center gap-3 animate-on-scroll">
-            <svg
-              class="w-6 h-6 text-accent"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-              />
-            </svg>
-            Libraries
-          </h3>
-          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {libraries.map((repo, index) => (
+      tools.length > 0 && (
+        <div class="projects__group">
+          <header class="chapter">
+            <span class="chapter__ord">ⅲ &nbsp;· &nbsp;Tools</span>
+            <h3 class="chapter__title">CLI &amp; IDE</h3>
+            <span class="chapter__count">{pad(tools.length)} shown</span>
+          </header>
+          <div class="projects__grid">
+            {tools.map((repo, index) => (
               <RepoCard repo={repo} index={index} />
             ))}
           </div>
@@ -101,3 +74,33 @@ const { apps, tools, libraries } = reposData as GroupedRepoData
     }
   </div>
 </section>
+
+<style>
+  .projects__group {
+    margin-bottom: var(--group-gap);
+  }
+
+  .projects__group:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Featured group anchors the section with extra breathing room above and below. */
+  .projects__group--featured {
+    margin-bottom: calc(var(--group-gap) * 1.35);
+  }
+
+  .projects__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+    gap: var(--stack-md);
+  }
+
+  /* Apps stack vertically (not a grid) so the image/body split reads comfortably. */
+  .projects__grid--featured {
+    display: flex;
+    flex-direction: column;
+    gap: var(--stack-md);
+    max-width: 64rem;
+    margin-inline: auto;
+  }
+</style>

@@ -1,9 +1,6 @@
 import type { RepoConfig } from "../types/repo"
 
-/**
- * List of repositories to feature on the portfolio
- * Order determines display order within their respective categories
- */
+/* Order within each category determines display order. */
 export const repos: RepoConfig[] = [
   { name: "MaterialKolor" },
   { name: "compass" },

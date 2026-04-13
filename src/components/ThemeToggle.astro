@@ -2,7 +2,8 @@
   id="theme-toggle"
   type="button"
   aria-label="Toggle dark mode"
-  class="relative p-2 rounded-lg bg-[var(--color-surface-elevated)] hover:bg-[var(--color-surface)] border border-[var(--color-border)] transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-[var(--color-bg)]"
+  aria-pressed="true"
+  class="relative p-2 rounded-lg bg-[var(--color-surface-elevated)] hover:bg-[var(--color-surface)] border border-[var(--color-border)] transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)] focus:ring-offset-2 focus:ring-offset-[var(--color-bg)]"
 >
   <svg
     id="sun-icon"
@@ -65,24 +66,30 @@
 
     if (!toggle) return
 
+    const syncState = (theme: string | null) => {
+      const isDark = theme === "dark"
+      toggle.setAttribute(
+        "aria-label",
+        isDark ? "Switch to light mode" : "Switch to dark mode",
+      )
+      toggle.setAttribute("aria-pressed", String(isDark))
+    }
+
     toggle.addEventListener("click", () => {
       const currentTheme = document.documentElement.getAttribute("data-theme")
       const newTheme = currentTheme === "dark" ? "light" : "dark"
 
       document.documentElement.setAttribute("data-theme", newTheme)
-      localStorage.setItem("theme", newTheme)
+      try {
+        localStorage.setItem("theme", newTheme)
+      } catch (_) {
+        /* Storage disabled — theme still applies for this session. */
+      }
 
-      toggle.setAttribute(
-        "aria-label",
-        newTheme === "dark" ? "Switch to light mode" : "Switch to dark mode",
-      )
+      syncState(newTheme)
     })
 
-    const theme = document.documentElement.getAttribute("data-theme")
-    toggle.setAttribute(
-      "aria-label",
-      theme === "dark" ? "Switch to light mode" : "Switch to dark mode",
-    )
+    syncState(document.documentElement.getAttribute("data-theme"))
   }
 
   initThemeToggle()

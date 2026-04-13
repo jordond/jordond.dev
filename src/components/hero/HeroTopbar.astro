@@ -1,0 +1,105 @@
+---
+import ThemeToggle from "../ThemeToggle.astro"
+import Icon from "../Icon.astro"
+---
+
+<div class="hero__topbar">
+  <a href="/" class="hero__mark" aria-label="Jordon de Hoog, home">
+    jordond<span class="hero__mark-dot" aria-hidden="true">.</span>dev
+  </a>
+  <div class="hero__topbar-actions">
+    <a
+      class="hero__icon-link"
+      href="https://github.com/jordond"
+      target="_blank"
+      rel="me noopener noreferrer"
+      aria-label="GitHub profile"
+    >
+      <Icon name="github" />
+    </a>
+    <ThemeToggle />
+  </div>
+</div>
+
+<style>
+  .hero__topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono-md);
+  }
+
+  .hero__topbar-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .hero__icon-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+    background: var(--color-surface-elevated);
+    color: var(--color-text);
+    text-decoration: none;
+    transition:
+      background-color 0.2s var(--ease-out-expo),
+      border-color 0.2s var(--ease-out-expo),
+      color 0.2s var(--ease-out-expo);
+  }
+
+  .hero__icon-link :global(svg) {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .hero__icon-link:hover {
+    background: var(--color-surface);
+    border-color: var(--color-accent);
+    color: var(--color-accent-ink);
+  }
+
+  .hero__icon-link:focus-visible {
+    outline: none;
+    box-shadow:
+      0 0 0 2px var(--color-bg),
+      0 0 0 4px var(--color-accent);
+  }
+
+  .hero__mark {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0;
+    padding: 0.4rem 0.7rem;
+    border: 1px solid var(--color-rule);
+    color: var(--color-text);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    font-weight: 500;
+    transition:
+      border-color 0.3s var(--ease-out-expo),
+      color 0.3s var(--ease-out-expo);
+    opacity: 0;
+    animation: fadeInUp 0.9s var(--ease-out-expo) forwards;
+  }
+
+  .hero__mark:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent-ink);
+  }
+
+  .hero__mark-dot {
+    color: var(--color-accent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero__mark {
+      opacity: 1;
+      animation: none;
+    }
+  }
+</style>

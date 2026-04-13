@@ -1,124 +1,133 @@
 ---
-import ThemeToggle from "./ThemeToggle.astro"
+import HeroTopbar from "./hero/HeroTopbar.astro"
+import HeroLede from "./hero/HeroLede.astro"
+import HeroCodeCard from "./hero/HeroCodeCard.astro"
+import { buildKotlinCode } from "./hero/kotlinCode"
+import reposData from "../data/repos.json"
+import type { GroupedRepoData } from "../types/repo"
+
+const { libraries } = reposData as GroupedRepoData
+const totalStars = libraries.reduce((sum, l) => sum + l.stargazers_count, 0)
+const shipped = ["Should I Go Outside?", "jolt", "compose-resources-kit"]
+const codeHtml = buildKotlinCode({ libraries, shipped, totalStars })
 ---
 
-<section
-  class="relative min-h-screen flex flex-col justify-center px-6 py-20 overflow-hidden"
->
-  <div
-    class="absolute inset-0 bg-gradient-to-br from-accent/10 via-transparent to-accent/5 pointer-events-none"
-  >
+<section class="hero" aria-labelledby="hero-headline">
+  <HeroTopbar />
+  <div class="hero__inner">
+    <HeroLede />
+    <HeroCodeCard codeHtml={codeHtml} />
   </div>
-
-  <div class="absolute top-6 right-6">
-    <ThemeToggle />
-  </div>
-
-  <div class="max-w-4xl mx-auto w-full relative z-10">
-    <p
-      class="text-accent font-mono text-sm md:text-base mb-4 animate-fade-in-up"
-    >
-      Hi, my name is
-    </p>
-
-    <h1
-      class="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-[var(--color-text)] mb-4 animate-fade-in-up delay-100"
-    >
-      Jordon de Hoog.
-    </h1>
-
-    <h2
-      class="text-xl sm:text-2xl md:text-5xl lg:text-6xl font-bold text-[var(--color-text-muted)] mb-6 animate-fade-in-up delay-200 md:whitespace-nowrap"
-    >
-      I build tools for Kotlin developers.
-    </h2>
-
-    <p
-      class="text-lg md:text-xl text-[var(--color-text-muted)] max-w-2xl mb-6 leading-relaxed animate-fade-in-up delay-300"
-    >
-      <span class="text-accent">Android & Kotlin Multiplatform engineer</span>.
-      Open source maintainer.
-    </p>
-
-    <div class="mb-10 animate-fade-in-up delay-300">
-      <span
-        class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-accent/15 text-accent border border-accent/30"
-      >
-        Open to opportunities
-      </span>
-    </div>
-
-    <div class="flex flex-wrap gap-4 animate-fade-in-up delay-400">
-      <a
-        href="#projects"
-        class="inline-flex items-center px-6 py-3 rounded-lg border border-accent text-accent font-medium hover:bg-accent/10 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-[var(--color-bg)]"
-      >
-        View My Projects
-        <svg
-          class="w-4 h-4 ml-2"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M19 9l-7 7-7-7"></path>
-        </svg>
-      </a>
-      <a
-        href="https://linkedin.com/in/jordondehoog"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-flex items-center px-6 py-3 rounded-lg border border-accent text-accent font-medium hover:bg-accent/10 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-[var(--color-bg)]"
-      >
-        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
-          <path
-            d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
-          ></path>
-        </svg>
-        Get In Touch
-      </a>
-    </div>
-
-    <div class="mt-4 animate-fade-in-up delay-500">
-      <a
-        href="/resume.pdf"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-flex items-center text-sm text-[var(--color-text-muted)] hover:text-accent transition-colors duration-200 font-mono"
-      >
-        View my resume
-        <svg
-          class="w-3.5 h-3.5 ml-1.5"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-          ></path>
-        </svg>
-      </a>
-    </div>
-  </div>
-
-  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-float">
-    <svg
-      class="w-6 h-6 text-[var(--color-text-muted)]"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-    </svg>
+  <div class="hero__footnote" aria-hidden="true">
+    <span>scroll</span>
+    <span class="hero__footnote-rule"></span>
+    <span>work &amp; community below</span>
   </div>
 </section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    padding: clamp(1.25rem, 2.4vw, 2rem) var(--gutter)
+      clamp(1.5rem, 3vw, 2.5rem);
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: var(--stack-md);
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(
+        ellipse 80% 55% at 12% 8%,
+        var(--color-accent-soft) 0%,
+        transparent 60%
+      ),
+      radial-gradient(
+        ellipse 60% 40% at 100% 100%,
+        var(--color-accent-soft) 0%,
+        transparent 55%
+      );
+    opacity: 0.7;
+    z-index: 0;
+  }
+
+  .hero::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: var(--gutter);
+    width: 1px;
+    background: var(--color-rule);
+    opacity: 0.35;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .hero > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.95fr);
+    gap: var(--stack-md);
+    align-items: center;
+  }
+
+  @media (max-width: 960px) {
+    .hero__inner {
+      grid-template-columns: 1fr;
+      gap: var(--stack-md);
+      align-items: start;
+    }
+  }
+
+  .hero__footnote {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono-sm);
+    letter-spacing: var(--tr-mono-caps);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    opacity: 0;
+    animation: fadeInUp 0.9s 1.4s var(--ease-out-expo) forwards;
+  }
+
+  .hero__footnote-rule {
+    flex: 1 1 auto;
+    height: 1px;
+    background: var(--color-rule);
+  }
+
+  @media (max-width: 640px) {
+    .hero::after {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero__footnote {
+      opacity: 1;
+      animation: none;
+    }
+  }
+</style>
+
+<script is:inline>
+  document.documentElement.classList.add("js")
+</script>
+
+<script>
+  import { initHero } from "./hero/heroMotion"
+  initHero()
+</script>

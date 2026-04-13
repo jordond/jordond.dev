@@ -1,11 +1,6 @@
 import { writeFileSync, mkdirSync, existsSync, readFileSync } from "fs"
 import { repos, GITHUB_API_BASE, DEFAULT_OWNER } from "../src/config/repos"
-import type {
-  RepoConfig,
-  RepoData,
-  GroupedRepoData,
-  RepoType,
-} from "../src/types/repo"
+import type { RepoConfig, RepoData, GroupedRepoData } from "../src/types/repo"
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN
 
@@ -17,6 +12,7 @@ interface LocalData {
     og_image?: string
     open_source: boolean
     links?: {
+      github?: string
       play_store?: string
       app_store?: string
       windows?: string
@@ -90,7 +86,6 @@ async function main() {
     libraries: [],
   }
 
-  // 1. Fetch from src/config/repos.ts
   for (const repoConfig of repos) {
     console.log(
       `📦 Fetching ${repoConfig.owner ?? DEFAULT_OWNER}/${repoConfig.name}...`,
@@ -104,7 +99,6 @@ async function main() {
     }
   }
 
-  // 2. Process src/data/data.json
   const localDataPath = "src/data/data.json"
   if (existsSync(localDataPath)) {
     console.log(`\n📂 Processing local data from ${localDataPath}...`)
@@ -114,13 +108,35 @@ async function main() {
 
     if (localData.apps) {
       for (const app of localData.apps) {
+        /* Open-source apps fetch live star count + full_name so the card shows real social proof. */
+        let stargazers = 0
+        let fullName = ""
+        let htmlUrl = app.links?.github || ""
+
+        if (app.open_source && app.links?.github) {
+          const match = app.links.github.match(
+            /github\.com\/([^/]+)\/([^/#?]+)/,
+          )
+          if (match) {
+            const [, owner, name] = match
+            console.log(`📦 Fetching ${owner}/${name} (app)...`)
+            const fetched = await fetchRepo({ owner, name, type: "app" })
+            if (fetched) {
+              stargazers = fetched.stargazers_count
+              fullName = fetched.full_name
+              htmlUrl = fetched.html_url || htmlUrl
+              console.log(`   ⭐ ${stargazers} stars`)
+            }
+          }
+        }
+
         results.apps.push({
           name: app.name,
-          full_name: "",
+          full_name: fullName,
           description: app.description,
-          html_url: "",
+          html_url: htmlUrl,
           homepage: app.homepage || null,
-          stargazers_count: 0,
+          stargazers_count: stargazers,
           language: null,
           topics: app.topics || [],
           type: "app",
@@ -163,18 +179,15 @@ async function main() {
     }
   }
 
-  // Sort each group by star count
-  results.apps.sort((a, b) => b.stargazers_count - a.stargazers_count)
+  /* Apps preserve insertion order from data.json; tools/libraries sort by stars. */
   results.tools.sort((a, b) => b.stargazers_count - a.stargazers_count)
   results.libraries.sort((a, b) => b.stargazers_count - a.stargazers_count)
 
-  // Ensure data directory exists
   const dataDir = "src/data"
   if (!existsSync(dataDir)) {
     mkdirSync(dataDir, { recursive: true })
   }
 
-  // Write results
   const outputPath = `${dataDir}/repos.json`
   writeFileSync(outputPath, JSON.stringify(results, null, 2))
 

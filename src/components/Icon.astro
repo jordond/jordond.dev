@@ -1,0 +1,37 @@
+---
+import { icons, type IconName } from "../lib/icons"
+
+interface Props {
+  name: IconName
+  class?: string
+  label?: string
+  strokeWidth?: number
+}
+
+const { name, class: klass, label, strokeWidth = 1.8 } = Astro.props
+const icon = icons[name]
+
+const a11y: { role?: "img"; "aria-label"?: string; "aria-hidden"?: "true" } =
+  label ? { role: "img", "aria-label": label } : { "aria-hidden": "true" }
+---
+
+{
+  icon.variant === "fill" ? (
+    <svg viewBox={icon.viewBox} class={klass} fill="currentColor" {...a11y}>
+      <path d={icon.d} />
+    </svg>
+  ) : (
+    <svg
+      viewBox={icon.viewBox}
+      class={klass}
+      fill="none"
+      stroke="currentColor"
+      stroke-width={strokeWidth}
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      {...a11y}
+    >
+      <path d={icon.d} />
+    </svg>
+  )
+}

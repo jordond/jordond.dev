@@ -1,0 +1,26 @@
+---
+interface Props {
+  index: string
+  kicker: string
+}
+
+const { index, kicker } = Astro.props
+const hasLead = Astro.slots.has("lead")
+---
+
+<header class="section__head">
+  <span class="section__index" aria-hidden="true">{index}</span>
+  <div class="section__heading">
+    <p class="section__kicker">{kicker}</p>
+    <h2 class="section__title">
+      <slot name="title" />
+    </h2>
+    {
+      hasLead && (
+        <p class="section__lead">
+          <slot name="lead" />
+        </p>
+      )
+    }
+  </div>
+</header>
