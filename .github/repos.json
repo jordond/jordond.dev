@@ -10,7 +10,7 @@
       "language": "Rust",
       "topics": ["app", "rust"],
       "type": "app",
-      "image": "https://raw.githubusercontent.com/jordond/MaterialKolor/main/art/banner.png",
+      "image": "https://raw.githubusercontent.com/jordond/MaterialKolor/main/art/materialkolor-logo.png",
       "links": {
         "playStore": "https://play.google.com/store/apps",
         "appStore": "https://apps.apple.com",
