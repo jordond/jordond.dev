@@ -2,45 +2,51 @@
 import { Image } from "astro:assets"
 import avatar from "../assets/avatar.jpg"
 import { skills } from "../config/data"
-import { Picture } from "astro:assets"
+import SectionHeader from "./SectionHeader.astro"
 ---
 
-<section id="about" class="py-20 px-6">
-  <div class="max-w-4xl mx-auto">
-    <h2
-      class="flex items-center text-2xl md:text-3xl font-bold text-[var(--color-text)] mb-12 animate-on-scroll"
-    >
-      <span class="text-accent font-mono text-xl mr-2">01.</span>
-      About Me
-      <span class="ml-4 h-px flex-1 bg-[var(--color-surface-elevated)]"></span>
-    </h2>
+<section id="about" class="section about">
+  <div class="section__inner">
+    <SectionHeader index="§ 01 · about" kicker="The elevator pitch">
+      <Fragment slot="title">
+        Kotlin,<br />
+        <em>mostly</em>.
+      </Fragment>
+      <Fragment slot="lead">
+        Libraries, tools, and production apps. Most of it open source, most of
+        it Kotlin. A handful of the libraries now ship inside other people's
+        products, on iOS, Android, desktop, and the JVM.
+      </Fragment>
+    </SectionHeader>
 
-    <div class="grid md:grid-cols-3 gap-12 items-start">
-      <div class="md:col-span-2 space-y-4 animate-on-scroll delay-100">
-        <p class="text-[var(--color-text-muted)] leading-relaxed">
-          Hello! I'm Jordon, an Android and Kotlin Multiplatform developer based
-          in
-          <span class="text-accent">London, Ontario, Canada</span>. I enjoy
-          creating tools and libraries that help other developers build better
-          applications.
-        </p>
-        <p class="text-[var(--color-text-muted)] leading-relaxed">
-          My current focus is <span class="text-accent"
+    <div class="about__body">
+      <div class="about__copy">
+        <p class="about__lead">
+          <span class="about__drop">H</span>ello. I'm Jordon. I make the kind of
+          developer tools you install once, forget about, and notice the day
+          they aren't there. Android libraries, <span class="about__accent"
             >Kotlin Multiplatform</span
-          > development, from production apps to the libraries that support them.
-          I maintain several open source libraries used by teams shipping to Android,
-          iOS, and desktop.
+          > modules, and the occasional IDE plugin that makes someone's Monday easier.
         </p>
 
-        <div class="pt-4">
-          <p class="text-[var(--color-text)] font-medium mb-3">
-            Technologies I work with:
-          </p>
-          <ul class="grid grid-cols-2 gap-2">
+        <p class="about__para">
+          Most of my time goes into open source. <span class="about__accent"
+            >MaterialKolor</span
+          >, <span class="about__accent">compass</span>, <span
+            class="about__accent">jolt</span
+          >, and a handful of smaller libraries. The apps pay the rent. The
+          libraries are where the experiments live.
+        </p>
+
+        <div class="about__skills">
+          <p class="about__skills-label">Currently working with</p>
+          <ul class="about__skills-list">
             {
               skills.map((skill) => (
-                <li class="flex items-center text-[var(--color-text-muted)]">
-                  <span class="text-accent mr-2">&#9656;</span>
+                <li class="about__skill">
+                  <span class="about__skill-mark" aria-hidden="true">
+                    ▸
+                  </span>
                   {skill}
                 </li>
               ))
@@ -49,53 +55,182 @@ import { Picture } from "astro:assets"
         </div>
       </div>
 
-      <div class="animate-on-scroll delay-200">
-        <div class="relative group">
-          <div
-            class="absolute -inset-2 bg-gradient-to-r from-accent to-accent-light rounded-lg opacity-20 blur-lg group-hover:opacity-30 transition-opacity duration-300"
-          >
-          </div>
-          <div class="relative">
-            <Image
-              src={avatar}
-              alt="Avatar of Jordon de Hoog"
-              width={1200}
-              height={1200}
-              loading="lazy"
-              class="aspect-square object-cover rounded-lg w-full mx-auto border-4 border-[var(--color-surface-elevated)] transition-transform duration-300 group-hover:scale-[1.02]"
-            />
-          </div>
+      <figure class="about__figure">
+        <div class="about__portrait">
+          <span class="about__portrait-backer" aria-hidden="true"></span>
+          <Image
+            src={avatar}
+            alt="Portrait of Jordon de Hoog"
+            width={1200}
+            height={1200}
+            loading="lazy"
+            class="about__portrait-img"
+          />
         </div>
-
-        <div
-          class="mt-4 flex items-center justify-center gap-2 text-sm text-[var(--color-text-muted)]"
-        >
-          <span class="relative flex h-3 w-3">
-            <span
-              class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"
-            ></span>
-            <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"
-            ></span>
-          </span>
-          Available for opportunities
-        </div>
-
-        <div class="mt-3 flex justify-center">
-          <a
-            href="https://github.com/jordond"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center px-4 py-2 rounded-lg border border-accent text-accent text-sm font-medium hover:bg-accent/10 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-[var(--color-bg)]"
-          >
-            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
-              <path
-                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
-              ></path>
-            </svg>
-            GitHub
-          </a>
-        </div>
-      </div>
+        <figcaption class="about__caption">
+          <span class="about__caption-idx">pl.&nbsp;01</span>
+          <span>For reference.</span>
+        </figcaption>
+      </figure>
     </div>
   </div>
 </section>
+
+<style>
+  .about__body {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.9fr);
+    gap: var(--stack-lg);
+    align-items: start;
+  }
+
+  @media (max-width: 900px) {
+    .about__body {
+      grid-template-columns: 1fr;
+      gap: var(--stack-md);
+    }
+  }
+
+  .about__copy {
+    max-width: var(--max-prose);
+  }
+
+  .about__lead {
+    font-family: var(--font-body);
+    font-size: var(--fs-lead-lg);
+    line-height: 1.5;
+    color: var(--color-text);
+    margin: 0 0 var(--space-md);
+    font-weight: 400;
+    text-wrap: pretty;
+  }
+
+  .about__drop {
+    float: left;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 4.8em;
+    line-height: 0.82;
+    padding: 0.08em 0.08em 0 0;
+    margin: 0.05em 0.12em 0 -0.04em;
+    color: var(--color-accent);
+  }
+
+  .about__para {
+    font-family: var(--font-body);
+    font-size: var(--fs-body);
+    line-height: var(--lh-prose);
+    color: var(--color-text-muted);
+    margin: 0 0 var(--space-lg);
+    max-width: 56ch;
+  }
+
+  .about__accent {
+    color: var(--color-accent-ink);
+    font-weight: 500;
+  }
+
+  .about__skills {
+    margin-top: var(--space-lg);
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--color-rule);
+  }
+
+  .about__skills-label {
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono-sm);
+    letter-spacing: var(--tr-mono-caps-lg);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    margin: 0 0 var(--space-sm);
+  }
+
+  .about__skills-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-2xs) var(--space-md);
+  }
+
+  .about__skill {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono-md);
+    color: var(--color-text);
+  }
+
+  .about__skill-mark {
+    color: var(--color-accent);
+    font-size: var(--fs-mono-sm);
+  }
+
+  .about__figure {
+    margin: 0;
+    position: relative;
+    padding: clamp(0.5rem, 2vw, 1.5rem);
+  }
+
+  .about__portrait {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    max-width: 22rem;
+    margin-left: auto;
+    transform: rotate(1.2deg);
+  }
+
+  @media (max-width: 900px) {
+    .about__portrait {
+      margin: 0 auto;
+    }
+  }
+
+  .about__portrait-backer {
+    position: absolute;
+    inset: 1.25rem -1.25rem -1.25rem 1.25rem;
+    background: var(--color-accent);
+    z-index: 0;
+    transform: rotate(-2.4deg);
+    transition: transform 0.5s var(--ease-out-expo);
+  }
+
+  .about__portrait:hover .about__portrait-backer {
+    transform: rotate(-3.6deg) translate(-4px, 4px);
+  }
+
+  .about__portrait-img {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 1px solid var(--color-rule);
+    transition: transform 0.5s var(--ease-out-expo);
+    filter: grayscale(0.12) contrast(1.02);
+  }
+
+  .about__portrait:hover .about__portrait-img {
+    transform: translate(-4px, -4px);
+  }
+
+  .about__caption {
+    display: flex;
+    gap: 0.75rem;
+    align-items: baseline;
+    margin-top: 1.5rem;
+    padding-left: 0.25rem;
+    font-family: var(--font-mono);
+    font-size: var(--fs-mono-xs);
+    letter-spacing: var(--tr-mono);
+    color: var(--color-text-muted);
+    text-transform: lowercase;
+  }
+
+  .about__caption-idx {
+    color: var(--color-accent-ink);
+    font-weight: 500;
+  }
+</style>
