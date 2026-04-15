@@ -1,0 +1,45 @@
+---
+import Layout from "../layouts/Layout.astro"
+import Hero from "../components/Hero.astro"
+import About from "../components/About.astro"
+import Projects from "../components/Projects.astro"
+import Community from "../components/Community.astro"
+import Footer from "../components/Footer.astro"
+---
+
+<Layout>
+  <main>
+    <Hero />
+    <About />
+    <Projects />
+    <Community />
+  </main>
+  <Footer />
+</Layout>
+
+<script>
+  function initScrollAnimations() {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animated")
+            observer.unobserve(entry.target)
+          }
+        })
+      },
+      {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      },
+    )
+
+    document.querySelectorAll(".animate-on-scroll").forEach((el) => {
+      observer.observe(el)
+    })
+  }
+
+  initScrollAnimations()
+
+  document.addEventListener("astro:after-swap", initScrollAnimations)
+</script>
