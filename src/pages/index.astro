@@ -23,7 +23,7 @@ const totalStars = [...tools, ...libraries].reduce(
     <title>Jordon de Hoog : Software Engineer</title>
     <meta
       name="description"
-      content="Jordon de Hoog. Software engineer specializing in Kotlin, Kotlin Multiplatform, and Android. Open source author of MaterialKolor, connectivity, and compass."
+      content="Jordon de Hoog — software engineer specializing in Kotlin, Kotlin Multiplatform, and Android. Open source author and maintainer of widely-used Compose Multiplatform libraries."
     />
     <meta name="author" content="Jordon de Hoog" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -62,17 +62,21 @@ const totalStars = [...tools, ...libraries].reduce(
     </table>
 
     <p class="topnav">
-      <span class="sep">[ </span><a href="#summary">Summary</a>
-      <span class="sep"> | </span><a href="#apps">Apps</a>
-      <span class="sep"> | </span><a href="#libraries">Libraries</a>
-      <span class="sep"> | </span><a href="#tools">Tools</a>
-      <span class="sep"> | </span><a href="#talks">Talks</a>
-      <span class="sep"> | </span><a href="#contact">Contact</a>
-      <span class="sep"> | </span><a href="/modern">Modern site</a><span
-        class="sep"
-      >
-        ]</span
-      >
+      <span class="sep">[ </span>
+      <a href="#summary">Summary</a>
+      <span class="sep"> | </span>
+      <a href="#apps">Apps</a>
+      <span class="sep"> | </span>
+      <a href="#libraries">Libraries</a>
+      <span class="sep"> | </span>
+      <a href="#tools">Tools</a>
+      <span class="sep"> | </span>
+      <a href="#talks">Talks</a>
+      <span class="sep"> | </span>
+      <a href="#contact">Contact</a>
+      <span class="sep"> | </span>
+      <a href="/modern">Modern site</a>
+      <span class="sep"> ]</span>
     </p>
 
     <h2 id="summary">Summary</h2>
@@ -351,18 +355,6 @@ const totalStars = [...tools, ...libraries].reduce(
   li {
     margin: 2px 0;
   }
-  dl {
-    margin: 4px 0 8px 0;
-  }
-  dt {
-    float: left;
-    clear: left;
-    width: 90px;
-    font-weight: bold;
-  }
-  dd {
-    margin: 0 0 2px 100px;
-  }
   table.projects {
     width: 100%;
     border-collapse: separate;
@@ -541,10 +533,14 @@ const totalStars = [...tools, ...libraries].reduce(
       flex: 1 1 auto;
       min-width: calc(50% - 4px);
       padding: 10px 6px;
-      border: 1px outset #5555aa;
-      background: #00006a;
+      border: 2px outset #5555aa;
+      background: #000080;
+      color: #ffff00;
       text-align: center;
       text-decoration: none;
+    }
+    .topnav a:active {
+      border-style: inset;
     }
     table.stats td {
       display: inline-block;
