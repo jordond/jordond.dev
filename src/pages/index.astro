@@ -539,9 +539,20 @@ const totalStars = reposData.totalUserStars
     .topnav a:active {
       border-style: inset;
     }
+    table.stats,
+    table.stats tbody {
+      display: block;
+      width: 100%;
+    }
+    table.stats tr {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+    }
     table.stats td {
-      display: inline-block;
+      display: block;
       width: 50%;
+      flex: 0 0 50%;
       box-sizing: border-box;
       padding: 8px 4px;
       border-right: 0;
