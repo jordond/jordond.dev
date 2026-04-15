@@ -1,11 +1,24 @@
 {
   "apps": [
     {
+      "name": "Reading Journey",
+      "description": "A beautiful book tracker that captures how every story makes you feel. Scan books, log your reading moments with photos and emoji reactions, and watch your reading journey unfold.",
+      "homepage": "https://readingjourney.co/",
+      "og_image": "https://readingjourney.co/images/og-image.png",
+      "open_source": false,
+      "role": "Developer",
+      "links": {
+        "app_store": "https://apps.apple.com/us/app/reading-journey-book-tracker/id6749302195"
+      },
+      "topics": ["ios", "swift", "mobile"]
+    },
+    {
       "name": "Should I Go Outside?",
       "description": "SIGO is a weather app that answers one question: should you go outside?\n\nIt fetches the forecast for your current location and gives you a Yes, No, or Maybe based on your configured preferences: ideal temperature range, wind tolerance, and rain or snow thresholds.\n\nBuilt with Kotlin Multiplatform and Compose Multiplatform for Android, iOS, and Desktop.",
       "homepage": "https://shouldigooutside.now",
       "og_image": "https://shouldigooutside.now/og-image.jpg",
       "open_source": true,
+      "role": "Founder",
       "links": {
         "github": "https://github.com/jordond/SIGO",
         "play_store": "https://play.google.com/store/apps/details?id=now.shouldigooutside",
@@ -19,6 +32,7 @@
       "homepage": "https://toebeans.life",
       "og_image": "toebeans",
       "open_source": false,
+      "role": "Founder",
       "links": {
         "play_store": "https://play.google.com/store/apps/details?id=life.toebeans.android",
         "app_store": "https://testflight.apple.com/join/RBfKew17"

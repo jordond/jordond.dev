@@ -27,215 +27,11 @@ const totalStars = [...tools, ...libraries].reduce(
     />
     <meta name="author" content="Jordon de Hoog" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <style is:global>
-      html {
-        background: #008080;
-      }
-      body {
-        font-family: "Times New Roman", Times, serif;
-        font-size: 16px;
-        line-height: 1.5;
-        color: #000000;
-        background: #c0c0c0;
-        max-width: 760px;
-        margin: 16px auto;
-        padding: 16px 24px 28px 24px;
-        border: 4px ridge #808080;
-      }
-      a:link {
-        color: #0000ee;
-        text-decoration: underline;
-      }
-      a:visited {
-        color: #551a8b;
-        text-decoration: underline;
-      }
-      a:active {
-        color: #ff0000;
-      }
-      h1 {
-        font-size: 32px;
-        font-weight: bold;
-        margin: 0 0 2px 0;
-      }
-      h2 {
-        font-size: 20px;
-        font-weight: bold;
-        background: #000080;
-        color: #ffff00;
-        padding: 5px 10px;
-        border: 2px outset #c0c0c0;
-        margin: 26px 0 10px 0;
-      }
-      h3 {
-        font-size: 17px;
-        font-weight: bold;
-        margin: 14px 0 2px 0;
-      }
-      h3.subsection {
-        font-family: "Courier New", Courier, monospace;
-        font-size: 13px;
-        font-weight: bold;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        color: #000000;
-        margin: 20px 0 4px 0;
-      }
-      h3.subsection::before {
-        content: "// ";
-        color: #808080;
-      }
-      p {
-        margin: 6px 0;
-      }
-      hr {
-        border: 0;
-        border-top: 2px groove #808080;
-        margin: 18px 0;
-      }
-      ul {
-        margin: 4px 0 8px 0;
-        padding-left: 24px;
-      }
-      ul.bullets {
-        list-style: square;
-      }
-      li {
-        margin: 2px 0;
-      }
-      dl {
-        margin: 4px 0 8px 0;
-      }
-      dt {
-        float: left;
-        clear: left;
-        width: 90px;
-        font-weight: bold;
-      }
-      dd {
-        margin: 0 0 2px 100px;
-      }
-      table.projects {
-        width: 100%;
-        border-collapse: separate;
-        border-spacing: 0;
-        background: #d4d0c8;
-        border: 3px outset #c0c0c0;
-        margin: 8px 0 12px 0;
-      }
-      table.projects th {
-        text-align: left;
-        background: #000080;
-        color: #ffffff;
-        padding: 5px 8px;
-        font-family: "Courier New", Courier, monospace;
-        font-size: 13px;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-      }
-      table.projects td {
-        text-align: left;
-        vertical-align: top;
-        padding: 6px 8px;
-        border-top: 1px solid #808080;
-        font-size: 15px;
-      }
-      table.projects td.stars {
-        text-align: right;
-        white-space: nowrap;
-        font-family: "Courier New", Courier, monospace;
-        font-size: 14px;
-        color: #b8860b;
-        font-weight: bold;
-      }
-      .meta {
-        font-size: 12px;
-        color: #444444;
-        font-family: "Courier New", Courier, monospace;
-      }
-      .topnav {
-        text-align: center;
-        background: #000080;
-        color: #ffffff;
-        padding: 6px 8px;
-        border: 2px outset #c0c0c0;
-        font-family: "Courier New", Courier, monospace;
-        font-size: 13px;
-        margin: 10px 0 14px 0;
-      }
-      .topnav a:link,
-      .topnav a:visited {
-        color: #ffff00;
-      }
-      .status {
-        background: #ffffcc;
-        border-left: 4px solid #ff8c00;
-        border-top: 1px solid #808080;
-        border-right: 1px solid #808080;
-        border-bottom: 1px solid #808080;
-        padding: 10px 14px;
-        margin: 14px 0 18px 0;
-        font-size: 16px;
-      }
-      .status b {
-        color: #006400;
-      }
-      table.stats {
-        width: 100%;
-        border-collapse: separate;
-        border-spacing: 0;
-        background: #d4d0c8;
-        border: 3px outset #c0c0c0;
-        margin: 14px 0 18px 0;
-      }
-      table.stats td {
-        text-align: center;
-        padding: 10px 8px;
-        border-right: 2px groove #808080;
-        vertical-align: middle;
-      }
-      table.stats td:last-child {
-        border-right: 0;
-      }
-      table.stats .num {
-        display: block;
-        font-family: "Courier New", Courier, monospace;
-        font-size: 28px;
-        font-weight: bold;
-        color: #000080;
-        line-height: 1.1;
-      }
-      table.stats .lbl {
-        display: block;
-        font-family: "Courier New", Courier, monospace;
-        font-size: 11px;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        color: #444444;
-        margin-top: 2px;
-      }
-      .desc {
-        color: #000000;
-      }
-      address {
-        font-style: normal;
-        font-size: 12px;
-        color: #444444;
-        font-family: "Courier New", Courier, monospace;
-        text-align: center;
-      }
-      address a:link,
-      address a:visited {
-        color: #0000ee;
-      }
-    </style>
   </head>
 
   <body>
     <h1>Jordon de Hoog</h1>
-    <p>
-      <i>Software Engineer &middot; Kotlin, Kotlin Multiplatform, Android</i>
-    </p>
+    <p class="tagline">Software Engineer &middot; Kotlin / KMP / Android</p>
 
     <div class="status">
       <b>Status:</b> Open to new opportunities. Full-time, contract, or consulting.
@@ -260,40 +56,42 @@ const totalStars = [...tools, ...libraries].reduce(
         </td>
         <td>
           <span class="num">{apps.length}</span>
-          <span class="lbl">Shipped Apps</span>
+          <span class="lbl">Apps</span>
         </td>
       </tr>
     </table>
 
     <p class="topnav">
-      [ <a href="#summary">Summary</a>
-      | <a href="#apps">Apps</a>
-      | <a href="#libraries">Libraries</a>
-      | <a href="#tools">Tools</a>
-      | <a href="#talks">Talks</a>
-      | <a href="#contact">Contact</a>
-      | <a href="/modern">Modern site</a> ]
+      <span class="sep">[ </span><a href="#summary">Summary</a>
+      <span class="sep"> | </span><a href="#apps">Apps</a>
+      <span class="sep"> | </span><a href="#libraries">Libraries</a>
+      <span class="sep"> | </span><a href="#tools">Tools</a>
+      <span class="sep"> | </span><a href="#talks">Talks</a>
+      <span class="sep"> | </span><a href="#contact">Contact</a>
+      <span class="sep"> | </span><a href="/modern">Modern site</a><span
+        class="sep"
+      >
+        ]</span
+      >
     </p>
 
     <h2 id="summary">Summary</h2>
     <p>
       I am a software engineer with deep experience in <b>Kotlin</b>,
-      <b>Kotlin Multiplatform</b>, and the <b>Android</b> platform. I build production
-      mobile applications and maintain a portfolio of widely-used open source libraries
-      that ship inside real products on Android, iOS, desktop, and the JVM.
+      <b>Kotlin Multiplatform</b>, and the <b>Android</b> platform. I ship production
+      consumer apps and maintain a portfolio of widely-used open source libraries
+      that other engineers depend on in real products.
     </p>
     <p>
       My open source work has earned roughly
       <b>{totalStars.toLocaleString()}</b> GitHub stars across
       <b>{libraries.length}</b> libraries and <b>{tools.length}</b> developer tools.
-      I am equally comfortable shipping polished consumer apps, designing reusable
-      APIs for other engineers, and writing systems-level tooling in Rust.
+      I am equally comfortable shipping polished consumer apps and designing reusable
+      APIs that other engineers build on.
     </p>
 
     <h2 id="apps">Applications</h2>
-    <p>
-      Cross-platform consumer applications I have designed, built, and shipped:
-    </p>
+    <p>Apps I have worked on or built and shipped:</p>
     <table class="projects">
       <tr>
         <th style="width: 180px;">App</th>
@@ -305,6 +103,14 @@ const totalStars = [...tools, ...libraries].reduce(
           <tr>
             <td>
               <b>{app.name}</b>
+              {app.role && (
+                <>
+                  <br />
+                  <span class="role">
+                    Role: <b>{app.role}</b>
+                  </span>
+                </>
+              )}
               {(app.stargazers_count > 0 || app.html_url) && (
                 <>
                   <br />
@@ -421,22 +227,26 @@ const totalStars = [...tools, ...libraries].reduce(
     </ul>
 
     <h2 id="contact">Contact</h2>
-    <dl>
-      <dt>Email</dt>
-      <dd>
+    <div class="contact">
+      <div>
+        <b>Email</b><br />
         <a href="mailto:jordon.dehoog@gmail.com">jordon.dehoog@gmail.com</a>
-      </dd>
-      <dt>GitHub</dt>
-      <dd><a href="https://github.com/jordond">github.com/jordond</a></dd>
-      <dt>LinkedIn</dt>
-      <dd>
-        <a href="https://www.linkedin.com/in/jordondehoog/"
-          >linkedin.com/in/jordondehoog</a
-        >
-      </dd>
-      <dt>Resume</dt>
-      <dd><a href="/resume.pdf">resume.pdf</a></dd>
-    </dl>
+      </div>
+      <div>
+        <b>GitHub</b><br />
+        <a href="https://github.com/jordond">github.com/jordond</a>
+      </div>
+      <div>
+        <b>LinkedIn</b><br />
+        <a href="https://www.linkedin.com/in/jordondehoog/">
+          linkedin.com/in/jordondehoog
+        </a>
+      </div>
+      <div>
+        <b>Resume</b><br />
+        <a href="/resume.pdf">resume.pdf</a>
+      </div>
+    </div>
 
     <hr />
     <address>
@@ -445,3 +255,351 @@ const totalStars = [...tools, ...libraries].reduce(
     </address>
   </body>
 </html>
+
+<style is:global>
+  html {
+    background: #008080;
+  }
+  body {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #000000;
+    background: #c0c0c0;
+    max-width: 760px;
+    margin: 16px auto;
+    padding: 16px 24px 28px 24px;
+    border: 4px ridge #808080;
+  }
+  a:link {
+    color: #0000ee;
+    text-decoration: underline;
+  }
+  a:visited {
+    color: #551a8b;
+    text-decoration: underline;
+  }
+  a:active {
+    color: #ff0000;
+  }
+  h1 {
+    font-size: 56px;
+    font-weight: 900;
+    letter-spacing: -1px;
+    margin: 0 0 2px 0;
+    color: #000080;
+    text-shadow:
+      3px 3px 0 #c0c0c0,
+      4px 4px 0 #808080;
+    line-height: 1;
+  }
+  .tagline {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #000000;
+    background: #ffff00;
+    display: inline-block;
+    padding: 4px 10px;
+    border: 2px solid #000000;
+    margin: 10px 0 4px 0;
+  }
+  h2 {
+    font-size: 20px;
+    font-weight: bold;
+    background: #000080;
+    color: #ffff00;
+    padding: 5px 10px;
+    border: 2px outset #c0c0c0;
+    margin: 26px 0 10px 0;
+  }
+  h3 {
+    font-size: 17px;
+    font-weight: bold;
+    margin: 14px 0 2px 0;
+  }
+  h3.subsection {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #000000;
+    margin: 20px 0 4px 0;
+  }
+  h3.subsection::before {
+    content: "// ";
+    color: #808080;
+  }
+  p {
+    margin: 6px 0;
+  }
+  hr {
+    border: 0;
+    border-top: 2px groove #808080;
+    margin: 18px 0;
+  }
+  ul {
+    margin: 4px 0 8px 0;
+    padding-left: 24px;
+  }
+  ul.bullets {
+    list-style: square;
+  }
+  li {
+    margin: 2px 0;
+  }
+  dl {
+    margin: 4px 0 8px 0;
+  }
+  dt {
+    float: left;
+    clear: left;
+    width: 90px;
+    font-weight: bold;
+  }
+  dd {
+    margin: 0 0 2px 100px;
+  }
+  table.projects {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: #d4d0c8;
+    border: 3px outset #c0c0c0;
+    margin: 8px 0 12px 0;
+  }
+  table.projects th {
+    text-align: left;
+    background: #000080;
+    color: #ffffff;
+    padding: 5px 8px;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  table.projects td {
+    text-align: left;
+    vertical-align: top;
+    padding: 6px 8px;
+    border-top: 1px solid #808080;
+    font-size: 15px;
+  }
+  table.projects td.stars {
+    text-align: right;
+    white-space: nowrap;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 14px;
+    color: #b8860b;
+    font-weight: bold;
+  }
+  .meta {
+    font-size: 12px;
+    color: #444444;
+    font-family: "Courier New", Courier, monospace;
+  }
+  .role {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 11px;
+    color: #444444;
+  }
+  .contact {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 24px;
+    margin: 8px 0 12px 0;
+  }
+  .role b {
+    color: #000000;
+    font-weight: bold;
+  }
+  .topnav {
+    text-align: center;
+    background: #000080;
+    color: #ffffff;
+    padding: 6px 8px;
+    border: 2px outset #c0c0c0;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 13px;
+    margin: 10px 0 14px 0;
+  }
+  .topnav a:link,
+  .topnav a:visited {
+    color: #ffff00;
+  }
+  .status {
+    background: #ffffcc;
+    border-left: 4px solid #ff8c00;
+    border-top: 1px solid #808080;
+    border-right: 1px solid #808080;
+    border-bottom: 1px solid #808080;
+    padding: 10px 14px;
+    margin: 14px 0 18px 0;
+    font-size: 16px;
+  }
+  .status b {
+    color: #006400;
+  }
+  table.stats {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: #d4d0c8;
+    border: 3px outset #c0c0c0;
+    margin: 14px 0 18px 0;
+  }
+  table.stats td {
+    width: 25%;
+    text-align: center;
+    padding: 10px 8px;
+    border-right: 2px groove #808080;
+    vertical-align: middle;
+  }
+  table.stats td:last-child {
+    border-right: 0;
+  }
+  table.stats .num {
+    display: block;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 28px;
+    font-weight: bold;
+    color: #000080;
+    line-height: 1.1;
+  }
+  table.stats .lbl {
+    display: block;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #444444;
+    margin-top: 2px;
+  }
+  .desc {
+    color: #000000;
+  }
+  address {
+    font-style: normal;
+    font-size: 12px;
+    color: #444444;
+    font-family: "Courier New", Courier, monospace;
+    text-align: center;
+  }
+  address a:link,
+  address a:visited {
+    color: #0000ee;
+  }
+
+  @media (max-width: 640px) {
+    html {
+      background: #c0c0c0;
+    }
+    body {
+      margin: 0;
+      padding: 14px 12px 24px 12px;
+      border-width: 0;
+      border-top: 4px ridge #808080;
+      border-bottom: 4px ridge #808080;
+      font-size: 15px;
+    }
+    h1 {
+      font-size: 38px;
+      letter-spacing: -0.5px;
+      text-shadow:
+        2px 2px 0 #c0c0c0,
+        3px 3px 0 #808080;
+    }
+    h2 {
+      font-size: 17px;
+      margin: 22px 0 8px 0;
+    }
+    .tagline {
+      font-size: 12px;
+      letter-spacing: 1px;
+      padding: 3px 8px;
+    }
+    .status {
+      font-size: 14px;
+      padding: 8px 10px;
+    }
+    .topnav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      padding: 6px;
+      font-size: 13px;
+    }
+    .topnav .sep {
+      display: none;
+    }
+    .topnav a:link,
+    .topnav a:visited {
+      flex: 1 1 auto;
+      min-width: calc(50% - 4px);
+      padding: 10px 6px;
+      border: 1px outset #5555aa;
+      background: #00006a;
+      text-align: center;
+      text-decoration: none;
+    }
+    table.stats td {
+      display: inline-block;
+      width: 50%;
+      box-sizing: border-box;
+      padding: 8px 4px;
+      border-right: 0;
+      border-top: 2px groove #808080;
+    }
+    table.stats td:nth-child(1),
+    table.stats td:nth-child(2) {
+      border-top: 0;
+    }
+    table.stats td:nth-child(odd) {
+      border-right: 2px groove #808080;
+    }
+    table.stats .num {
+      font-size: 24px;
+    }
+    table.projects,
+    table.projects tbody,
+    table.projects tr,
+    table.projects td,
+    table.projects th {
+      display: block;
+      width: 100% !important;
+      box-sizing: border-box;
+    }
+    table.projects tr {
+      border-top: 2px groove #808080;
+      padding: 4px 0;
+    }
+    table.projects tr:first-child {
+      border-top: 0;
+    }
+    table.projects th {
+      display: none;
+    }
+    table.projects td {
+      padding: 6px 10px;
+      border-top: 0;
+      font-size: 14px;
+    }
+    table.projects td.stars {
+      text-align: left;
+      padding-top: 0;
+    }
+    table.projects td.stars::before {
+      content: "Stars: ";
+      color: #444444;
+      font-weight: normal;
+    }
+    .contact {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+  }
+</style>

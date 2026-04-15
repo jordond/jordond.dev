@@ -11,6 +11,7 @@ interface LocalData {
     homepage?: string
     og_image?: string
     open_source: boolean
+    role?: string
     links?: {
       github?: string
       play_store?: string
@@ -141,6 +142,7 @@ async function main() {
           topics: app.topics || [],
           type: "app",
           image: app.og_image,
+          role: app.role,
           links: app.links
             ? {
                 playStore: app.links.play_store,

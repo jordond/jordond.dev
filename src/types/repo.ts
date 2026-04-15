@@ -27,6 +27,7 @@ export interface RepoData {
   topics: string[]
   type: RepoType
   image?: string
+  role?: string
   links?: {
     playStore?: string
     appStore?: string
