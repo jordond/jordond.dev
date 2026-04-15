@@ -173,12 +173,46 @@ const totalStars = [...tools, ...libraries].reduce(
         border-top: 1px solid #808080;
         border-right: 1px solid #808080;
         border-bottom: 1px solid #808080;
-        padding: 8px 12px;
-        margin: 12px 0 14px 0;
-        font-size: 15px;
+        padding: 10px 14px;
+        margin: 14px 0 18px 0;
+        font-size: 16px;
       }
       .status b {
         color: #006400;
+      }
+      table.stats {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        background: #d4d0c8;
+        border: 3px outset #c0c0c0;
+        margin: 14px 0 18px 0;
+      }
+      table.stats td {
+        text-align: center;
+        padding: 10px 8px;
+        border-right: 2px groove #808080;
+        vertical-align: middle;
+      }
+      table.stats td:last-child {
+        border-right: 0;
+      }
+      table.stats .num {
+        display: block;
+        font-family: "Courier New", Courier, monospace;
+        font-size: 28px;
+        font-weight: bold;
+        color: #000080;
+        line-height: 1.1;
+      }
+      table.stats .lbl {
+        display: block;
+        font-family: "Courier New", Courier, monospace;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #444444;
+        margin-top: 2px;
       }
       .desc {
         color: #000000;
@@ -202,6 +236,35 @@ const totalStars = [...tools, ...libraries].reduce(
     <p>
       <i>Software Engineer &middot; Kotlin, Kotlin Multiplatform, Android</i>
     </p>
+
+    <div class="status">
+      <b>Status:</b> Open to new opportunities. Full-time, contract, or consulting.
+      Based in Canada, available remote. The fastest way to reach me is by <a
+        href="mailto:jordon.dehoog@gmail.com">email</a
+      >.
+    </div>
+
+    <table class="stats">
+      <tr>
+        <td>
+          <span class="num">{totalStars.toLocaleString()}</span>
+          <span class="lbl">GitHub Stars</span>
+        </td>
+        <td>
+          <span class="num">{libraries.length}</span>
+          <span class="lbl">OSS Libraries</span>
+        </td>
+        <td>
+          <span class="num">{tools.length}</span>
+          <span class="lbl">Dev Tools</span>
+        </td>
+        <td>
+          <span class="num">{apps.length}</span>
+          <span class="lbl">Shipped Apps</span>
+        </td>
+      </tr>
+    </table>
+
     <p class="topnav">
       [ <a href="#summary">Summary</a>
       | <a href="#apps">Apps</a>
@@ -211,13 +274,6 @@ const totalStars = [...tools, ...libraries].reduce(
       | <a href="#contact">Contact</a>
       | <a href="/modern">Modern site</a> ]
     </p>
-
-    <div class="status">
-      <b>Status:</b> Open to new opportunities. Full-time, contract, or consulting.
-      Based in Canada, available remote. The fastest way to reach me is by <a
-        href="mailto:jordon.dehoog@gmail.com">email</a
-      >.
-    </div>
 
     <h2 id="summary">Summary</h2>
     <p>
