@@ -1,6 +1,4 @@
-const EASE = "cubic-bezier(0.16, 1, 0.3, 1)"
-
-function splitHeadline(reduced: boolean) {
+function splitHeadline() {
   const headline = document.querySelector<HTMLElement>("[data-headline]")
   if (!headline) return
   const lines = headline.querySelectorAll<HTMLElement>("[data-split]")
@@ -29,7 +27,6 @@ function splitHeadline(reduced: boolean) {
         } else if (child.nodeType === Node.ELEMENT_NODE) {
           const el = child as HTMLElement
           if (el.classList.contains("hero__period")) {
-            // Period is its own "char" — keep as-is, register it.
             el.classList.add("ch")
             allChars.push(el)
           } else {
@@ -41,48 +38,8 @@ function splitHeadline(reduced: boolean) {
     walk(line, line)
   })
 
-  headline.classList.add("is-split")
-
-  if (reduced) {
-    headline.classList.add("is-ready")
-    return
-  }
-
-  // Per-char reveal via WAAPI. Stagger 22ms.
-  allChars.forEach((ch, i) => {
-    ch.animate(
-      [
-        {
-          opacity: 0,
-          transform: "translateY(0.9em) rotate(-4deg)",
-          fontVariationSettings: '"wght" 300',
-        },
-        {
-          opacity: 1,
-          transform: "translateY(-0.08em) rotate(0deg)",
-          fontVariationSettings: '"wght" 900',
-          offset: 0.75,
-        },
-        {
-          opacity: 1,
-          transform: "translateY(0) rotate(0)",
-          fontVariationSettings: '"wght" 800',
-        },
-      ],
-      {
-        duration: 1100,
-        delay: 180 + i * 22,
-        easing: EASE,
-        fill: "forwards",
-      },
-    )
-  })
-
-  const settleAt = 180 + allChars.length * 22 + 1100
-  window.setTimeout(() => {
-    headline.classList.add("is-ready")
-    attachProximity(headline, allChars)
-  }, settleAt)
+  headline.classList.add("is-split", "is-ready")
+  attachProximity(headline, allChars)
 }
 
 function attachProximity(headline: HTMLElement, chars: HTMLElement[]) {
@@ -120,91 +77,8 @@ function attachProximity(headline: HTMLElement, chars: HTMLElement[]) {
   headline.addEventListener("pointerleave", onLeave)
 }
 
-function revealCodeCard(reduced: boolean) {
-  const body = document.querySelector<HTMLElement>(".hero__code-body")
-  if (!body) return
-  const lines = Array.from(body.querySelectorAll<HTMLElement>(".cl"))
-  if (!lines.length) return
-
-  // Split every text node inside each line into per-char <i class="tc"> spans.
-  const lineChars: HTMLElement[][] = []
-  lines.forEach((line) => {
-    const chars: HTMLElement[] = []
-    const split = (node: Node) => {
-      const kids = Array.from(node.childNodes)
-      kids.forEach((child) => {
-        if (child.nodeType === Node.TEXT_NODE) {
-          const text = child.textContent || ""
-          if (!text) return
-          const frag = document.createDocumentFragment()
-          for (const c of text) {
-            const i = document.createElement("i")
-            i.className = "tc"
-            i.textContent = c
-            frag.appendChild(i)
-            chars.push(i)
-          }
-          child.parentNode?.replaceChild(frag, child)
-        } else if (child.nodeType === Node.ELEMENT_NODE) {
-          split(child)
-        }
-      })
-    }
-    split(line)
-    lineChars.push(chars)
-  })
-
-  if (reduced) {
-    lineChars.flat().forEach((c) => c.classList.add("is-typed"))
-    runStarCount(body, 0, reduced)
-    return
-  }
-
-  // Wait for headline to settle, then type line-by-line, char-by-char.
-  let t = 850
-  const fastMs = 3.3
-  const slowMs = 8.7
-  const commaPause = 13
-  const linePause = 18
-  let lastCaret: HTMLElement | null = null
-
-  const setCaret = (ch: HTMLElement) => {
-    if (lastCaret) lastCaret.classList.remove("is-caret")
-    ch.classList.add("is-caret")
-    lastCaret = ch
-  }
-
-  lineChars.forEach((chars) => {
-    let leading = true
-    chars.forEach((ch) => {
-      const text = ch.textContent || ""
-      const isWs = /\s/.test(text)
-      if (leading && isWs) {
-        window.setTimeout(() => ch.classList.add("is-typed"), t)
-        return
-      }
-      leading = false
-      let step = fastMs
-      if (text === "." || text === "," || text === "(") step = slowMs
-      step += Math.random() < 0.08 ? 13 : 0
-      t += step
-      window.setTimeout(() => {
-        ch.classList.add("is-typed")
-        setCaret(ch)
-      }, t)
-      if (text === "," || text === ")") t += commaPause
-    })
-    t += linePause
-  })
-
-  window.setTimeout(() => {
-    if (lastCaret) lastCaret.classList.remove("is-caret")
-    runStarCount(body, 180, reduced)
-  }, t + 120)
-}
-
-function runStarCount(root: HTMLElement, delay: number, reduced: boolean) {
-  const el = root.querySelector<HTMLElement>(".star-count")
+function runStarCount(reduced: boolean) {
+  const el = document.querySelector<HTMLElement>(".hero__code-body .star-count")
   if (!el) return
   const target = Number(el.dataset.target || "0")
   if (reduced || !target) {
@@ -212,12 +86,8 @@ function runStarCount(root: HTMLElement, delay: number, reduced: boolean) {
     return
   }
   const duration = 1100
-  const start = performance.now() + delay
+  const start = performance.now()
   const tick = (now: number) => {
-    if (now < start) {
-      requestAnimationFrame(tick)
-      return
-    }
     const t = Math.min(1, (now - start) / duration)
     const eased = 1 - Math.pow(1 - t, 3)
     el.textContent = String(Math.round(target * eased))
@@ -229,8 +99,8 @@ function runStarCount(root: HTMLElement, delay: number, reduced: boolean) {
 export function initHero() {
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches
   const run = () => {
-    splitHeadline(reduced)
-    revealCodeCard(reduced)
+    splitHeadline()
+    runStarCount(reduced)
   }
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", run)

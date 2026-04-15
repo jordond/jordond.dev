@@ -83,8 +83,6 @@ import Icon from "../Icon.astro"
     transition:
       border-color 0.3s var(--ease-out-expo),
       color 0.3s var(--ease-out-expo);
-    opacity: 0;
-    animation: fadeInUp 0.9s var(--ease-out-expo) forwards;
   }
 
   .hero__mark:hover {
@@ -94,12 +92,5 @@ import Icon from "../Icon.astro"
 
   .hero__mark-dot {
     color: var(--color-accent);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .hero__mark {
-      opacity: 1;
-      animation: none;
-    }
   }
 </style>

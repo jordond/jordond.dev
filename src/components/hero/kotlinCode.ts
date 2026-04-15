@@ -32,7 +32,7 @@ const libraryBlock = (libs: Library[]) =>
     ),
     ...libs.map(
       (l) =>
-        `<a class="cl cl--lib" href="${l.html_url}" target="_blank" rel="noopener noreferrer" data-tip="${l.name} · ${l.stargazers_count}★">    ${fn("Library")}${pn("(")}${prop("name")} ${pn("=")} ${str(l.name)}${pn(",")} ${prop("stars")} ${pn("=")} ${num(l.stargazers_count)}${pn("),")}</a>`,
+        `<a class="cl cl--lib" href="${l.html_url}" target="_blank" rel="noopener noreferrer">    ${fn("Library")}${pn("(")}${prop("name")} ${pn("=")} ${str(l.name)}${pn(",")} ${prop("stars")} ${pn("=")} ${num(l.stargazers_count)}${pn("),")}</a>`,
     ),
     line(`  ${pn(")")}`),
   ].join("")

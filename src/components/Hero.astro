@@ -99,8 +99,6 @@ const codeHtml = buildKotlinCode({ libraries, shipped, totalStars })
     letter-spacing: var(--tr-mono-caps);
     text-transform: uppercase;
     color: var(--color-text-muted);
-    opacity: 0;
-    animation: fadeInUp 0.9s 1.4s var(--ease-out-expo) forwards;
   }
 
   .hero__footnote-rule {
@@ -114,18 +112,7 @@ const codeHtml = buildKotlinCode({ libraries, shipped, totalStars })
       display: none;
     }
   }
-
-  @media (prefers-reduced-motion: reduce) {
-    .hero__footnote {
-      opacity: 1;
-      animation: none;
-    }
-  }
 </style>
-
-<script is:inline>
-  document.documentElement.classList.add("js")
-</script>
 
 <script>
   import { initHero } from "./hero/heroMotion"
