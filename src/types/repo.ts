@@ -41,4 +41,5 @@ export interface GroupedRepoData {
   apps: RepoData[]
   tools: RepoData[]
   libraries: RepoData[]
+  totalUserStars: number
 }

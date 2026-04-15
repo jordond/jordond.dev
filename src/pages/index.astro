@@ -9,10 +9,7 @@ const sortedLibraries = libraries
   .slice()
   .sort((a, b) => b.stargazers_count - a.stargazers_count)
 
-const totalStars = [...tools, ...libraries].reduce(
-  (sum, r) => sum + (r.stargazers_count ?? 0),
-  0,
-)
+const totalStars = reposData.totalUserStars
 ---
 
 <!doctype html>

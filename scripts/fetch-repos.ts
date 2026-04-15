@@ -72,6 +72,34 @@ async function fetchRepo(config: RepoConfig): Promise<RepoData | null> {
   }
 }
 
+async function fetchTotalUserStars(user: string): Promise<number> {
+  const headers: HeadersInit = {
+    Accept: "application/vnd.github.v3+json",
+    "User-Agent": "jordond-portfolio",
+  }
+  if (GITHUB_TOKEN) headers["Authorization"] = `Bearer ${GITHUB_TOKEN}`
+
+  let total = 0
+  for (let page = 1; page < 20; page++) {
+    const url = `${GITHUB_API_BASE}/users/${user}/repos?per_page=100&page=${page}&type=owner`
+    const response = await fetch(url, { headers })
+    if (!response.ok) {
+      console.warn(
+        `⚠️ Failed to fetch user repos page ${page}: ${response.status}`,
+      )
+      break
+    }
+    const data: Array<{ stargazers_count: number; fork: boolean }> =
+      await response.json()
+    if (data.length === 0) break
+    for (const repo of data) {
+      if (!repo.fork) total += repo.stargazers_count
+    }
+    if (data.length < 100) break
+  }
+  return total
+}
+
 async function main() {
   console.log("🚀 Fetching repository data from GitHub...\n")
 
@@ -85,7 +113,13 @@ async function main() {
     apps: [],
     tools: [],
     libraries: [],
+    totalUserStars: 0,
   }
+
+  results.totalUserStars = await fetchTotalUserStars(DEFAULT_OWNER)
+  console.log(
+    `⭐ Total stars across all ${DEFAULT_OWNER} repos: ${results.totalUserStars}\n`,
+  )
 
   for (const repoConfig of repos) {
     console.log(
