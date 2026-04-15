@@ -4,7 +4,7 @@
       "name": "Reading Journey",
       "description": "A beautiful book tracker that captures how every story makes you feel. Scan books, log your reading moments with photos and emoji reactions, and watch your reading journey unfold.",
       "homepage": "https://readingjourney.co/",
-      "og_image": "https://readingjourney.co/images/og-image.png",
+      "og_image": "readingjourney",
       "open_source": false,
       "role": "Developer",
       "links": {
