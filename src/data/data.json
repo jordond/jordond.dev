@@ -8,7 +8,8 @@
       "open_source": true,
       "links": {
         "github": "https://github.com/jordond/SIGO",
-        "play_store": "https://play.google.com/store/apps/details?id=now.shouldigooutside"
+        "play_store": "https://play.google.com/store/apps/details?id=now.shouldigooutside",
+        "app_store": "https://apps.apple.com/ca/app/should-i-go-outside-weather/id6760564555"
       },
       "topics": ["compose-multiplatform", "weather", "mobile", "design"]
     },

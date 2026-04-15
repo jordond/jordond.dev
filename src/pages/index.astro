@@ -72,6 +72,19 @@ const totalStars = [...tools, ...libraries].reduce(
         font-weight: bold;
         margin: 14px 0 2px 0;
       }
+      h3.subsection {
+        font-family: "Courier New", Courier, monospace;
+        font-size: 13px;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #000000;
+        margin: 20px 0 4px 0;
+      }
+      h3.subsection::before {
+        content: "// ";
+        color: #808080;
+      }
       p {
         margin: 6px 0;
       }
@@ -225,40 +238,55 @@ const totalStars = [...tools, ...libraries].reduce(
     <p>
       Cross-platform consumer applications I have designed, built, and shipped:
     </p>
-    {
-      apps.map((app) => (
-        <div>
-          <h3>{app.name}</h3>
-          <p class="desc">{app.description.split("\n\n")[0]}</p>
-          <p class="meta">
-            {app.html_url && (
-              <>
-                <a href={app.html_url}>source</a>
-                {" | "}
-              </>
-            )}
-            {app.homepage && (
-              <>
-                <a href={app.homepage}>website</a>
-                {" | "}
-              </>
-            )}
-            {app.links?.playStore && (
-              <>
-                <a href={app.links.playStore}>google play</a>
-                {app.links?.appStore ? " | " : ""}
-              </>
-            )}
-            {app.links?.appStore && <a href={app.links.appStore}>app store</a>}
-          </p>
-        </div>
-      ))
-    }
+    <table class="projects">
+      <tr>
+        <th style="width: 180px;">App</th>
+        <th>Description</th>
+        <th style="width: 110px;">Links</th>
+      </tr>
+      {
+        apps.map((app) => (
+          <tr>
+            <td>
+              <b>{app.name}</b>
+              {(app.stargazers_count > 0 || app.html_url) && (
+                <>
+                  <br />
+                  <span class="meta" style="font-size: 11px;">
+                    {app.stargazers_count > 0 && <>★ {app.stargazers_count}</>}
+                    {app.stargazers_count > 0 && app.html_url && " · "}
+                    {app.html_url && <a href={app.html_url}>source</a>}
+                  </span>
+                </>
+              )}
+            </td>
+            <td class="desc">{app.description.split("\n\n")[0]}</td>
+            <td class="meta">
+              {app.homepage && (
+                <>
+                  <a href={app.homepage}>website</a>
+                  <br />
+                </>
+              )}
+              {app.links?.playStore && (
+                <>
+                  <a href={app.links.playStore}>google play</a>
+                  <br />
+                </>
+              )}
+              {app.links?.appStore && (
+                <a href={app.links.appStore}>app store</a>
+              )}
+            </td>
+          </tr>
+        ))
+      }
+    </table>
 
     <h2 id="libraries">Open Source Libraries</h2>
     <p>
-      Kotlin Multiplatform libraries used by Android, iOS, desktop, and web
-      developers. Sorted by GitHub stars.
+      Open source Kotlin and Compose Multiplatform libraries, sorted by GitHub
+      stars:
     </p>
     <table class="projects">
       <tr>
@@ -289,7 +317,7 @@ const totalStars = [...tools, ...libraries].reduce(
       }
     </table>
 
-    <h2 id="tools">Developer Tools</h2>
+    <h3 id="tools" class="subsection">Developer Tools</h3>
     <p>Smaller utilities and developer tools I have authored:</p>
     <table class="projects">
       <tr>
