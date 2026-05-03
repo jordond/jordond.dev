@@ -7,23 +7,23 @@ Guidelines for AI agents working on jordond.dev - a personal portfolio site buil
 - **Framework**: Astro v5 (static site generator)
 - **Styling**: Tailwind CSS v4 with CSS custom properties for theming
 - **Language**: TypeScript (strict mode)
-- **Package Manager**: pnpm (v10.26.2)
-- **Node Version**: 24+
+- **Package Manager**: bun (v1.3.4)
+- **Node Version**: 24+ (compatible runtime; bun is the runtime/package manager)
 
 ## Commands
 
 ```bash
 # Development
-pnpm dev              # Start dev server
-pnpm build            # Production build
-pnpm preview          # Preview production build
+bun run dev              # Start dev server
+bun run build            # Production build
+bun run preview          # Preview production build
 
 # Code Quality
-pnpm format           # Format all files with Prettier
-pnpm format:check     # Check formatting without changes
+bun run format           # Format all files with Prettier
+bun run format:check     # Check formatting without changes
 
 # Data Fetching
-pnpm fetch-repos      # Fetch GitHub repo data (requires GITHUB_TOKEN)
+bun run fetch-repos      # Fetch GitHub repo data (requires GITHUB_TOKEN)
 ```
 
 ### Pre-commit Hooks
@@ -224,9 +224,9 @@ No test framework is currently configured. When adding tests:
 
 GitHub Actions workflow (`.github/workflows/`) runs on push/PR to main:
 
-1. Install dependencies (`pnpm install`)
-2. Fetch repo data (`pnpm fetch-repos`)
-3. Build site (`pnpm build`)
+1. Install dependencies (`bun install`)
+2. Fetch repo data (`bun run fetch-repos`)
+3. Build site (`bun run build`)
 
 ## Common Tasks
 
