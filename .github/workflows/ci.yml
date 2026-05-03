@@ -32,8 +32,10 @@ jobs:
       - name: Check formatting
         run: bun run format:check
 
-      - name: Copy repo data
-        run: mkdir -p src/data && cp .github/repos.json src/data/repos.json
+      - name: Fetch repos
+        run: bun run fetch-repos
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build
         run: bun run build
