@@ -6,11 +6,24 @@
       "homepage": "https://readingjourney.co/",
       "og_image": "readingjourney",
       "open_source": false,
-      "role": "Developer",
+      "role": "Founding Engineer",
       "links": {
         "app_store": "https://apps.apple.com/us/app/reading-journey-book-tracker/id6749302195"
       },
       "topics": ["ios", "swift", "mobile"]
+    },
+    {
+      "name": "WhaleSay",
+      "description": "WhaleSay is a whimsical human-to-whale translator. Type or speak, and your words are remixed into a dialect-aware sequence of whale tokens in an animated speech bubble, complete with generated whale audio.\n\nBuilt with Kotlin Multiplatform and Compose Multiplatform for Android and iOS.",
+      "homepage": "https://whalesay.app",
+      "og_image": "https://whalesay.app/og.png",
+      "open_source": false,
+      "role": "Founder",
+      "links": {
+        "play_store": "https://play.google.com/store/apps/details?id=app.whalesay",
+        "app_store": "https://apps.apple.com/app/id6784852715"
+      },
+      "topics": ["compose-multiplatform", "novelty", "mobile"]
     },
     {
       "name": "Should I Go Outside?",
