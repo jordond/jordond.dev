@@ -23,6 +23,8 @@
         margin: 16px auto;
         padding: 16px 24px 28px 24px;
         border: 4px ridge #808080;
+        /* Lets .ascii size itself from the panel width (cqi units). */
+        container-type: inline-size;
       }
       a:link {
         color: #0000ee;
@@ -81,7 +83,9 @@
       }
       .ascii {
         font-family: "Courier New", Courier, monospace;
-        font-size: 20px;
+        /* The box is 62 monospace characters (~37.2em) wide. Shrink the font
+             so it always fits the panel instead of overflowing on narrow screens. */
+        font-size: min(20px, 2.6cqi);
         line-height: 1.15;
         white-space: pre;
         color: #000080;
@@ -98,6 +102,20 @@
       address a:link,
       address a:visited {
         color: #0000ee;
+      }
+
+      @media (max-width: 640px) {
+        html {
+          background: #c0c0c0;
+        }
+        body {
+          margin: 0;
+          padding: 14px 12px 24px 12px;
+          border-width: 0;
+          border-top: 4px ridge #808080;
+          border-bottom: 4px ridge #808080;
+          font-size: 15px;
+        }
       }
     </style>
   </head>
