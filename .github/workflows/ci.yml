@@ -9,8 +9,6 @@ on:
 
 jobs:
   check:
-    # This job name is the required status check on `main`; Renovate automerge
-    # waits on it. Keep it stable.
     name: Check
     runs-on: ubuntu-latest
 
