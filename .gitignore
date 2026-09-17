@@ -31,3 +31,10 @@ tmp
 
 .wrangler/
 .impeccable.md
+
+# test output
+test-results/
+playwright-report/
+
+# stray tool logs
+*.log
