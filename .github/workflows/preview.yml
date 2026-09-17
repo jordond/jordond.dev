@@ -1,0 +1,95 @@
+name: Preview Deploy
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+
+concurrency:
+  group: preview-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  preview:
+    name: Build & Upload Preview
+    # Fork PRs don't get access to the Cloudflare secrets
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.13
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Fetch repos
+        run: bun run fetch-repos
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build
+        run: bun run build
+
+      # Uploads a new version without deploying it to production, and points
+      # the pr-<number> preview alias at it:
+      # https://pr-<number>-jordond-dev.<subdomain>.workers.dev
+      - name: Upload preview version
+        id: upload
+        run: |
+          bunx wrangler versions upload \
+            --preview-alias "pr-${PR_NUMBER}" \
+            --tag "pr-${PR_NUMBER}" \
+            --message "PR #${PR_NUMBER} @ ${HEAD_SHA::7}"
+          url=$(jq -er 'select(.type == "version-upload") | .preview_alias_url' "$WRANGLER_OUTPUT_FILE_PATH")
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          WRANGLER_OUTPUT_FILE_PATH: ${{ runner.temp }}/wrangler-output.json
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+
+      - name: Comment preview URL
+        uses: marocchino/sticky-pull-request-comment@v3
+        with:
+          header: preview
+          message: |
+            ### ✅ Preview deployed
+
+            | | |
+            | --- | --- |
+            | **URL** | ${{ steps.upload.outputs.url }} |
+            | **Commit** | ${{ github.event.pull_request.head.sha }} |
+
+            Updates on every push to this PR.
+
+      # Replaces the success comment so an old preview isn't mistaken for the latest commit
+      - name: Comment preview failure
+        if: failure()
+        uses: marocchino/sticky-pull-request-comment@v3
+        with:
+          header: preview
+          message: |
+            ### ❌ Preview failed
+
+            | | |
+            | --- | --- |
+            | **Commit** | ${{ github.event.pull_request.head.sha }} |
+            | **Logs** | ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }} |
+
+            The preview URL, if any, still points at an older commit.
