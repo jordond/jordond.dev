@@ -82,10 +82,11 @@ const totalStars = reposData.totalUserStars
     </p>
     <p>
       My open source work has earned roughly
-      <b>{totalStars.toLocaleString()}</b> GitHub stars across
-      <b>{libraries.length}</b> libraries and <b>{tools.length}</b> developer
-      tools. I am equally comfortable shipping polished consumer apps and
-      designing reusable APIs that other engineers build on.
+      <b class="num">{totalStars.toLocaleString()}</b> GitHub stars across
+      <b class="num">{libraries.length}</b> libraries and
+      <b class="num">{tools.length}</b> developer tools. I am equally
+      comfortable shipping polished consumer apps and designing reusable APIs
+      that other engineers build on.
     </p>
 
     <h2 id="apps">Applications</h2>
@@ -109,7 +110,9 @@ const totalStars = reposData.totalUserStars
             <>
               <br />
               <span class="meta" style="font-size: 11px">
-                {app.stargazers_count > 0 && <>★ {app.stargazers_count}</>}
+                {app.stargazers_count > 0 && <span class="num"
+                  >★ {app.stargazers_count}</span
+                >}
                 {app.stargazers_count > 0 && app.html_url && " · "}
                 {app.html_url && <a href={app.html_url}>source</a>}
               </span>

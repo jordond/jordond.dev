@@ -25,6 +25,8 @@ bun run test:unit    # Pure functions and worker logic
 bun run test:smoke   # Parses the built dist/ output (run `bun run build` first)
 bun run test:e2e     # Playwright against wrangler dev (run `bun run build` first;
                       #   first time, also run `bunx playwright install chromium`)
+bun run test:visual  # Playwright screenshot comparison (baselines are Linux-only)
+bun run visual:accept # Adopt the screenshots CI rendered for this branch as baselines
 bun run check        # Type-check with astro check
 ```
 

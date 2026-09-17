@@ -38,3 +38,8 @@ playwright-report/
 
 # stray tool logs
 *.log
+screenshots/
+
+# visual baselines are recorded on Linux in CI; ignore local platform variants
+tests/e2e/__screenshots__/*-darwin.png
+tests/e2e/__screenshots__/*-win32.png

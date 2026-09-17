@@ -29,6 +29,8 @@ bun run test:unit        # Vitest: pure functions and worker logic
 bun run test:smoke       # Vitest: parses built dist/ (run `bun run build` first)
 bun run test:e2e         # Playwright: runs against wrangler dev (run `bun run build` first;
                           #   first time, also run `bunx playwright install chromium`)
+bun run test:visual      # Playwright screenshot comparison (baselines are Linux-only, see below)
+bun run visual:accept    # Pull the screenshots CI rendered for this branch in as new baselines
 
 # Data Fetching
 bun run fetch-repos      # Fetch GitHub repo data (requires GITHUB_TOKEN)
@@ -195,6 +197,12 @@ Vitest that runs **after** `bun run build` and parses the built `dist/` output w
 
 Playwright, also run **after** `bun run build`, against `wrangler dev` serving `dist/` on port 8787 (desktop and mobile Chromium projects). Checks real browser rendering, no console/network errors, in-page navigation, the 404 response status, static file serving, and an axe scan for WCAG 2.1 AA violations on `/` and the 404 page. Add an e2e test for anything that depends on the actual Worker/browser behavior: navigation, status codes, or accessibility. First run: `bunx playwright install chromium`.
 
+### Visual (`tests/e2e/visual.spec.ts`, `bun run test:visual`)
+
+Playwright screenshot comparison, same `wrangler dev` setup as e2e, in the `visual-desktop` and `visual-mobile` projects. Each test saves an unmasked full-page PNG to `screenshots/` for the PR comment, then compares a masked screenshot (star counts tagged `.num`/`.stars` are hidden) against the baseline in `tests/e2e/__screenshots__/`.
+
+Baselines are rendered on Linux in CI and are only valid there. Font rendering differs per OS, so a local macOS run writes its own `*-darwin.png` baselines (gitignored) and fails once before passing. Do not commit baselines recorded locally. To update the committed ones: push, let the Preview workflow run, then `bun run visual:accept` downloads the CI-rendered screenshots into `tests/e2e/__screenshots__/` for you to review and commit. Expect to do this after intentional visual changes and occasionally after a Playwright/Chromium bump.
+
 ## CI/CD
 
 `.github/workflows/ci.yml`, job **Check**, runs on push/PR to `main` and is the required status check that gates automerge (see `renovate.json`). Keep the job name stable. Steps: format check, `bun run check` (type check), unit tests, `bun run fetch-repos`, build, smoke tests, then Playwright e2e (with the Chromium browser cached between runs).
@@ -202,7 +210,7 @@ Playwright, also run **after** `bun run build`, against `wrangler dev` serving `
 Three other workflows handle deployment and are unaffected by the Check gate:
 
 - `deploy.yml` runs on push to `main`: fetch repos, build, `wrangler deploy`.
-- `preview.yml` runs on PR: fetch repos, build, upload a Cloudflare preview version, and comment the preview URL on the PR.
+- `preview.yml` runs on PR: fetch repos, build, run the visual tests, ship the screenshots inside the preview upload under `/__screenshots__/`, and post one sticky comment with the preview URL, the page screenshots, and the regression result (`scripts/preview-comment.ts`). A regression turns the job red and uploads a `visual-baselines` artifact that `bun run visual:accept` consumes. This job is not a required check.
 - `deploy-nightly-worker.yml` runs on changes under `workers/nightly/`: it deploys that Worker, which cron-dispatches `deploy.yml` nightly so repo star counts stay fresh even if nothing else changes.
 
 ## Common Tasks

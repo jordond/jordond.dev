@@ -45,6 +45,56 @@ jobs:
       - name: Build
         run: bun run build
 
+      - name: Resolve Playwright version
+        id: playwright
+        run: echo "version=$(bunx playwright --version | awk '{print $2}')" >> "$GITHUB_OUTPUT"
+
+      - name: Cache Playwright browsers
+        id: playwright-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ steps.playwright.outputs.version }}
+
+      - name: Install Playwright browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: bunx playwright install --with-deps chromium
+
+      - name: Install Playwright system deps
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: bunx playwright install-deps chromium
+
+      # Screenshots for the PR comment plus comparison against the committed
+      # baselines. A mismatch is reported in the comment and fails the job at
+      # the end, after the preview has been uploaded.
+      - name: Visual regression tests
+        id: visual
+        continue-on-error: true
+        run: bun run test:visual
+
+      - name: Collect screenshots into preview
+        run: bun run scripts/preview-comment.ts collect
+
+      - name: Record baseline candidates
+        if: steps.visual.outcome == 'failure'
+        run: bun run test:visual:update
+
+      - name: Upload baseline candidates
+        if: steps.visual.outcome == 'failure'
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-baselines
+          path: tests/e2e/__screenshots__/*-linux.png
+          retention-days: 14
+
+      - name: Upload Playwright report
+        if: steps.visual.outcome == 'failure'
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-report
+          path: playwright-report/
+          retention-days: 7
+
       - name: Upload preview version
         id: upload
         run: |
@@ -61,19 +111,18 @@ jobs:
           PR_NUMBER: ${{ github.event.pull_request.number }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
 
+      - name: Render comment
+        run: bun run scripts/preview-comment.ts render
+        env:
+          PREVIEW_URL: ${{ steps.upload.outputs.url }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
       - name: Comment preview URL
         uses: marocchino/sticky-pull-request-comment@v3
         with:
           header: preview
-          message: |
-            ### ✅ Preview deployed
-
-            | | |
-            | --- | --- |
-            | **URL** | ${{ steps.upload.outputs.url }} |
-            | **Commit** | ${{ github.event.pull_request.head.sha }} |
-
-            Updates on every push to this PR.
+          path: comment.md
 
       - name: Comment preview failure
         if: failure()
@@ -89,3 +138,9 @@ jobs:
             | **Logs** | ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }} |
 
             The preview URL, if any, still points at an older commit.
+
+      - name: Fail on visual regression
+        if: steps.visual.outcome == 'failure'
+        run: |
+          echo "::error::Visual regression tests failed. See the PR comment for diffs."
+          exit 1
