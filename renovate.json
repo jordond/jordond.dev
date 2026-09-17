@@ -11,6 +11,11 @@
       "groupName": "dev dependencies"
     },
     {
+      "description": "@astrojs/check doesn't support TypeScript 7 yet",
+      "matchPackageNames": ["typescript"],
+      "allowedVersions": "<7"
+    },
+    {
       "matchManagers": ["github-actions"],
       "groupName": "github actions"
     }
