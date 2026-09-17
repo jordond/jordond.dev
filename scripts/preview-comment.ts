@@ -8,7 +8,8 @@
  *
  *   bun run scripts/preview-comment.ts render
  *     Run after the preview upload. Reads the summary plus PREVIEW_URL,
- *     HEAD_SHA and RUN_URL from the environment and writes `comment.md`.
+ *     HEAD_SHA, RUN_URL and PR_NUMBER from the environment and writes
+ *     `comment.md`.
  */
 import {
   copyFileSync,
@@ -147,6 +148,7 @@ function render() {
   const previewUrl = (process.env.PREVIEW_URL ?? "").replace(/\/$/, "")
   const sha = process.env.HEAD_SHA ?? ""
   const runUrl = process.env.RUN_URL ?? ""
+  const prNumber = process.env.PR_NUMBER ?? ""
   const summary: Summary = existsSync(SUMMARY)
     ? JSON.parse(readFileSync(SUMMARY, "utf-8"))
     : { screenshots: [], results: [] }
@@ -245,6 +247,7 @@ function render() {
       "Or from your machine:",
       "",
       "```sh",
+      `gh pr checkout ${prNumber}`,
       "bun run visual:accept",
       "```",
       "",
