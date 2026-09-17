@@ -1,14 +1,39 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:recommended"],
+  "minimumReleaseAge": "3 days",
+  "internalChecksFilter": "strict",
+  "platformAutomerge": true,
+  "lockFileMaintenance": {
+    "enabled": true,
+    "automerge": true
+  },
   "packageRules": [
     {
+      "description": "Non-major runtime deps: automerge once CI passes",
       "matchDepTypes": ["dependencies"],
-      "groupName": "dependencies"
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "dependencies",
+      "automerge": true
     },
     {
+      "description": "Major runtime deps: manual review",
+      "matchDepTypes": ["dependencies"],
+      "matchUpdateTypes": ["major"],
+      "groupName": "dependencies (major)"
+    },
+    {
+      "description": "Non-major dev deps: automerge once CI passes",
       "matchDepTypes": ["devDependencies"],
-      "groupName": "dev dependencies"
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "dev dependencies",
+      "automerge": true
+    },
+    {
+      "description": "Major dev deps: manual review",
+      "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["major"],
+      "groupName": "dev dependencies (major)"
     },
     {
       "description": "@astrojs/check doesn't support TypeScript 7 yet",
@@ -16,8 +41,21 @@
       "allowedVersions": "<7"
     },
     {
+      "description": "GitHub Actions: pin to digests, automerge non-major",
       "matchManagers": ["github-actions"],
-      "groupName": "github actions"
+      "groupName": "github actions",
+      "pinDigests": true
+    },
+    {
+      "matchManagers": ["github-actions"],
+      "matchUpdateTypes": ["digest", "pin", "pinDigest", "minor", "patch"],
+      "automerge": true
+    },
+    {
+      "description": "Bun runtime: automerge non-major",
+      "matchPackageNames": ["bun", "oven-sh/bun"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true
     }
   ]
 }

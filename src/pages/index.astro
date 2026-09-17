@@ -1,5 +1,5 @@
 ---
-import reposData from "../data/repos.json"
+import { reposData } from "../data/repos"
 
 const apps = reposData.apps
 const tools = reposData.tools
@@ -70,8 +70,6 @@ const totalStars = reposData.totalUserStars
       <a href="#talks">Talks</a>
       <span class="sep"> | </span>
       <a href="#contact">Contact</a>
-      <span class="sep"> | </span>
-      <a href="/modern">Modern site</a>
       <span class="sep"> ]</span>
     </p>
 
@@ -84,10 +82,11 @@ const totalStars = reposData.totalUserStars
     </p>
     <p>
       My open source work has earned roughly
-      <b>{totalStars.toLocaleString()}</b> GitHub stars across
-      <b>{libraries.length}</b> libraries and <b>{tools.length}</b> developer
-      tools. I am equally comfortable shipping polished consumer apps and
-      designing reusable APIs that other engineers build on.
+      <b class="num">{totalStars.toLocaleString()}</b> GitHub stars across
+      <b class="num">{libraries.length}</b> libraries and
+      <b class="num">{tools.length}</b> developer tools. I am equally
+      comfortable shipping polished consumer apps and designing reusable APIs
+      that other engineers build on.
     </p>
 
     <h2 id="apps">Applications</h2>
@@ -111,14 +110,16 @@ const totalStars = reposData.totalUserStars
             <>
               <br />
               <span class="meta" style="font-size: 11px">
-                {app.stargazers_count > 0 && <>★ {app.stargazers_count}</>}
+                {app.stargazers_count > 0 && <span class="num"
+                  >★ {app.stargazers_count}</span
+                >}
                 {app.stargazers_count > 0 && app.html_url && " · "}
                 {app.html_url && <a href={app.html_url}>source</a>}
               </span>
             </>
           )}
         </td>
-        <td class="desc">{app.description.split("\n\n")[0]}</td>
+        <td class="desc">{app.description?.split("\n\n")[0]}</td>
         <td class="meta">
           {app.homepage && (
             <>
@@ -233,10 +234,7 @@ const totalStars = reposData.totalUserStars
     </div>
 
     <hr />
-    <address>
-      Jordon de Hoog &middot;
-      <a href="/modern">modern version of this site</a>
-    </address>
+    <address>Jordon de Hoog &middot; <a href="/resume.pdf">resume</a></address>
   </body>
 </html>
 
@@ -365,7 +363,7 @@ const totalStars = reposData.totalUserStars
     white-space: nowrap;
     font-family: "Courier New", Courier, monospace;
     font-size: 14px;
-    color: #b8860b;
+    color: #6b4e00;
     font-weight: bold;
   }
   .meta {
