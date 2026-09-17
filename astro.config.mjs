@@ -8,6 +8,7 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
   site: "https://jordond.dev",
+  compressHTML: true,
   integrations: [sitemap()],
   image: {
     remotePatterns: [{ protocol: "https" }],
