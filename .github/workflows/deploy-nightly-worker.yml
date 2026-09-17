@@ -1,20 +1,17 @@
-name: Deploy
+name: Deploy Nightly Worker
 
 on:
   push:
     branches: [main]
-  # Also dispatched nightly by the Cloudflare cron in workers/nightly to
-  # refresh repo stars and info
+    paths:
+      - "workers/nightly/**"
+      - ".github/workflows/deploy-nightly-worker.yml"
   workflow_dispatch:
 
 jobs:
   deploy:
-    name: Fetch & Deploy
+    name: Deploy
     runs-on: ubuntu-latest
-    # Queue deploys instead of running two at once
-    concurrency:
-      group: deploy-production
-      cancel-in-progress: false
 
     steps:
       - name: Checkout
@@ -33,16 +30,8 @@ jobs:
       - name: Install dependencies
         run: bun install --frozen-lockfile
 
-      - name: Fetch repos
-        run: bun run fetch-repos
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build
-        run: bun run build
-
       - name: Deploy
-        run: bunx wrangler deploy
+        run: bunx wrangler deploy --config workers/nightly/wrangler.jsonc
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
