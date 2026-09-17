@@ -117,6 +117,7 @@ jobs:
           PREVIEW_URL: ${{ steps.upload.outputs.url }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
 
       - name: Comment preview URL
         uses: marocchino/sticky-pull-request-comment@v3
