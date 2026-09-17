@@ -4,7 +4,7 @@ Guidelines for AI agents working on jordond.dev - a personal portfolio site buil
 
 ## Project Overview
 
-- **Framework**: Astro v5 (static site generator)
+- **Framework**: Astro v7 (static site generator)
 - **Styling**: Tailwind CSS v4 with CSS custom properties for theming
 - **Language**: TypeScript (strict mode)
 - **Package Manager**: bun (v1.3.4)
