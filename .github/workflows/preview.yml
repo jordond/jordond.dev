@@ -27,6 +27,7 @@ jobs:
         uses: actions/setup-node@v7
         with:
           node-version: lts/*
+          check-latest: true
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
