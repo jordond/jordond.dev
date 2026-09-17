@@ -1,5 +1,8 @@
 ---
-import reposData from "../data/repos.json"
+import type { GroupedRepoData } from "../types/repo"
+import reposJson from "../data/repos.json"
+
+const reposData: GroupedRepoData = reposJson
 
 const apps = reposData.apps
 const tools = reposData.tools
@@ -116,7 +119,7 @@ const totalStars = reposData.totalUserStars
             </>
           )}
         </td>
-        <td class="desc">{app.description.split("\n\n")[0]}</td>
+        <td class="desc">{app.description?.split("\n\n")[0]}</td>
         <td class="meta">
           {app.homepage && (
             <>
