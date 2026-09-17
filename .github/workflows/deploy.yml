@@ -3,8 +3,6 @@ name: Deploy
 on:
   push:
     branches: [main]
-  # Also dispatched nightly by the Cloudflare cron in workers/nightly to
-  # refresh repo stars and info
   workflow_dispatch:
 
 jobs:
