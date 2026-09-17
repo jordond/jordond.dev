@@ -15,12 +15,8 @@ const hasLead = Astro.slots.has("lead")
     <h2 class="section__title">
       <slot name="title" />
     </h2>
-    {
-      hasLead && (
-        <p class="section__lead">
-          <slot name="lead" />
-        </p>
-      )
-    }
+    {hasLead && <p class="section__lead">
+      <slot name="lead" />
+    </p>}
   </div>
 </header>

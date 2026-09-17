@@ -31,10 +31,9 @@ const totalStars = reposData.totalUserStars
     <p class="tagline">Software Engineer &middot; Kotlin / KMP / Android</p>
 
     <div class="status">
-      <b>Status:</b> Open to new opportunities. Full-time, contract, or consulting.
-      Based in Canada, available remote. The fastest way to reach me is by <a
-        href="mailto:jordon.dehoog@gmail.com">email</a
-      >.
+      <b>Status:</b> Open to new opportunities. Full-time, contract, or
+      consulting. Based in Canada, available remote. The fastest way to reach me
+      is by <a href="mailto:jordon.dehoog@gmail.com">email</a>.
     </div>
 
     <table class="stats">
@@ -79,71 +78,63 @@ const totalStars = reposData.totalUserStars
     <h2 id="summary">Summary</h2>
     <p>
       I am a software engineer with deep experience in <b>Kotlin</b>,
-      <b>Kotlin Multiplatform</b>, and the <b>Android</b> platform. I ship production
-      consumer apps and maintain a portfolio of widely-used open source libraries
-      that other engineers depend on in real products.
+      <b>Kotlin Multiplatform</b>, and the <b>Android</b> platform. I ship
+      production consumer apps and maintain a portfolio of widely-used open
+      source libraries that other engineers depend on in real products.
     </p>
     <p>
       My open source work has earned roughly
       <b>{totalStars.toLocaleString()}</b> GitHub stars across
-      <b>{libraries.length}</b> libraries and <b>{tools.length}</b> developer tools.
-      I am equally comfortable shipping polished consumer apps and designing reusable
-      APIs that other engineers build on.
+      <b>{libraries.length}</b> libraries and <b>{tools.length}</b> developer
+      tools. I am equally comfortable shipping polished consumer apps and
+      designing reusable APIs that other engineers build on.
     </p>
 
     <h2 id="apps">Applications</h2>
     <p>Apps I have worked on or built and shipped:</p>
     <table class="projects">
       <tr>
-        <th style="width: 180px;">App</th>
+        <th style="width: 180px">App</th>
         <th>Description</th>
-        <th style="width: 110px;">Links</th>
+        <th style="width: 110px">Links</th>
       </tr>
-      {
-        apps.map((app) => (
-          <tr>
-            <td>
-              <b>{app.name}</b>
-              {app.role && (
-                <>
-                  <br />
-                  <span class="role">
-                    Role: <b>{app.role}</b>
-                  </span>
-                </>
-              )}
-              {(app.stargazers_count > 0 || app.html_url) && (
-                <>
-                  <br />
-                  <span class="meta" style="font-size: 11px;">
-                    {app.stargazers_count > 0 && <>★ {app.stargazers_count}</>}
-                    {app.stargazers_count > 0 && app.html_url && " · "}
-                    {app.html_url && <a href={app.html_url}>source</a>}
-                  </span>
-                </>
-              )}
-            </td>
-            <td class="desc">{app.description.split("\n\n")[0]}</td>
-            <td class="meta">
-              {app.homepage && (
-                <>
-                  <a href={app.homepage}>website</a>
-                  <br />
-                </>
-              )}
-              {app.links?.playStore && (
-                <>
-                  <a href={app.links.playStore}>google play</a>
-                  <br />
-                </>
-              )}
-              {app.links?.appStore && (
-                <a href={app.links.appStore}>app store</a>
-              )}
-            </td>
-          </tr>
-        ))
-      }
+      {apps.map((app) => <tr>
+        <td>
+          <b>{app.name}</b>
+          {app.role && (
+            <>
+              <br />
+              <span class="role"> Role: <b>{app.role}</b> </span>
+            </>
+          )}
+          {(app.stargazers_count > 0 || app.html_url) && (
+            <>
+              <br />
+              <span class="meta" style="font-size: 11px">
+                {app.stargazers_count > 0 && <>★ {app.stargazers_count}</>}
+                {app.stargazers_count > 0 && app.html_url && " · "}
+                {app.html_url && <a href={app.html_url}>source</a>}
+              </span>
+            </>
+          )}
+        </td>
+        <td class="desc">{app.description.split("\n\n")[0]}</td>
+        <td class="meta">
+          {app.homepage && (
+            <>
+              <a href={app.homepage}>website</a>
+              <br />
+            </>
+          )}
+          {app.links?.playStore && (
+            <>
+              <a href={app.links.playStore}>google play</a>
+              <br />
+            </>
+          )}
+          {app.links?.appStore && <a href={app.links.appStore}>app store</a>}
+        </td>
+      </tr>)}
     </table>
 
     <h2 id="libraries">Open Source Libraries</h2>
@@ -155,29 +146,25 @@ const totalStars = reposData.totalUserStars
       <tr>
         <th>Library</th>
         <th>Description</th>
-        <th style="text-align: right;">Stars</th>
+        <th style="text-align: right">Stars</th>
       </tr>
-      {
-        sortedLibraries.map((lib) => (
-          <tr>
-            <td>
-              <a href={lib.html_url}>
-                <b>{lib.name}</b>
-              </a>
-              {lib.homepage && (
-                <>
-                  <br />
-                  <span class="meta">
-                    <a href={lib.homepage}>docs</a>
-                  </span>
-                </>
-              )}
-            </td>
-            <td class="desc">{lib.description}</td>
-            <td class="stars">{lib.stargazers_count.toLocaleString()}</td>
-          </tr>
-        ))
-      }
+      {sortedLibraries.map((lib) => <tr>
+        <td>
+          <a href={lib.html_url}>
+            <b>{lib.name}</b>
+          </a>
+          {lib.homepage && (
+            <>
+              <br />
+              <span class="meta">
+                <a href={lib.homepage}>docs</a>
+              </span>
+            </>
+          )}
+        </td>
+        <td class="desc">{lib.description}</td>
+        <td class="stars">{lib.stargazers_count.toLocaleString()}</td>
+      </tr>)}
     </table>
 
     <h3 id="tools" class="subsection">Developer Tools</h3>
@@ -186,43 +173,39 @@ const totalStars = reposData.totalUserStars
       <tr>
         <th>Tool</th>
         <th>Description</th>
-        <th style="text-align: right;">Stars</th>
+        <th style="text-align: right">Stars</th>
       </tr>
-      {
-        tools.map((tool) => (
-          <tr>
-            <td>
-              <a href={tool.html_url}>
-                <b>{tool.name}</b>
-              </a>
-              {tool.homepage && (
-                <>
-                  <br />
-                  <span class="meta">
-                    <a href={tool.homepage}>site</a>
-                  </span>
-                </>
-              )}
-              {tool.language && (
-                <>
-                  <br />
-                  <span class="meta">{tool.language}</span>
-                </>
-              )}
-            </td>
-            <td class="desc">{tool.description}</td>
-            <td class="stars">{tool.stargazers_count.toLocaleString()}</td>
-          </tr>
-        ))
-      }
+      {tools.map((tool) => <tr>
+        <td>
+          <a href={tool.html_url}>
+            <b>{tool.name}</b>
+          </a>
+          {tool.homepage && (
+            <>
+              <br />
+              <span class="meta">
+                <a href={tool.homepage}>site</a>
+              </span>
+            </>
+          )}
+          {tool.language && (
+            <>
+              <br />
+              <span class="meta">{tool.language}</span>
+            </>
+          )}
+        </td>
+        <td class="desc">{tool.description}</td>
+        <td class="stars">{tool.stargazers_count.toLocaleString()}</td>
+      </tr>)}
     </table>
 
     <h2 id="talks">Talks &amp; Community</h2>
     <ul>
       <li>
-        <b>Media &amp; Camera Experiences</b>, guest on
-        <i>Android Build Time</i>. Discussion of Android Media APIs, video
-        format handling, and on-device media editing performance.
+        <b>Media &amp; Camera Experiences</b>, guest on <i>Android Build Time</i
+        >. Discussion of Android Media APIs, video format handling, and
+        on-device media editing performance.
         <a href="https://www.youtube.com/watch?v=nWXmrY8J_nY">[video]</a>
       </li>
     </ul>

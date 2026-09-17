@@ -1,0 +1,18 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "jordond-dev-nightly",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-09-17",
+  "workers_dev": false,
+  "preview_urls": false,
+  "secrets": {
+    "required": ["GITHUB_TOKEN"],
+  },
+  "triggers": {
+    // Every night at 2:00 AM UTC
+    "crons": ["0 2 * * *"],
+  },
+  "observability": {
+    "enabled": true,
+  },
+}

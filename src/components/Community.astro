@@ -14,57 +14,49 @@ const pad = (n: number) => String(n).padStart(2, "0")
     </SectionHeader>
 
     <div class="community__list">
-      {
-        community.map((item, index) => (
-          <a
-            href={item.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="community__item animate-on-scroll"
-            style={`transition-delay: ${(index + 1) * 100}ms`}
-            data-side={index % 2 === 0 ? "left" : "right"}
-          >
-            <article class="community__article">
-              <span class="community__idx">no. {pad(index + 1)}</span>
+      {community.map((item, index) => <a
+        href={item.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="community__item animate-on-scroll"
+        style={`transition-delay: ${(index + 1) * 100}ms`}
+        data-side={index % 2 === 0 ? "left" : "right"}
+      >
+        <article class="community__article">
+          <span class="community__idx">no. {pad(index + 1)}</span>
 
-              {item.videoId && (
-                <div class="community__thumb">
-                  <Image
-                    src={`https://img.youtube.com/vi/${item.videoId}/maxresdefault.jpg`}
-                    alt={`${item.title} thumbnail`}
-                    width={1280}
-                    height={720}
-                    loading="lazy"
-                    decoding="async"
-                  />
-                  <div class="community__play" aria-hidden="true">
-                    <Icon name="play" />
-                  </div>
-                </div>
-              )}
+          {item.videoId && <div class="community__thumb">
+            <Image
+              src={`https://img.youtube.com/vi/${item.videoId}/maxresdefault.jpg`}
+              alt={`${item.title} thumbnail`}
+              width={1280}
+              height={720}
+              loading="lazy"
+              decoding="async"
+            />
+            <div class="community__play" aria-hidden="true">
+              <Icon name="play" />
+            </div>
+          </div>}
 
-              <div class="community__body">
-                <div class="community__meta">
-                  <span class="community__role">{item.role}</span>
-                  <span class="community__sep" aria-hidden="true">
-                    ·
-                  </span>
-                  <span class="community__source">{item.source}</span>
-                </div>
+          <div class="community__body">
+            <div class="community__meta">
+              <span class="community__role">{item.role}</span>
+              <span class="community__sep" aria-hidden="true"> · </span>
+              <span class="community__source">{item.source}</span>
+            </div>
 
-                <h3 class="community__title">{item.title}</h3>
+            <h3 class="community__title">{item.title}</h3>
 
-                <p class="community__desc">{item.description}</p>
+            <p class="community__desc">{item.description}</p>
 
-                <div class="community__cta">
-                  <span>{item.videoId ? "Watch" : "Read"}</span>
-                  <Icon name="arrow" />
-                </div>
-              </div>
-            </article>
-          </a>
-        ))
-      }
+            <div class="community__cta">
+              <span>{item.videoId ? "Watch" : "Read"}</span>
+              <Icon name="arrow" />
+            </div>
+          </div>
+        </article>
+      </a>)}
     </div>
   </div>
 </section>

@@ -57,36 +57,28 @@ const remoteAppImage =
 <article
   class:list={["card animate-on-scroll", delay, isApp && "card--featured"]}
 >
-  {
-    localAppImage && (
-      <div class="card__media">
-        <Image
-          src={localAppImage}
-          alt={`${repo.name} preview`}
-          class="card__image"
-          widths={[400, 800, 1200, 1600]}
-          sizes="(min-width: 1024px) 50vw, 100vw"
-          loading="lazy"
-          decoding="async"
-        />
-      </div>
-    )
-  }
-  {
-    !localAppImage && remoteAppImage && (
-      <div class="card__media">
-        <Image
-          src={remoteAppImage}
-          alt={`${repo.name} preview`}
-          class="card__image"
-          width={1200}
-          height={630}
-          loading="lazy"
-          decoding="async"
-        />
-      </div>
-    )
-  }
+  {localAppImage && <div class="card__media">
+    <Image
+      src={localAppImage}
+      alt={`${repo.name} preview`}
+      class="card__image"
+      widths={[400, 800, 1200, 1600]}
+      sizes="(min-width: 1024px) 50vw, 100vw"
+      loading="lazy"
+      decoding="async"
+    />
+  </div>}
+  {!localAppImage && remoteAppImage && <div class="card__media">
+    <Image
+      src={remoteAppImage}
+      alt={`${repo.name} preview`}
+      class="card__image"
+      width={1200}
+      height={630}
+      loading="lazy"
+      decoding="async"
+    />
+  </div>}
 
   <div class="card__body">
     <div class="card__head">
@@ -95,16 +87,12 @@ const remoteAppImage =
         <span>{langLabel}</span>
         <span class="card__kicker-sep" aria-hidden="true">/</span>
         <span>{typeLabel}</span>
-        {
-          isOpenSourceApp && (
-            <>
-              <span class="card__kicker-sep" aria-hidden="true">
-                ·
-              </span>
-              <span class="card__oss">Open Source</span>
-            </>
-          )
-        }
+        {isOpenSourceApp && (
+          <>
+            <span class="card__kicker-sep" aria-hidden="true"> · </span>
+            <span class="card__oss">Open Source</span>
+          </>
+        )}
       </p>
 
       <h4 class="card__title">
@@ -120,179 +108,131 @@ const remoteAppImage =
 
     <p class="card__desc">{repo.description || "No description."}</p>
 
-    {
-      isApp && (
-        <div class="card__ctas">
-          {repo.links?.playStore && (
-            <a
-              href={repo.links.playStore}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="card__cta card__cta--primary"
-            >
-              <Icon name="playStore" />
-              <span>Google Play</span>
-            </a>
-          )}
-          {repo.links?.appStore && (
-            <a
-              href={repo.links.appStore}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="card__cta card__cta--primary"
-            >
-              <Icon name="appStore" />
-              <span>App Store</span>
-            </a>
-          )}
-          {repo.homepage && (
-            <a
-              href={repo.homepage}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="card__cta"
-            >
-              <Icon name="external" />
-              <span>Visit site</span>
-            </a>
-          )}
-          {repo.html_url && (
-            <a
-              href={repo.html_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="card__cta"
-            >
-              <Icon name="github" />
-              <span>Source</span>
-            </a>
-          )}
-        </div>
-      )
-    }
+    {isApp && <div class="card__ctas">
+      {repo.links?.playStore && <a
+        href={repo.links.playStore}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="card__cta card__cta--primary"
+      >
+        <Icon name="playStore" />
+        <span>Google Play</span>
+      </a>}
+      {repo.links?.appStore && <a
+        href={repo.links.appStore}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="card__cta card__cta--primary"
+      >
+        <Icon name="appStore" />
+        <span>App Store</span>
+      </a>}
+      {repo.homepage && <a
+        href={repo.homepage}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="card__cta"
+      >
+        <Icon name="external" />
+        <span>Visit site</span>
+      </a>}
+      {repo.html_url && <a
+        href={repo.html_url}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="card__cta"
+      >
+        <Icon name="github" />
+        <span>Source</span>
+      </a>}
+    </div>}
 
     <div class="card__foot">
-      {
-        repo.topics && repo.topics.length > 0 && (
-          <div class="card__chips">
-            {repo.topics.slice(0, isApp ? 8 : 4).map((topic) => (
-              <span class="chip">{topic}</span>
-            ))}
-          </div>
-        )
-      }
+      {repo.topics && repo.topics.length > 0 && <div class="card__chips">
+        {repo.topics
+          .slice(0, isApp ? 8 : 4)
+          .map((topic) => <span class="chip">{topic}</span>)}
+      </div>}
 
       <div class="card__stats">
-        {
-          repo.stargazers_count > 0 && (
-            <span class="card__stat">
-              <span data-repo={repo.full_name} class="star-count">
-                {repo.stargazers_count.toLocaleString()}
-              </span>
-              <span class="card__stat-label">stars on github</span>
-            </span>
-          )
-        }
+        {repo.stargazers_count > 0 && <span class="card__stat">
+          <span data-repo={repo.full_name} class="star-count">
+            {repo.stargazers_count.toLocaleString()}
+          </span>
+          <span class="card__stat-label">stars on github</span>
+        </span>}
 
         <div class="card__links">
-          {
-            !isApp && repo.links?.playStore && (
-              <a
-                href={repo.links.playStore}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="card__link"
-                title="Get it on Google Play"
-                aria-label="Google Play"
-              >
-                <Icon name="playStore" />
-              </a>
-            )
-          }
-          {
-            !isApp && repo.links?.appStore && (
-              <a
-                href={repo.links.appStore}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="card__link"
-                title="Download on the App Store"
-                aria-label="App Store"
-              >
-                <Icon name="appStore" />
-              </a>
-            )
-          }
-          {
-            repo.links?.macos && (
-              <a
-                href={repo.links.macos}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="card__link"
-                title="Download for macOS"
-                aria-label="macOS"
-              >
-                <Icon name="macos" />
-              </a>
-            )
-          }
-          {
-            repo.links?.windows && (
-              <a
-                href={repo.links.windows}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="card__link"
-                title="Download for Windows"
-                aria-label="Windows"
-              >
-                <Icon name="windows" />
-              </a>
-            )
-          }
-          {
-            repo.links?.linux && (
-              <a
-                href={repo.links.linux}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="card__link"
-                title="Download for Linux"
-                aria-label="Linux"
-              >
-                <Icon name="linux" />
-              </a>
-            )
-          }
-          {
-            !isApp && repo.html_url && (
-              <a
-                href={repo.html_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="card__link"
-                aria-label={`View ${repo.name} on GitHub`}
-                title="View on GitHub"
-              >
-                <Icon name="github" />
-              </a>
-            )
-          }
-          {
-            !isApp && repo.homepage && (
-              <a
-                href={repo.homepage}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="card__link"
-                aria-label={`Visit ${repo.name} website`}
-                title="Visit website"
-              >
-                <Icon name="external" />
-              </a>
-            )
-          }
+          {!isApp && repo.links?.playStore && <a
+            href={repo.links.playStore}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="card__link"
+            title="Get it on Google Play"
+            aria-label="Google Play"
+          >
+            <Icon name="playStore" />
+          </a>}
+          {!isApp && repo.links?.appStore && <a
+            href={repo.links.appStore}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="card__link"
+            title="Download on the App Store"
+            aria-label="App Store"
+          >
+            <Icon name="appStore" />
+          </a>}
+          {repo.links?.macos && <a
+            href={repo.links.macos}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="card__link"
+            title="Download for macOS"
+            aria-label="macOS"
+          >
+            <Icon name="macos" />
+          </a>}
+          {repo.links?.windows && <a
+            href={repo.links.windows}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="card__link"
+            title="Download for Windows"
+            aria-label="Windows"
+          >
+            <Icon name="windows" />
+          </a>}
+          {repo.links?.linux && <a
+            href={repo.links.linux}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="card__link"
+            title="Download for Linux"
+            aria-label="Linux"
+          >
+            <Icon name="linux" />
+          </a>}
+          {!isApp && repo.html_url && <a
+            href={repo.html_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="card__link"
+            aria-label={`View ${repo.name} on GitHub`}
+            title="View on GitHub"
+          >
+            <Icon name="github" />
+          </a>}
+          {!isApp && repo.homepage && <a
+            href={repo.homepage}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="card__link"
+            aria-label={`Visit ${repo.name} website`}
+            title="Visit website"
+          >
+            <Icon name="external" />
+          </a>}
         </div>
       </div>
     </div>

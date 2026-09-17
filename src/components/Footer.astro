@@ -30,19 +30,15 @@ const socialLinks: { name: string; url: string; icon: IconName }[] = [
 
     <div class="footer__meta">
       <div class="footer__socials">
-        {
-          socialLinks.map((link) => (
-            <a
-              href={link.url}
-              target="_blank"
-              rel="me noopener noreferrer"
-              aria-label={link.name}
-              class="footer__social"
-            >
-              <Icon name={link.icon} />
-            </a>
-          ))
-        }
+        {socialLinks.map((link) => <a
+          href={link.url}
+          target="_blank"
+          rel="me noopener noreferrer"
+          aria-label={link.name}
+          class="footer__social"
+        >
+          <Icon name={link.icon} />
+        </a>)}
         <a
           href="/resume.pdf"
           target="_blank"
