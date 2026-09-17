@@ -172,8 +172,7 @@ const langColor = languageColors[repo.language || ""] || "#6B7280"
     featured && "featured-classes",
     `delay-${index * 100}`,
   ]}
->
-</div>
+></div>
 ```
 
 ### Theme Colors

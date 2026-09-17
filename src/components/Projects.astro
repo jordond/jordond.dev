@@ -12,62 +12,47 @@ const pad = (n: number) => String(n).padStart(2, "0")
 <section id="projects" class="section projects">
   <div class="section__inner">
     <SectionHeader index="§ 02 · work" kicker="Selected work">
-      <Fragment slot="title">
-        Things I've<br />
-        <em>shipped</em>.
-      </Fragment>
+      <Fragment slot="title"> Things I've<br /> <em>shipped</em>. </Fragment>
     </SectionHeader>
 
-    {
-      apps.length > 0 && (
-        <div class="projects__group projects__group--featured">
-          <header class="chapter">
-            <span class="chapter__ord">ⅰ &nbsp;· &nbsp;Apps</span>
-            <h3 class="chapter__title">In the stores</h3>
-            <span class="chapter__count">{pad(apps.length)} shown</span>
-          </header>
-          <div class="projects__grid projects__grid--featured">
-            {apps.map((repo, index) => (
-              <RepoCard repo={repo} index={index} />
-            ))}
-          </div>
-        </div>
-      )
-    }
+    {apps.length > 0 && <div class="projects__group projects__group--featured">
+      <header class="chapter">
+        <span class="chapter__ord">ⅰ &nbsp;· &nbsp;Apps</span>
+        <h3 class="chapter__title">In the stores</h3>
+        <span class="chapter__count">{pad(apps.length)} shown</span>
+      </header>
+      <div class="projects__grid projects__grid--featured">
+        {apps.map((repo, index) => (
+          <RepoCard repo={repo} index={index} />
+        ))}
+      </div>
+    </div>}
 
-    {
-      libraries.length > 0 && (
-        <div class="projects__group">
-          <header class="chapter">
-            <span class="chapter__ord">ⅱ &nbsp;· &nbsp;Libraries</span>
-            <h3 class="chapter__title">On Maven Central</h3>
-            <span class="chapter__count">{pad(libraries.length)} shown</span>
-          </header>
-          <div class="projects__grid">
-            {libraries.map((repo, index) => (
-              <RepoCard repo={repo} index={index} />
-            ))}
-          </div>
-        </div>
-      )
-    }
+    {libraries.length > 0 && <div class="projects__group">
+      <header class="chapter">
+        <span class="chapter__ord">ⅱ &nbsp;· &nbsp;Libraries</span>
+        <h3 class="chapter__title">On Maven Central</h3>
+        <span class="chapter__count">{pad(libraries.length)} shown</span>
+      </header>
+      <div class="projects__grid">
+        {libraries.map((repo, index) => (
+          <RepoCard repo={repo} index={index} />
+        ))}
+      </div>
+    </div>}
 
-    {
-      tools.length > 0 && (
-        <div class="projects__group">
-          <header class="chapter">
-            <span class="chapter__ord">ⅲ &nbsp;· &nbsp;Tools</span>
-            <h3 class="chapter__title">CLI &amp; IDE</h3>
-            <span class="chapter__count">{pad(tools.length)} shown</span>
-          </header>
-          <div class="projects__grid">
-            {tools.map((repo, index) => (
-              <RepoCard repo={repo} index={index} />
-            ))}
-          </div>
-        </div>
-      )
-    }
+    {tools.length > 0 && <div class="projects__group">
+      <header class="chapter">
+        <span class="chapter__ord">ⅲ &nbsp;· &nbsp;Tools</span>
+        <h3 class="chapter__title">CLI &amp; IDE</h3>
+        <span class="chapter__count">{pad(tools.length)} shown</span>
+      </header>
+      <div class="projects__grid">
+        {tools.map((repo, index) => (
+          <RepoCard repo={repo} index={index} />
+        ))}
+      </div>
+    </div>}
   </div>
 </section>
 

@@ -8,9 +8,7 @@ import SectionHeader from "./SectionHeader.astro"
 <section id="about" class="section about">
   <div class="section__inner">
     <SectionHeader index="§ 01 · about" kicker="The elevator pitch">
-      <Fragment slot="title">
-        Kotlin <em>fan</em>.
-      </Fragment>
+      <Fragment slot="title"> Kotlin <em>fan</em>. </Fragment>
       <Fragment slot="lead">
         Libraries, developer tools, and a couple of production apps.
       </Fragment>
@@ -19,29 +17,21 @@ import SectionHeader from "./SectionHeader.astro"
     <div class="about__body">
       <div class="about__copy">
         <p class="about__lead">
-          Hey, I'm Jordon. I build Android and <span class="about__accent"
-            >Kotlin Multiplatform</span
-          >
-          libraries. A few have picked up traction: <span class="about__accent"
-            >MaterialKolor</span
-          >, <span class="about__accent">connectivity</span>, and <span
-            class="about__accent">compass</span
-          >.
+          Hey, I'm Jordon. I build Android and
+          <span class="about__accent">Kotlin Multiplatform</span> libraries. A
+          few have picked up traction:
+          <span class="about__accent">MaterialKolor</span>,
+          <span class="about__accent">connectivity</span>, and
+          <span class="about__accent">compass</span>.
         </p>
 
         <div class="about__skills">
           <p class="about__skills-label">Currently working with</p>
           <ul class="about__skills-list">
-            {
-              skills.map((skill) => (
-                <li class="about__skill">
-                  <span class="about__skill-mark" aria-hidden="true">
-                    ▸
-                  </span>
-                  {skill}
-                </li>
-              ))
-            }
+            {skills.map((skill) => <li class="about__skill">
+              <span class="about__skill-mark" aria-hidden="true"> ▸ </span>
+              {skill}
+            </li>)}
           </ul>
         </div>
       </div>
