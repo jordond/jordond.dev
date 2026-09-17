@@ -1,0 +1,161 @@
+name: Accept Visual Baselines
+
+# Ticking the "Accept as new baselines" checkbox in the Preview comment commits
+# the screenshots CI rendered for the PR's head commit to the PR branch. The
+# push uses a PAT (VISUAL_ACCEPT_TOKEN) so that it re-triggers CI and Preview;
+# a GITHUB_TOKEN push would leave the new commit without status checks.
+#
+# issue_comment workflows always run from the default branch's copy of this
+# file, so changes here only take effect once merged to main.
+
+on:
+  issue_comment:
+    types: [edited]
+
+permissions:
+  contents: read
+  pull-requests: write
+  actions: read
+
+concurrency:
+  group: visual-accept-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
+jobs:
+  accept:
+    name: Accept baselines
+    if: >-
+      github.event.issue.pull_request &&
+      github.actor != 'github-actions[bot]' &&
+      contains(github.event.comment.body, '<!-- Sticky Pull Request Commentpreview -->') &&
+      contains(github.event.comment.body, '<!-- accept-baselines -->')
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      PR_NUMBER: ${{ github.event.issue.number }}
+      COMMENT_ID: ${{ github.event.comment.id }}
+
+    steps:
+      - name: Check the box is ticked
+        id: ticked
+        env:
+          BODY: ${{ github.event.comment.body }}
+        run: |
+          if printf '%s\n' "$BODY" | grep -qE '^- \[x\] .*<!-- accept-baselines -->'; then
+            echo "ticked=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Checkbox not ticked, nothing to do."
+            echo "ticked=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Check actor has write access
+        if: steps.ticked.outputs.ticked == 'true'
+        env:
+          ACTOR: ${{ github.actor }}
+        run: |
+          perm=$(gh api "repos/$GH_REPO/collaborators/$ACTOR/permission" --jq .permission)
+          case "$perm" in
+            admin|maintain|write) echo "$ACTOR has $perm access" ;;
+            *) echo "::error::$ACTOR has '$perm' access; write is required to accept baselines"; exit 1 ;;
+          esac
+
+      - name: Resolve PR head
+        if: steps.ticked.outputs.ticked == 'true'
+        id: pr
+        run: |
+          gh pr view "$PR_NUMBER" \
+            --json headRefName,headRefOid,headRepository,headRepositoryOwner,isCrossRepository \
+            > pr.json
+          if [ "$(jq -r .isCrossRepository pr.json)" = "true" ]; then
+            echo "::error::Refusing to push to a fork"; exit 1
+          fi
+          echo "branch=$(jq -r .headRefName pr.json)" >> "$GITHUB_OUTPUT"
+          echo "sha=$(jq -r .headRefOid pr.json)" >> "$GITHUB_OUTPUT"
+
+      - name: Mark comment as in progress
+        if: steps.ticked.outputs.ticked == 'true'
+        env:
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          gh api "repos/$GH_REPO/issues/comments/$COMMENT_ID" --jq .body > body.md
+          sed -E "s|^- \[x\] .*<!-- accept-baselines -->|:hourglass_flowing_sand: Accepting baselines ([run]($RUN_URL)) <!-- accept-baselines -->|" body.md > new.md
+          gh api -X PATCH "repos/$GH_REPO/issues/comments/$COMMENT_ID" -F body=@new.md > /dev/null
+
+      - name: Find Preview run for head commit
+        if: steps.ticked.outputs.ticked == 'true'
+        id: run
+        env:
+          SHA: ${{ steps.pr.outputs.sha }}
+        run: |
+          run=$(gh run list --workflow preview.yml --commit "$SHA" --status completed \
+            --json databaseId --jq '.[0].databaseId')
+          if [ -z "${run:-}" ]; then
+            echo "::error::No completed Preview run for $SHA. Wait for Preview to finish, then tick the box again."
+            exit 1
+          fi
+          echo "id=$run" >> "$GITHUB_OUTPUT"
+
+      - name: Checkout PR branch
+        if: steps.ticked.outputs.ticked == 'true'
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: ${{ steps.pr.outputs.branch }}
+          token: ${{ secrets.VISUAL_ACCEPT_TOKEN }}
+          path: repo
+
+      - name: Verify branch head has not moved
+        if: steps.ticked.outputs.ticked == 'true'
+        working-directory: repo
+        env:
+          SHA: ${{ steps.pr.outputs.sha }}
+        run: |
+          head=$(git rev-parse HEAD)
+          if [ "$head" != "$SHA" ]; then
+            echo "::error::Branch moved to $head since the Preview run for $SHA. Wait for the new Preview, then tick again."
+            exit 1
+          fi
+
+      - name: Download baselines
+        if: steps.ticked.outputs.ticked == 'true'
+        env:
+          RUN_ID: ${{ steps.run.outputs.id }}
+        run: |
+          if ! gh run download "$RUN_ID" --name visual-baselines --dir baselines; then
+            echo "::error::Preview run $RUN_ID has no 'visual-baselines' artifact (only uploaded when the visual tests fail)."
+            exit 1
+          fi
+          ls -la baselines
+
+      - name: Commit and push
+        if: steps.ticked.outputs.ticked == 'true'
+        working-directory: repo
+        env:
+          ACTOR: ${{ github.actor }}
+          RUN_ID: ${{ steps.run.outputs.id }}
+        run: |
+          mkdir -p tests/e2e/__screenshots__
+          cp ../baselines/*.png tests/e2e/__screenshots__/
+          git add tests/e2e/__screenshots__
+          if git diff --cached --quiet; then
+            echo "::error::Baselines from run $RUN_ID match the committed ones; nothing to accept."
+            exit 1
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Accept visual baselines" \
+            -m "Screenshots from Preview run $RUN_ID, accepted by @$ACTOR via the PR comment checkbox."
+          git push
+
+      - name: Restore checkbox on failure
+        if: failure() && steps.ticked.outputs.ticked == 'true'
+        env:
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          gh api "repos/$GH_REPO/issues/comments/$COMMENT_ID" --jq .body > body.md
+          sed -E \
+            -e "s|^:hourglass_flowing_sand: Accepting baselines.*<!-- accept-baselines -->|- [ ] **Accept these screenshots as the new baselines** (commits them to this branch) <!-- accept-baselines -->|" \
+            -e "s|^- \[x\] (.*<!-- accept-baselines -->)|- [ ] \1|" \
+            -e "s|<!-- accept-baselines -->$|<!-- accept-baselines -->\n\n:x: The last accept attempt failed, see the [workflow run]($RUN_URL).|" \
+            body.md > new.md
+          gh api -X PATCH "repos/$GH_REPO/issues/comments/$COMMENT_ID" -F body=@new.md > /dev/null

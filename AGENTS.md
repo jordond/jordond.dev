@@ -201,7 +201,7 @@ Playwright, also run **after** `bun run build`, against `wrangler dev` serving `
 
 Playwright screenshot comparison, same `wrangler dev` setup as e2e, in the `visual-desktop` and `visual-mobile` projects. Each test saves an unmasked full-page PNG to `screenshots/` for the PR comment, then compares a masked screenshot (star counts tagged `.num`/`.stars` are hidden) against the baseline in `tests/e2e/__screenshots__/`.
 
-Baselines are rendered on Linux in CI and are only valid there. Font rendering differs per OS, so a local macOS run writes its own `*-darwin.png` baselines (gitignored) and fails once before passing. Do not commit baselines recorded locally. To update the committed ones: push, let the Preview workflow run, then `bun run visual:accept` downloads the CI-rendered screenshots into `tests/e2e/__screenshots__/` for you to review and commit. Expect to do this after intentional visual changes and occasionally after a Playwright/Chromium bump.
+Baselines are rendered on Linux in CI and are only valid there. Font rendering differs per OS, so a local macOS run writes its own `*-darwin.png` baselines (gitignored) and fails once before passing. Do not commit baselines recorded locally. To update the committed ones: push, let the Preview workflow run, then either tick the **Accept these screenshots as the new baselines** checkbox in the PR's Preview comment (`.github/workflows/visual-accept.yml` commits the CI-rendered screenshots to the PR branch) or run `bun run visual:accept` locally, which downloads them into `tests/e2e/__screenshots__/` for you to review and commit. Expect to do this after intentional visual changes and occasionally after a Playwright/Chromium bump.
 
 ## CI/CD
 
@@ -211,6 +211,7 @@ Three other workflows handle deployment and are unaffected by the Check gate:
 
 - `deploy.yml` runs on push to `main`: fetch repos, build, `wrangler deploy`.
 - `preview.yml` runs on PR: fetch repos, build, run the visual tests, ship the screenshots inside the preview upload under `/__screenshots__/`, and post one sticky comment with the preview URL, the page screenshots, and the regression result (`scripts/preview-comment.ts`). A regression turns the job red and uploads a `visual-baselines` artifact that `bun run visual:accept` consumes. This job is not a required check.
+- `visual-accept.yml` runs when the Preview comment is edited. Ticking its accept checkbox makes the job download the `visual-baselines` artifact from the Preview run for the PR's head commit, commit the PNGs to the PR branch, and push with the `VISUAL_ACCEPT_TOKEN` secret (a fine-grained PAT with Contents read/write on this repo). The PAT matters: a `GITHUB_TOKEN` push would not re-run CI or Preview on the new commit. Only collaborators with write access can trigger it, forks are refused, and it bails if the branch moved since that Preview run. Like every `issue_comment` workflow it runs from the copy on `main`, so edits to it only take effect after merging.
 - `deploy-nightly-worker.yml` runs on changes under `workers/nightly/`: it deploys that Worker, which cron-dispatches `deploy.yml` nightly so repo star counts stay fresh even if nothing else changes.
 
 ## Common Tasks

@@ -236,8 +236,13 @@ function render() {
   }
 
   if (changed > 0 || missing > 0) {
+    // Ticking this box fires .github/workflows/visual-accept.yml, which
+    // commits the CI-rendered screenshots to the PR branch. The HTML comment
+    // is the marker that workflow looks for; keep it on the same line.
     lines.push(
-      "If the new screenshots are correct, accept them as baselines from this branch:",
+      "- [ ] **Accept these screenshots as the new baselines** (commits them to this branch) <!-- accept-baselines -->",
+      "",
+      "Or from your machine:",
       "",
       "```sh",
       "bun run visual:accept",
