@@ -1,12 +1,25 @@
 {
   "apps": [
     {
+      "name": "brewd",
+      "description": "A cozy journal for the coffee you drink. Log a cup in seconds, then look back on every drink, cafe, and place you loved.",
+      "homepage": "https://getbrewd.app",
+      "og_image": "https://getbrewd.app/brand/og.png",
+      "open_source": false,
+      "role": "Founder",
+      "links": {
+        "play_store": "https://play.google.com/store/apps/details?id=app.getbrewd",
+        "app_store": "https://testflight.apple.com/join/T8DmJ6C8"
+      },
+      "topics": ["coffee", "mobile"]
+    },
+    {
       "name": "Reading Journey",
       "description": "A beautiful book tracker that captures how every story makes you feel. Scan books, log your reading moments with photos and emoji reactions, and watch your reading journey unfold.",
       "homepage": "https://readingjourney.co/",
       "og_image": "readingjourney",
       "open_source": false,
-      "role": "Founding Engineer",
+      "role": "Freelance Engineer",
       "links": {
         "app_store": "https://apps.apple.com/us/app/reading-journey-book-tracker/id6749302195"
       },
