@@ -1,7 +1,6 @@
 {
   "name": "jordond-dev",
   "compatibility_date": "2026-02-03",
-  // Serves PR previews at pr-<number>-jordond-dev.<subdomain>.workers.dev
   "preview_urls": true,
   "assets": {
     "directory": "./dist",

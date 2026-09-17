@@ -16,7 +16,6 @@ permissions:
 jobs:
   preview:
     name: Build & Upload Preview
-    # Fork PRs don't get access to the Cloudflare secrets
     if: github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
 
@@ -45,9 +44,6 @@ jobs:
       - name: Build
         run: bun run build
 
-      # Uploads a new version without deploying it to production, and points
-      # the pr-<number> preview alias at it:
-      # https://pr-<number>-jordond-dev.<subdomain>.workers.dev
       - name: Upload preview version
         id: upload
         run: |
@@ -78,7 +74,6 @@ jobs:
 
             Updates on every push to this PR.
 
-      # Replaces the success comment so an old preview isn't mistaken for the latest commit
       - name: Comment preview failure
         if: failure()
         uses: marocchino/sticky-pull-request-comment@v3
