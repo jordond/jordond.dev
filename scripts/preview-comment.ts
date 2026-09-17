@@ -21,7 +21,9 @@ import {
 import { join } from "node:path"
 
 const RESULTS = "test-results/results.json"
-const SUMMARY = "test-results/visual-summary.json"
+// Lives outside test-results/ because Playwright empties that directory at the
+// start of every run, including the baseline-recording run in CI.
+const SUMMARY = "visual-summary.json"
 const SCREENSHOT_DIR = "screenshots"
 const OUT_DIR = "dist/__screenshots__"
 const COMMENT = "comment.md"
@@ -135,7 +137,6 @@ function collect() {
     }
   }
 
-  mkdirSync("test-results", { recursive: true })
   writeFileSync(SUMMARY, JSON.stringify({ screenshots, results }, null, 2))
   console.log(
     `Collected ${screenshots.length} screenshot(s), ${results.length} visual result(s)`,
