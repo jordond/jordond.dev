@@ -18,12 +18,19 @@ if [ -z "${run:-}" ]; then
   exit 1
 fi
 
-mkdir -p "$dest"
-if ! gh run download "$run" --name visual-baselines --dir "$dest"; then
+# gh refuses to overwrite existing files, so download to a scratch directory
+# and copy over the committed baselines from there.
+tmp=$(mktemp -d)
+trap 'rm -rf "$tmp"' EXIT
+
+if ! gh run download "$run" --name visual-baselines --dir "$tmp"; then
   echo "Run $run has no 'visual-baselines' artifact." >&2
   echo "It is only uploaded when the visual tests fail or have no baseline." >&2
   exit 1
 fi
+
+mkdir -p "$dest"
+cp "$tmp"/*.png "$dest"/
 
 echo
 echo "Baselines from run $run written to $dest. Review, then commit:"
