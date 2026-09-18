@@ -1,6 +1,6 @@
 # jordond.dev
 
-Personal portfolio site built with Astro. A single retro, 90s-styled page, with no CSS framework and no client-side JavaScript.
+Personal portfolio site built with Astro.
 
 ## Setup
 
